@@ -4,7 +4,8 @@
 **Type of Meeting:** Kickoff Meeting  
 **Date:** April 14, 2024  
 **Location:** Price Center in front of Subway 
-**Start-Time:** 6:30 pm 
+**Start-Time:** 6:30 pm
+
 **Attendance:**    
 - [x] Saksham Rai (Team Lead)
 - [x] Shrey Kumar (Team Lead)
