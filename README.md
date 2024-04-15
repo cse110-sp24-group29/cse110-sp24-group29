@@ -15,7 +15,7 @@ Welcome to the official repository of our software engineering project for class
 - Christopher Lerum (Developer)
 - Ryan K Chon (Developer)
 - Tianshi Gong (Developer)
-- Evan Kauh (Developer)  - Absent 
+- Evan Kauh (Developer) 
 
 ## Objective
 Building a small-scale full-stack web application, utilising agile software development methodology. 
