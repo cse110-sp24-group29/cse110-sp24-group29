@@ -3,7 +3,8 @@
 ## Meeting Details
 **Type of Meeting:** Kickoff Meeting  
 **Date:** April 14, 2024  
-**Location:** Price Center in front of Subway  
+**Location:** Price Center in front of Subway 
+**Start-Time:** 6:30 pm 
 **Attendance:**    
 - [x] Saksham Rai (Team Lead)
 - [x] Shrey Kumar (Team Lead)
@@ -53,5 +54,6 @@
 - Planning the next steps for the project after scheduling is finalized.
 
 ## Conclusion
+- Meeting concluded at 7:15 pm. 
 - Successful kickoff with enthusiastic participation from team members.
 - Next steps include finalizing meeting times and beginning user-story breakdown for project planning.
