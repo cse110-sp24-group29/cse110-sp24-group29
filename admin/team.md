@@ -1,6 +1,6 @@
 # Software Surfers Team
 
-![Software Surfers Logo](Logo1.png)
+![Software Surfers Logo](branding/Logo1.png)
 
 ---
 
