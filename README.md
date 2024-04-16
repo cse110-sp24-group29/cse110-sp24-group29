@@ -25,9 +25,9 @@ Building a small-scale full-stack web application, utilising agile software deve
 - HTML
 - CSS
 - JS
-- Some database ?
-- Frameworks ?
-- Containers ?
+- Some database like PostgreSQL, MongoDB?
+- Frameworks frontend (React, Angular) vs Backend (Node.js, Django, Flask)?
+- Containers (Docker)?
 - Hopefully this much (but could be more or less than this)
 
 
