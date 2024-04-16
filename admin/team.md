@@ -1,6 +1,6 @@
 # Software Surfers Team
 
-![Software Surfers Logo]()
+![Software Surfers Logo](admin/branding/Logo1.png)
 
 ---
 
@@ -44,5 +44,5 @@ Our brand is all about riding the waves of technology with creativity and innova
 
 ## Our Team
 
-![Team Picture](team29.png)
+![Team Picture](admin/branding/team29.png)
 
