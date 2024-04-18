@@ -51,4 +51,9 @@ Signed and Recognized By:
 - Christopher Lerum  
 - Brandon Chung  
 - Aditya Saini  
-- Saksham Rai  
+- Saksham Rai
+- Ricky Li
+- Tianshi Gong
+- Evan Kauh
+- Shrey Kumar
+- Ojaswi Tewari 
