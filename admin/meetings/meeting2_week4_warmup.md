@@ -31,9 +31,6 @@
 - The team gathered formally on zoom to discuss and finalise the design and control flow of the "sentiment-widget" warmup exercise.
 - Meeting Started at prompty at 7:00 pm.
 
-### Discussion of Meeting Times
-- Everyone shared their schedules to better understand each other's availability and workload.
-- Decision to use a When2Meet link for everyone to mark their availability.
 
 ### Review of Potential Designs and Final Decision. 
 - Saksham Rai sent a hand-drawn wireframe of the main page for everyone to review before the meeting commenced. 
