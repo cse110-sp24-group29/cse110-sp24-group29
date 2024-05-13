@@ -1,0 +1,34 @@
+name: WebDev Journal
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint_and_test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Lint with ESLint
+      run: npx eslint .
+
+    - name: Check code style with Prettier
+      run: npx prettier --check .
+
+    - name: Run unit tests with Jest
+      run: npx jest
+
+    - name: Generate documentation
+      run: npx jsdoc -c jsdoc.json
