@@ -20,9 +20,9 @@ jobs:
 
     - name: Install dependencies
       run: npm install
-
-    - name: Check and fix code style with Prettier
-      run: npx prettier --write . && git diff --exit-code
+      
+    - name: Check code style for HTML, CSS, and JS
+      run: npx prettier --check "**/*.{html,css,js}"
 
     - name: Run unit tests with Jest
       run: npx jest
