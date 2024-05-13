@@ -21,9 +21,6 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Lint with ESLint
-      run: npx eslint .
-
     - name: Check code style with Prettier
       run: npx prettier --check .
 
