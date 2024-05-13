@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  Code Formatting, Documentation and Unit Testing:
+  format_testing_doc:
     runs-on: ubuntu-latest
 
     steps:
