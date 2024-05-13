@@ -1,10 +1,10 @@
 # Project Details Meeting
 
 ## Meeting Details
-**Type of Meeting:** Project Details and Design Meeting
+**Type of Meeting:** Project Details and Design Meeting  
 **Date:** May 9, 2024  
-**Location:** Zoom
-**Start-Time:** 6:30 pm
+**Location:** Zoom  
+**Start-Time:** 6:30 pm  
 
 **Attendance:**    
 - [x] Saksham Rai (Team Lead)
