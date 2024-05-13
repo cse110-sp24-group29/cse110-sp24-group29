@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  lint_and_test:
+  Code Quality, Formatting and Unit Testing:
     runs-on: ubuntu-latest
 
     steps:
