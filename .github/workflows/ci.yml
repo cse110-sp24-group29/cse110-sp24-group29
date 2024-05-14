@@ -38,9 +38,19 @@ jobs:
       run: ls -la ./docs
 
     - name: Commit and Push Documentation
+      if: github.ref_type == 'branch' || github.event_name == 'push'
       run: |
         git config --global user.name 'GitHub Actions'
         git config --global user.email 'actions@github.com'
         git add docs/
         git commit -m "Update generated documentation" -a || echo "No changes to commit"
-        git push origin HEAD:${{ github.ref }}
+        git push origin ${{ github.ref }}
+
+    - name: Commit and Push Documentation for PR
+      if: github.event_name == 'pull_request'
+      run: |
+        git config --global user.name 'GitHub Actions'
+        git config --global user.email 'actions@github.com'
+        git add docs/
+        git commit -m "Update generated documentation" -a || echo "No changes to commit"
+        git push origin ${{ github.head_ref }}
