@@ -10,7 +10,7 @@ on:
 permissions:
   contents: write
 
-#jobs:
+jobs:
   format_testing_doc:
     runs-on: ubuntu-latest
 
