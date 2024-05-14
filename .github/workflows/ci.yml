@@ -29,4 +29,6 @@ jobs:
       run: npx jest
 
     - name: Generate documentation
-      run: npx jsdoc -c jsdoc.json --verbose
+      run: npm run doc
+    - name: List contents of docs directory
+      run: ls -la ./docs
