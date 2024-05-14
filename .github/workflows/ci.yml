@@ -1,6 +1,5 @@
-#name: WebDev Journal
-
-#on:
+name: WebDev Journal
+on:
   push:
     branches:
       - '**'  
