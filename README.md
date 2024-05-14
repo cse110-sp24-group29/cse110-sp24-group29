@@ -1,7 +1,7 @@
 [Link to Team File](admin/team.md)
 # Team 29: Software_Surfers 
 
-## Description
+### Description
 Welcome to the official repository of our software engineering project for class CSE 110, Spring 2024 term. This project is currently in the ideation phase, and more details will be provided as they become available.
 
 ## Team Members
