@@ -51,18 +51,10 @@ body{
     border: 1px solid transparent;
 }
 
-.box-container button:hover{
-    filter: brightness(75%);
-}
-
 .box-container button.hidden{
     color: black;
     background-color: transparent;
     border-color: black;
-}
-
-.box-container button.hidden:hover{
-    opacity: 0.52;
 }
 
 .box-container form{
