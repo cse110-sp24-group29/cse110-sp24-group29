@@ -50,10 +50,10 @@
 - Removal of the forgot your password option of the login screen
 
 ## Next Steps
--Shrey, Adirtya, Ryan, and Jason will work on the project page and styling in HTML and CSS
--Ricky, Evan, Tianshi, and Brandon will work on the home-page and styling in HTML and CSS
--Saksham will work on the Login-page backend and registration
--Ojaswi, Annirudh, and Chris will work on the Home-page backend and populating the radar chart
--The next meeting is Wednesday May 22nd
+- Shrey, Adirtya, Ryan, and Jason will work on the project page and styling in HTML and CSS 
+- Ricky, Evan, Tianshi, and Brandon will work on the home-page and styling in HTML and CSS 
+- Saksham will work on the Login-page backend and registration 
+- Ojaswi, Annirudh, and Chris will work on the Home-page backend and populating the radar chart 
+- The next meeting is Wednesday May 22nd 
 
-*Meeting Adjourned at 8:00pm
+**Meeting Adjourned at 8:00pm**
