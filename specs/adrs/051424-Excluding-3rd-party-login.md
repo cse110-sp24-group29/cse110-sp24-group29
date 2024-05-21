@@ -4,6 +4,11 @@
 
 While discussing the login feature of the project, we had the idea of using google or other account logins to login to our website.
 
+## Decision Drivers
+
+* The login page should be fast and easy to use for users.
+* The login page should have few chances for problems.
+
 ## Considered Options
 
 * Include Google accounts to login
@@ -13,4 +18,4 @@ While discussing the login feature of the project, we had the idea of using goog
 
 ## Decision Outcome
 
-Chosen options: "Do not include any other accounts to login", because we did not want to have more dependencies on our project and it would make the login process simpler to set up.
+Chosen option: "Do not include any other accounts to login", because we did not want to have more dependencies on our project and it would make the login process simpler to set up.
