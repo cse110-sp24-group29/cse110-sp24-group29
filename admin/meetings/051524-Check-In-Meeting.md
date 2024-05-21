@@ -36,5 +36,5 @@
   - Dependabot to keep external libraries up to date
   - Slack notifications which will integrate the GitHub repository into slack
 - The team also discussed how the jobs discussed the day before needed to focus on the display before functionality to keep things simple
-- 
+
 **Meeting Adjourned at 8:00pm**
