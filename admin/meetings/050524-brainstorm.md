@@ -1,9 +1,9 @@
 # Meeting Notes - Software Team Brainstorming/Design Meeting
 
-**Date:** 05/05/2024
-**Time:** 2:00pm
-**Location:** Geisel Library
-**Attendees:**  Evan Kauh, Sakscham Rai, Shrey Kumar, Tianshi Gong, Ryan Chon, Jason Tang, Ojasvi Tewari, Ricky Li, Aniruddh Krovvidi, Brandon Chung, Aditya, Saini
+**Date:** 05/05/2024  
+**Time:** 2:00pm  
+**Location:** Geisel Library  
+**Attendees:**  Evan Kauh, Sakscham Rai, Shrey Kumar, Tianshi Gong, Ryan Chon, Jason Tang, Ojasvi Tewari, Ricky Li, Aniruddh Krovvidi, Brandon Chung, Aditya, Saini  
 
 ## Agenda:
 1. Discussion of Suggested Elements
@@ -15,6 +15,10 @@
 
 ### 1. Discussion of Suggested Elements:
 - The team discussed various suggested elements found on the whiteboard images.
+- User Stories suggested:
+  - As a programmer, I want to record my progress so that I know what to do later.
+  - As a programmer, I want to save good solutions I have found so that I can refer to them later.
+  - As a programmer, I want to see my deadlines so that I can schedule my time better.
 - Elements include:
   - Login and recorded user info
   - Personal developer diary login page
