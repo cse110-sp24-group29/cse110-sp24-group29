@@ -6,14 +6,15 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
+    font-family: sans-serif;
 }
 
 
 
 h1 {
     color: #0A192F;
-    font-weight: 800;
-    font-size: 3em; 
+    font-weight: 600;
+    font-size: 4em; 
     margin-top: 0px;
     text-align: center;
     text-transform: uppercase;
@@ -49,6 +50,7 @@ h1 {
     position: absolute; 
     top: calc(5% - 11px); 
     transform: translateY(-40%);
+    font-weight: bold; 
 }
 
 .timeline-container li:after {
@@ -169,7 +171,7 @@ h1 {
     position: fixed;
     bottom: 0;
     height: 20%;
-    width: 80%;
+    width: 75%;
     background-color: white;
     border-radius: 20px;
     text-align: center;
