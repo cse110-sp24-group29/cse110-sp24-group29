@@ -1,18 +1,33 @@
-/* body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+header {
+    width: 100%;
+    margin: 0;
+    
+}
+
+body {
+    background: linear-gradient(to right, #0A192F 80%, #00FFB0);
+    background-color: black;
+    font-family: 'Montserrat', sans-serif;
     height: 100vh;
     margin: 0;
-    background-color: #f0f0f0;
-} */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content horizontally */
+    justify-content: flex-start;
+}
 
-.container {
+.user-container {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.search-add-container {
     display: flex;
     align-items: center;
+    justify-content: center;
     width: 100%;
-    max-width: 800px;
     padding: 0 20px;
 }
 

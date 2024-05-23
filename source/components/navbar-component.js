@@ -33,6 +33,7 @@ class NavbarComponent extends HTMLElement {
             align-items: center;
             padding: 10px 20px;
             box-sizing: border-box;
+            height: 5rem;
           }
   
           nav .logo img {
@@ -57,7 +58,6 @@ class NavbarComponent extends HTMLElement {
             position: fixed;
             top: 50;
             right: -100px;
-            /* starts the nav links hidden off-screen */
             height: 100%;
             width: 100px;
             background-color: none;
@@ -90,7 +90,7 @@ class NavbarComponent extends HTMLElement {
 
         <nav>
           <div class="logo">
-            <img src="../../admin/branding/Logo1.png" alt="Logo" height="50" />
+            <img src="../../admin/branding/Logo1-nobg.png" alt="Logo" height="50" />
           </div>
           <h1 class="nav-title">Software Surfers: Developer Journal</h1>
           <div class="hamburger" id="hamburger-menu">

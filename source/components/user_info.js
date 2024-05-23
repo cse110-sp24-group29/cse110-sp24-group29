@@ -26,76 +26,86 @@ class StatsGraph extends HTMLElement {
 
         this.shadowRoot.innerHTML = `
         <style>
-                body {
-                    margin: 0;
-                    font-family: Arial, sans-serif;
-                }
+            body {
+                margin: 0;
+                font-family: Arial, sans-serif;
+            }
 
-                .container {
-                    display: flex;
-                    background-color: #FFFFFF;
-                    padding: 20px;
-                    width: ${width};
-                    height: ${height};
-                    margin: auto;
-                    align-items: center;
-                    justify-content: center;
-                }
+            .container {
+                display: flex;
+                flex-direction: row;
+                padding: 20px;
+                width: ${width};
+                height: ${height};
+                margin: 5% 0;
+                justify-content: center;
+                align-items: center;
+                gap: 8rem;
+            }
 
-                .chart-container {
-                    flex: 1;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                }
+            .container > div {
+                flex: 1;
+                width: 50%;
+                height: auto;
+                margin: 0 10px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
 
-                #statsChart {
-                    width: 200px;
-                    height: 200px;
-                }
+            .chart-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
 
-                .user-info {
-                    flex: 1;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: center;
-                }
+            #statsChart {
+                width: 400px; /* Increase the width */
+                height: 400px; /* Increase the height */
+            }
 
-                .user-pic {
-                    width: 250px;
-                    height: 250px;
-                    background-color: #ffffff;
-                    border-radius: 50%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    margin-bottom: 30px;
-                    margin-top: -40px;
-                    border: 2px solid #000;
-                }
+            .user-info {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
 
-                .user-text {
-                    text-align: center;
-                    font-size: 30px;
-                }
+            .user-pic {
+                width: 150px;
+                height: 150px;
+                background-image: url('../../admin/branding/user_icon.jpg');
+                background-size: cover;
+                background-position: center;
+                border-radius: 50%;
+                margin-bottom: 20px;
+                border: 2px solid #000;
+            }
 
-                .user-text p {
-                    margin: 5px 0;
-                }
-            </style>
-            <div class="container">
-                <div class="chart-container">
-                    <canvas id="statsChart";></canvas>
-                </div>
-                <div class="user-info">
-                    <div class="user-pic">User Photo</div>
-                    <div class="user-text">
-                        <p>User Name</p>
-                        <p>User Information</p>
-                    </div>
+            .user-text {
+                text-align: center;
+                font-size: 20px;
+                color: white;
+            }
+
+            .user-text p {
+                margin: 5px 0;
+            }
+        </style>
+
+        <div class="container">
+            <div class="chart-container">
+                <canvas id="statsChart" width="600" height="600"></canvas>
+            </div>
+            <div class="user-info">
+                <div class="user-pic"></div>
+                <div class="user-text">
+                    <p>User Name</p>
+                    <p>User Information</p>
                 </div>
             </div>
+        </div>
         `;
     }
 
@@ -124,31 +134,30 @@ class StatsGraph extends HTMLElement {
                         borderWidth: 3
                     }
                 },
-                responsive: true,  // Disable responsiveness to use the canvas width and height
+                responsive: false, // Disable responsiveness to respect the canvas size
                 plugins: {
                     legend: {
-                        display: false  // Hide the legend
+                        display: false
                     },
-                    
                 },
                 scales: {
                     r: {
                         min: 0,
                         max: 100,
                         grid: {
-                            color: 'rgba(0, 0, 0, 0.5)'  // Color of the pentagon lines
+                            color: 'rgba(255, 255, 225)'
                         },
                         angleLines: {
-                            color: 'rgba(0, 0, 0, 0.5)'  // Color of the lines from the center to the vertices
+                            color: 'rgba(255, 255, 255)'
                         },
                         pointLabels: {
                             font: {
-                                size: 16  // Increase font size
+                                size: 16
                             },
-                            color: '#000'  // Make text color darker
+                            color: '#ffffff'
                         },
                         ticks: {
-                            display: false, // Hide value label
+                            display: false,
                             stepSize: 20
                         }
                     }
