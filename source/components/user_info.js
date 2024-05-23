@@ -70,6 +70,7 @@ class StatsGraph extends HTMLElement {
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
+                
             }
 
             .user-pic {
