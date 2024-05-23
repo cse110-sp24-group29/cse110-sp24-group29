@@ -66,7 +66,7 @@ body{
 }
 
 .box-container form{
-    background-color: rgb(255, 255, 255);
+    background-color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -116,6 +116,7 @@ body{
     animation: move 0.6s;
 }
 
+/*right side*/
 .transition-container{
     position: absolute;
     overflow: hidden;
@@ -181,4 +182,32 @@ body{
 
 .box-container.active .transition-right{
     transform: translateX(100%);
+}
+
+.pincode-box {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-bottom: 50px;
+}
+.pincode-box input {
+    width: 45px;
+    height: 45px;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 18px;
+    margin: 3px;
+    background-color: lightgray;
+}
+
+.pincode-box input:focus {
+    border-color: #007BFF;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.enterPin {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 1px; 
 }
