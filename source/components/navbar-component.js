@@ -83,7 +83,7 @@ class NavbarComponent extends HTMLElement {
         </style>
         <nav>
           <div class="logo">
-            <img src="admin/branding/Logo1.png" alt="Logo" height="50" />
+            <img src="../../admin/branding/Logo1.png" alt="Logo" height="50" />
           </div>
           <h1 class="nav-title">Software Surfers: Developer Journal</h1>
           <div class="hamburger" id="hamburger-menu">
