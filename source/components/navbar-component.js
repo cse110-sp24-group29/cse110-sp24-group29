@@ -15,12 +15,18 @@ class NavbarComponent extends HTMLElement {
       console.log('Navbar component render method called');
       this.shadowRoot.innerHTML = `
         <style>
+          :host {
+            display: block;
+            align-items: stretch;
+            width: 100%;
+          }
+
           * {
             font-family: 'Montserrat', sans-serif;
           }
 
           nav {
-            background-color: none;
+            background-color: #CCFF00;
             color: black;
             display: flex;
             justify-content: space-between;
@@ -81,6 +87,7 @@ class NavbarComponent extends HTMLElement {
             color: #aaa;
           }
         </style>
+
         <nav>
           <div class="logo">
             <img src="../../admin/branding/Logo1.png" alt="Logo" height="50" />
@@ -92,11 +99,13 @@ class NavbarComponent extends HTMLElement {
             <div class="line"></div>
           </div>
         </nav>
+
         <div class="nav-links" id="nav-links">
-          <div><a href="fallback.html">Home</a></div>
-          <div><a href="fallback.html">Projects</a></div>
+          <div><a href="home.html">Home</a></div>
+          <div><a href="Project.html">Projects</a></div>
           <div><a href="fallback.html">Account</a></div>
           <div><a href="fallback.html">Contact</a></div>
+          <div><a href="index.html">Log Out</a></div>
         </div>
       `;
     }
