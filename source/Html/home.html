@@ -8,7 +8,8 @@
 
         <!-- Stylesheet -->
         <!-- EDIT THE CSS SOURCE ACCORDINGLY (WE DO NOT HAVE A CSS STYLESHEET FOR THE HOME PAGE YET) -->
-        <link rel="stylesheet" href="styles.css">
+        <!-- <link rel="stylesheet" href="styles.css"> -->
+        <link rel="stylesheet" href="../CSS/Homestyle.css">
 
     </head>
 
@@ -19,10 +20,28 @@
         </header>
 
         <div id="main-canvas">
-            
+            <stats-graph width="80%" height="450px"></stats-graph>
+        </div>
+
+        <div class="container">
+            <div class="button-container">
+                <script type="module" src="javascript.js"></script>
+                <!--<button class="add-button">+</button>
+                    <add-button></add-button>
+                    //-->
+                <button class="add-button">+</button>
+            </div>
+    
+            <div class="search-wrapper">
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="Search...">
+                </div>
+            </div>
         </div>
 
         <!-- Importing JS Files for the custom components -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="../components/user_info.js" defer></script>
         <script type="module" src="../components/navbar-component.js"></script>
     </body>
 </html>
