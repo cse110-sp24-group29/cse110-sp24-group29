@@ -34,7 +34,6 @@ class StatsGraph extends HTMLElement {
                 .container {
                     display: flex;
                     background-color: #FFFFFF;
-                    border: 3px solid #000;
                     padding: 20px;
                     width: ${width};
                     height: ${height};
