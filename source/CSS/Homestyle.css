@@ -85,3 +85,12 @@ body {
 .search-input::placeholder {
     color: #aaa;
 }
+
+.project-widget-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0 20px;
+    flex-wrap: wrap;
+}
