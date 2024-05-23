@@ -163,9 +163,7 @@ button:hover {
 
 
 .timeline-Wrapper {
-    position: fixed;
-    left: 50%;
-    transform: translateX(-50%);
+    position: center;
     bottom: 0;
     height: 15%;
     width: 75%;

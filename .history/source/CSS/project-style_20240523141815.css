@@ -160,32 +160,16 @@ button:hover {
     height: auto;
 }
 
-
-
 .timeline-Wrapper {
     position: fixed;
-    left: 50%;
-    transform: translateX(-50%);
     bottom: 0;
-    height: 15%;
-    width: 75%;
-    background-color: rgba(255,255,255,.8);
+    height: 20%;
+    width: 100%;
+    background-color: white;
     border-radius: 20px;
     text-align: center;
     padding: 10px;
     box-sizing: border-box;
-}
-
-
-#TIHeader {
-    color:  #0A192F;
-    font-weight: 700;
-    font-size: 4em; 
-    margin-top: 0px;
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: 7px;
-    line-height: 1.2em;
 }
 
 .timeline-container {
@@ -231,6 +215,7 @@ button:hover {
     color: #0A192F;
     text-transform: uppercase;
     cursor: pointer;
+    font-weight: 9px;
     transition: all ease .2s;
     vertical-align: middle;
     position: relative;
@@ -248,9 +233,7 @@ button:hover {
     border-radius: 100px;
 }
 
-
 .timeline-container li:hover:after {
     background-color: #00FFB0; 
     border-color: #00FFB0; 
 }
-
