@@ -1,6 +1,6 @@
 {
   "source": {
-    "include": ["source"],  
+    "include": ["source/script"],  
     "exclude": ["node_modules"],  
     "includePattern": ".+\\.js$", 
     "excludePattern": "(^|\\/|\\\\)_"
