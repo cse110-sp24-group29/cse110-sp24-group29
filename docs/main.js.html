@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: main.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,66 +17,54 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: main.js</h1>
 
     
 
 
 
     
-
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
     <section>
-        <article><p><a href="admin/team.md">Link to Team File</a></p>
-<h1>Team 29: Software_Surfers</h1>
-<h3>Description</h3>
-<p>Welcome to the official repository of our software engineering project for class CSE 110, Spring 2024 term. This project is currently in the ideation phase, and more details will be provided as they become available.</p>
-<h2>Team Members</h2>
-<ul>
-<li>Saksham Rai (Team Lead)</li>
-<li>Shrey Kumar (Team Lead)</li>
-<li>Aditya Saini (Developer)</li>
-<li>Aniruddh Krovvidi (Developer)</li>
-<li>Jason Tang (Developer)</li>
-<li>Brandon Chung (Developer)</li>
-<li>Ricky Li (Developer)</li>
-<li>Ojasvi Tewari (Planner)</li>
-<li>Christopher Lerum (Developer)</li>
-<li>Ryan K Chon (Developer)</li>
-<li>Tianshi Gong (Developer)</li>
-<li>Evan Kauh (Developer)</li>
-</ul>
-<h2>Objective</h2>
-<p>Building a small-scale full-stack web application, utilising agile software development methodology.</p>
-<h2>Tools and Technologies</h2>
-<ul>
-<li>HTML</li>
-<li>CSS</li>
-<li>JS</li>
-<li>Some database like PostgreSQL, MongoDB?</li>
-<li>Frameworks frontend (React, Angular) vs Backend (Node.js, Django, Flask)?</li>
-<li>Containers (Docker)?</li>
-<li>Hopefully this much (but could be more or less than this)</li>
-</ul></article>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Get the container element from the DOM.
+ */
+const boxContainerElement = document.getElementById('box-container');
+
+/**
+ * Get the register button element from the DOM.
+ */
+const signUpButtonElement = document.getElementById('register');
+
+/**
+ * Get the login button element from the DOM.
+ */
+const signInButtonElement = document.getElementById('login');
+
+/**
+ * Handles the event when the sign-up button is clicked.
+ * Adds 'active' class to the box container element to show the sign-up form.
+ */
+function handleSignUpButtonClick() {
+    boxContainerElement.classList.add('active');
+}
+
+/**
+ * Handles the event when the sign-in button is clicked.
+ * Removes 'active' class from the box container element to hide the sign-up form.
+ */
+function handleSignInButtonClick() {
+    boxContainerElement.classList.remove('active');
+}
+
+/**
+ * Adds event listeners to sign-up and sign-in buttons.
+ */
+signUpButtonElement.addEventListener('click', handleSignUpButtonClick);
+signInButtonElement.addEventListener('click', handleSignInButtonClick);
+</code></pre>
+        </article>
     </section>
-
-
 
 
 
