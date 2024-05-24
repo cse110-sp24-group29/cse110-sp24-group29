@@ -1,53 +1,109 @@
-body {
-    font-family: Arial, sans-serif;
+* {
     margin: 0;
     padding: 0;
-    background-color: #0a1f44; 
+    box-sizing: border-box;
 }
 
-header {
+body {
+    background-color: #0A192F;
+    background: linear-gradient(to right, #0A192F 88%, #00FFB0);
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    background-color: #c7e00c; 
-    color: #0a1f44; 
+    justify-content: flex-start;
+    height: 100vh;
+    width: 100vw;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #CCFF00;
+    color: #000;
     padding: 10px 20px;
+    width: 100%;
+    border-radius: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
 }
 
-.header-left {
-    display: flex;
-    align-items: center;
-}
-
-.profile-picture {
+.logo-container {
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    margin-right: 10px;
+    overflow: hidden;
+    background-color: #fff;
 }
 
-.header-right .menu-icon {
-    font-size: 24px;
+.team-logo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.project-name {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 2em;
+    color: #0A192F;
+}
+
+.hamburger-menu {
+    font-size: 3em;
     cursor: pointer;
 }
 
-main {
-    padding: 20px;
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 20px;
+    top: 60px;
+    background-color: #333;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.dropdown-menu a {
+    display: block;
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+}
+
+.dropdown-menu a:hover {
+    background-color: #575757;
+}
+
+.content {
     display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding-top: 70px;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-sizing: border-box;
+}
+
+.main-content {
+    width: 75%; /* Adjusted to take up 75% of the width */
+    padding: 20px;
 }
 
 .notes-section {
-    background-color: #f5f5f5; 
+    background-color: #F0F0F0; /* Light background for the notes section */
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    width: 75%; 
-    margin-right: 20px;
     position: relative;
 }
 
 .notes-section h2 {
-    color: #0a1f44; 
+    color: #0A192F; /* Dark color for the heading */
     text-align: left;
     margin-bottom: 20px;
 }
@@ -84,11 +140,11 @@ main {
 }
 
 .notes-left:before {
-    left: calc(50% - 10px); 
+    left: calc(50% - 10px);
 }
 
 .notes-right:before {
-    left: calc(50% - 10px); 
+    left: calc(50% - 10px);
 }
 
 .note {
@@ -108,6 +164,7 @@ textarea {
     font-size: 16px;
     resize: none;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    background: url('path-to-paper-texture.png') no-repeat center center / cover; /* Scrap paper background */
 }
 
 input[type="file"] {
@@ -122,8 +179,8 @@ input[type="file"] {
 }
 
 button {
-    background-color: #4b4b4b;
-    color: #fff; 
+    background-color: #4b4b4b; /* Dark button color */
+    color: #fff; /* White text */
     border: none;
     border-radius: 5px;
     padding: 10px 20px;
@@ -131,7 +188,7 @@ button {
 }
 
 button:hover {
-    background-color: #333; 
+    background-color: #333; /* Darker hover color */
 }
 
 .scrollable-container {
@@ -140,7 +197,8 @@ button:hover {
 }
 
 .note-entry {
-    background: url('path-to-paper-texture.png') no-repeat center center / cover;
+    background: url('path-to-paper-texture.png') no-repeat center center / cover; /* Add paper texture */
+    padding: 15px;
     border-radius: 10px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     margin-bottom: 10px;
@@ -160,15 +218,118 @@ button:hover {
     height: auto;
 }
 
+.sidebar {
+    width: 25%; /* Adjusted to take up 25% of the width */
+    padding: 20px;
+}
+
+.milestone-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.milestone-container h3 {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    color: #333;
+}
+
+.milestone-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+.milestone-list li {
+    margin-bottom: 20px;
+}
+
+.milestone-list label {
+    font-size: 0.9em;
+    color: #333;
+}
+
+.progress-bar {
+    width: 100%;
+    background-color: #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.progress {
+    height: 10px;
+    background-color: #4caf50;
+    width: 0%;
+}
+
+.task-list {
+    list-style: none;
+    padding-left: 20px;
+    margin-top: 5px;
+}
+
+.task-list li {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.task-list input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.task-list label {
+    font-size: 0.85em;
+    color: #555;
+}
+
+.task-list textarea {
+    margin-top: 5px;
+    font-size: 0.8em;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    resize: vertical;
+}
+
+.add-task, .add-milestone {
+    background-color: #0A192F;
+    border-radius: 7px;
+    color: white;
+    font-size: 0.9em;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    margin-top: 10px;
+}
+
+.add-task:hover, .add-milestone:hover {
+    filter: brightness(75%);
+}
+
 .timeline-Wrapper {
     position: fixed;
     bottom: 0;
-    height: 20%;
+    height: 20%; /* Increased height for more space */
     width: 100%;
     background-color: white;
     border-radius: 20px;
     text-align: center;
-    padding: 10px;
+    padding: 20px;
     box-sizing: border-box;
 }
 
@@ -176,8 +337,7 @@ button:hover {
     margin: auto;
     width: 100%;
     position: relative;
-    height: 150px;
-    margin-top: 60px;
+    height: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -192,8 +352,8 @@ button:hover {
     justify-content: space-between;
     align-items: center;
     position: absolute; 
-    top: calc(5% - 11px); 
-    transform: translateY(-40%);
+    top: calc(50% - 11px); 
+    transform: translateY(-50%);
     font-weight: bold; 
 }
 
@@ -215,11 +375,10 @@ button:hover {
     color: #0A192F;
     text-transform: uppercase;
     cursor: pointer;
-    font-weight: 9px;
+    font-weight: bold;
     transition: all ease .2s;
     vertical-align: middle;
     position: relative;
-    
 }
 
 .timeline-container #line {
@@ -227,8 +386,8 @@ button:hover {
     background: #0A192F;
     height: 7px;
     position: absolute;
-    top: 5%; 
-    transform: translateY(-40%);
+    top: 50%; 
+    transform: translateY(-50%);
     z-index: 1;
     border-radius: 100px;
 }
