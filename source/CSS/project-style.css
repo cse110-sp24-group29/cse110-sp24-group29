@@ -164,6 +164,7 @@ textarea {
     font-size: 16px;
     resize: none;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    background: url('path-to-paper-texture.png') no-repeat center center / cover; /* Scrap paper background */
 }
 
 input[type="file"] {
@@ -323,12 +324,12 @@ button:hover {
 .timeline-Wrapper {
     position: fixed;
     bottom: 0;
-    height: 20%; /* Increased height for the timeline bar */
+    height: 20%; /* Increased height for more space */
     width: 100%;
     background-color: white;
     border-radius: 20px;
     text-align: center;
-    padding: 10px;
+    padding: 20px;
     box-sizing: border-box;
 }
 
@@ -336,7 +337,7 @@ button:hover {
     margin: auto;
     width: 100%;
     position: relative;
-    height: 100px; /* Adjusted to a smaller height */
+    height: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -347,13 +348,13 @@ button:hover {
     margin: 0;
     z-index: 9;
     width: 100%;
-    display: flex;
+    display: flex; 
     justify-content: space-between;
     align-items: center;
-    position: absolute;
-    top: calc(5% - 11px);
-    transform: translateY(-40%);
-    font-weight: bold;
+    position: absolute; 
+    top: calc(50% - 11px); 
+    transform: translateY(-50%);
+    font-weight: bold; 
 }
 
 .timeline-container li:after {
@@ -369,12 +370,12 @@ button:hover {
 
 .timeline-container li {
     list-style: none;
-    flex: 1;
+    flex: 1; 
     text-align: center;
     color: #0A192F;
     text-transform: uppercase;
     cursor: pointer;
-    font-weight: 9px;
+    font-weight: bold;
     transition: all ease .2s;
     vertical-align: middle;
     position: relative;
@@ -385,13 +386,13 @@ button:hover {
     background: #0A192F;
     height: 7px;
     position: absolute;
-    top: 10%;
-    transform: translateY(-40%);
+    top: 50%; 
+    transform: translateY(-50%);
     z-index: 1;
     border-radius: 100px;
 }
 
 .timeline-container li:hover:after {
-    background-color: #00FFB0;
-    border-color: #00FFB0;
+    background-color: #00FFB0; 
+    border-color: #00FFB0; 
 }
