@@ -93,6 +93,11 @@ class StatsGraph extends HTMLElement {
             .user-text p {
                 margin: 5px 0;
             }
+
+            #devsurf {
+                color: #00FFB0;
+            }
+
         </style>
 
         <div class="container">
@@ -102,8 +107,8 @@ class StatsGraph extends HTMLElement {
             <div class="user-info">
                 <div class="user-pic"></div>
                 <div class="user-text">
-                    <p>User Name</p>
-                    <p>User Information</p>
+                    <p>Hello, user_id</p>
+                    <p>Welcome to <a id="devsurf">DevSurf</a></p>
                 </div>
             </div>
         </div>
