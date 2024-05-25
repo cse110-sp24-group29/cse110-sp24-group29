@@ -418,7 +418,7 @@ button:hover {
     background: linear-gradient(to right, #00FFB0 30%, #CCFF00 20%);
     height: 7px;
     position: absolute;
-    top: 100%; 
+    top: 1000%; 
     transform: translateY(-50%);
     z-index: 1;
     border-radius: 100px;

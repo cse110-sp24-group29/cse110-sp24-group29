@@ -326,12 +326,13 @@ button:hover {
     color:  #CCFF00;
     font-weight: 700;
     font-size: 3em; 
-    margin: auto;
+    margin-top: 0px;
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 7px;
     line-height: 1.2em;
-    position: relative; 
+    position: absolute; 
+
 }
 
 .timeline-Wrapper {
@@ -343,7 +344,6 @@ button:hover {
     text-align: center;
     padding: 20px;
     box-sizing: border-box;
-    
 }
 
 .timeline-container {
@@ -365,7 +365,7 @@ button:hover {
     justify-content: space-between;
     align-items: center;
     position: absolute; 
-    top: calc(100% + 10px); /* Increased top value to lower the element */
+    top: calc(% + 19px); 
     transform: translateY(-50%);
     font-weight: bold; 
 }
@@ -418,8 +418,8 @@ button:hover {
     background: linear-gradient(to right, #00FFB0 30%, #CCFF00 20%);
     height: 7px;
     position: absolute;
-    top: 100%; 
-    transform: translateY(-50%);
+    top: 60%; 
+    transform: translateY(-60%);
     z-index: 1;
     border-radius: 100px;
 }
