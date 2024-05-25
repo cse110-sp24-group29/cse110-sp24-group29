@@ -363,7 +363,7 @@ button:hover {
     justify-content: space-between;
     align-items: center;
     position: absolute; 
-    top: calc(50% + 19px); 
+    top: calc(50% + 1px); 
     transform: translateY(-50%);
     font-weight: bold; 
 }

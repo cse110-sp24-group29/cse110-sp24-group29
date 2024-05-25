@@ -363,7 +363,7 @@ button:hover {
     justify-content: space-between;
     align-items: center;
     position: absolute; 
-    top: calc(50% + 19px); 
+    top: calc(50%); 
     transform: translateY(-50%);
     font-weight: bold; 
 }
@@ -384,19 +384,18 @@ button:hover {
     border: solid 2px #00FFB0 ;
     content: '\2714'; 
     color: black;
-    font-size: 21px; 
-    font-weight: 700;
+    font-size: 40px; 
     line-height: 21px; 
     text-align: center; 
+    background-color: #00FFB0;
+    border: solid 2px #00FFB0; 
     border-radius: 50%; 
     width: 21px; 
     height: 21px; 
     display: block;
     margin: auto;
 }
-.timeline-container li.completed {
-    color:#00FFB0;
-}
+
 .timeline-container li {
     list-style: none;
     flex: 1; 
