@@ -327,8 +327,7 @@ button:hover {
     font-weight: 700;
     font-size: 3em; 
     display:flex;
-    width: 100%;
-    justify-content: center;
+    width: 100%
     margin: auto;
     text-align: center;
     text-transform: uppercase;
