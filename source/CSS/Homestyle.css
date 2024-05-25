@@ -28,11 +28,12 @@ body {
     justify-content: center;
     width: 100%;
     padding: 0 20px;
+    position: relative;
 }
 
 .button-container {
     position: absolute;
-    left: 200px;
+    left: 580px;
 }
 
 .add-button {
