@@ -429,6 +429,6 @@ button:hover {
     background-color: #00FFB0; 
     border-color: #00FFB0; 
 }
-.timeline-container li.completed:hover::before {
-    font-size: 30px;
+.timeline-container li:hover:.completed:before {
+    
 }
