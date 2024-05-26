@@ -399,6 +399,7 @@ button:hover {
     border-radius: 0; 
     z-index: 2; 
     top: -50%;
+    left: 240px;
     transform: translateY(-60%);
 
 }

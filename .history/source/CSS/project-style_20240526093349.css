@@ -394,11 +394,12 @@ button:hover {
     background-size: cover; 
     width: 70px; 
     height: 70px; 
-    margin-bottom: -49px;
-    margin-right: -49px;
+    margin-bottom: -45px;
+    margin-right: -45px;
     border-radius: 0; 
     z-index: 2; 
     top: -50%;
+    left: 20px;
     transform: translateY(-60%);
 
 }

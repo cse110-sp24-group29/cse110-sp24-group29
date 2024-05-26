@@ -392,13 +392,14 @@ button:hover {
     border: solid 0px #CCFF00 ;
     background-image: url('../img/2.png');
     background-size: cover; 
-    width: 70px; 
-    height: 70px; 
-    margin-bottom: -49px;
-    margin-right: -49px;
+    width: 66px; 
+    height: 66px; 
+    margin-bottom: -45px;
+    margin-right: -45px;
     border-radius: 0; 
     z-index: 2; 
     top: -50%;
+    left: 20px;
     transform: translateY(-60%);
 
 }

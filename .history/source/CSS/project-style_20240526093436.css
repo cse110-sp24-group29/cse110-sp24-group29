@@ -400,6 +400,7 @@ button:hover {
     z-index: 2; 
     top: -50%;
     transform: translateY(-60%);
+    transform: translateX(-50%);
 
 }
 .timeline-container li.completed {
