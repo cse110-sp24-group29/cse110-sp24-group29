@@ -359,7 +359,7 @@ button:hover {
     justify-content: space-between; 
     position: absolute; 
     top: calc(90% + 10px); 
-    transform: translateY(-240%);
+    transform: translateY(-50%);
     font-weight: bold;  
     
 }
@@ -392,12 +392,12 @@ button:hover {
     border: solid 0px #CCFF00 ;
     background-image: url('../img/2.png');
     background-size: cover; 
-    width: 66px; 
-    height: 66px; 
+    width: 66px; /* Adjust based on the width of your flag image */
+    height: 66px; /* Adjust based on the height of your flag image */
     margin-bottom: -45px;
     margin-right: -45px;
-    border-radius: 0; 
-    z-index: 2; 
+    border-radius: 0; /* Remove border-radius if not needed */
+    z-index: 2; /* Ensure the flag is above the line */
     top: -50%;
     left: 20px;
     transform: translateY(-60%);
@@ -409,11 +409,11 @@ button:hover {
 
 .timeline-container li span {
     position: absolute;
-    bottom: -24px; 
+    bottom: -24px; /* Adjust as needed */
     left: -10%;
     transform: translateX(-120%);
     width: 120%; /* Added */
-    white-space: nowrap; 
+    white-space: nowrap; /* Prevents wrapping to a new line */
 
 }
 
@@ -432,7 +432,7 @@ button:hover {
     height: 7px;
     position: absolute;
     top: 100%; 
-    transform: translateY(-700%);
+    transform: translateY(-50%);
     z-index: 1;
     border-radius: 100px;
 }
@@ -455,27 +455,16 @@ button:hover {
     /* Styles for iPhone layout */
     .timeline-container {
         height: 150px;
-        overflow-x: auto;
+        overflow-x: auto; /* Enable horizontal scrolling */
         
     }
     .timeline-container ul {
-        width: 300%; 
-        overflow-x: auto;
-        white-space: nowrap;
-        overflow: visible; 
+        width: 300%; /* Set width to accommodate three elements */
+        overflow-x: auto; /* Enable horizontal scrolling */
+        white-space: nowrap; /* Prevent list items from wrapping */
+        overflow: visible; /* Ensure overflow is not hidden */
         top: calc(90% + 10px); 
-        transform: translateY(-350%);
-        padding: 0; 
-        margin: 0; 
-        
-    }
-    .timeline-container li span {
-        position: absolute;
-        bottom: -24px; /* Adjust as needed */
-        left: -10%;
-        transform: translateX(10%);
-        width: 120%; /* Added */
-        white-space: nowrap; /* Prevents wrapping to a new line */
+        transform: translateY(-50%);
         
     }
     .timeline-container #line {

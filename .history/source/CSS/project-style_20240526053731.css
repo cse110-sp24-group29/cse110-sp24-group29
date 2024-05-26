@@ -359,7 +359,7 @@ button:hover {
     justify-content: space-between; 
     position: absolute; 
     top: calc(90% + 10px); 
-    transform: translateY(-240%);
+    transform: translateY(-50%);
     font-weight: bold;  
     
 }
@@ -432,7 +432,7 @@ button:hover {
     height: 7px;
     position: absolute;
     top: 100%; 
-    transform: translateY(-700%);
+    transform: translateY(-50%);
     z-index: 1;
     border-radius: 100px;
 }
@@ -476,7 +476,7 @@ button:hover {
         transform: translateX(10%);
         width: 120%; /* Added */
         white-space: nowrap; /* Prevents wrapping to a new line */
-        
+    
     }
     .timeline-container #line {
         width: 300%;
