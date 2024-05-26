@@ -397,8 +397,7 @@ button:hover {
     border-radius: 0; /* Remove border-radius if not needed */
     z-index: 2; /* Ensure the flag is above the line */
     top: -50%;
-    left: 20px;
-    transform: translateY(-60%);
+    transform: translateY(-60%) translateX(-40);
 
 }
 .timeline-container li.completed {
