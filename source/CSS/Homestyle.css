@@ -88,10 +88,22 @@ body {
 
 .project-widget-container {
     display: flex;
-    align-items: center;
     justify-content: center;
-    width: 100%;
+    align-items: center;
+    width: 39%;
     padding: 0 20px;
     flex-wrap: wrap;
     margin-bottom: 5rem;
+    overflow: hidden;
+}
+
+.project-widget-container-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 0px;
+}
+
+.projects {
+    display: flex;
+    transition: transform 0.3s ease;
 }

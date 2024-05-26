@@ -34,19 +34,26 @@
             </div>
         </div>
 
-        <div class="project-widget-container">
-            <project-widget></project-widget>
-            <project-widget></project-widget>
-            <project-widget></project-widget>
-            <project-widget></project-widget>
-            <project-widget></project-widget>
-            <project-widget></project-widget>
-            <project-widget></project-widget>
+        <div class="project-widget-container-wrapper">
+            <scroll-button direction="left"></scroll-button>
+            <div class="project-widget-container">
+                <div class="projects">
+                    <project-widget>Project 1</project-widget>
+                    <project-widget>Project 2</project-widget>
+                    <project-widget>Project 3</project-widget>
+                    <project-widget>Project 4</project-widget>
+                    <project-widget>Project 5</project-widget>
+                    <project-widget>Project 6</project-widget>
+                    <project-widget>Project 7</project-widget>
+                </div>
+            </div>
+            <scroll-button direction="right"></scroll-button>
         </div>
 
         <!-- Importing JS Files for the custom components -->
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script src="../components/user_info.js" defer></script>
+        <script type="module" src="../components/user_info.js" defer></script>
+        <script type="module" src="../components/scrolling_button.js" defer></script>
         <script type="module" src="../components/navbar-component.js"></script>
         <script type="module" src="../components/projWidget.js"></script>
     </body>
