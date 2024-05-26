@@ -26,7 +26,7 @@ class NavbarComponent extends HTMLElement {
           }
 
           nav {
-            background-color: #CCFF00;
+            background-color: none;
             color: black;
             display: flex;
             justify-content: space-between;
@@ -34,11 +34,13 @@ class NavbarComponent extends HTMLElement {
             padding: 10px 20px;
             box-sizing: border-box;
             height: 5rem;
+            border-bottom: 2px solid white;
           }
   
           nav .logo img {
-            height: 80px;
+            height: 100px;
           }
+
   
           nav .hamburger {
             display: flex;
@@ -47,7 +49,7 @@ class NavbarComponent extends HTMLElement {
           }
   
           nav .hamburger .line {
-            background-color: black;
+            background-color: white;
             height: 2px;
             width: 25px;
             margin: 4px 0;
@@ -74,7 +76,7 @@ class NavbarComponent extends HTMLElement {
           }
   
           .nav-links div a {
-            color: black;
+            color: white;
             text-decoration: none;
             display: block;
           }
@@ -92,7 +94,6 @@ class NavbarComponent extends HTMLElement {
           <div class="logo">
             <img src="../../admin/branding/Logo1-nobg.png" alt="Logo" height="50" />
           </div>
-          <h1 class="nav-title">Software Surfers: Developer Journal</h1>
           <div class="hamburger" id="hamburger-menu">
             <div class="line"></div>
             <div class="line"></div>
