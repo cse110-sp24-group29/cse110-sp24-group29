@@ -17,8 +17,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #CCFF00;
-    color: #000;
+    color: white;
     padding: 10px 20px;
     width: 100%;
     border-radius: 0;
@@ -46,7 +45,7 @@ body {
     flex-grow: 1;
     text-align: center;
     font-size: 2em;
-    color: #0A192F;
+    color: white;
 }
 
 .hamburger-menu {
@@ -222,16 +221,21 @@ button:hover {
 }
 
 .milestone-container {
-    background-color: white;
+    background-color: #F0F0F0;
     padding: 20px;
     border-radius: 15px;
+    width: 300px;
+    max-height: 400px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    margin-top: 70px;
 }
 
 .milestone-container h3 {
     margin-bottom: 10px;
     font-size: 1.1em;
     color: #333;
+    text-align: center;
 }
 
 .milestone-list {
@@ -242,11 +246,18 @@ button:hover {
 
 .milestone-list li {
     margin-bottom: 20px;
+    position: relative;
 }
 
 .milestone-list label {
     font-size: 0.9em;
     color: #333;
+    cursor: pointer;
+}
+
+.milestone-list .completed {
+    color: #888;
+    text-decoration: lightgrey;
 }
 
 .progress-bar {
@@ -260,7 +271,7 @@ button:hover {
 
 .progress {
     height: 10px;
-    background-color: #4caf50;
+    background-color: #333;
     width: 0%;
 }
 
@@ -268,17 +279,20 @@ button:hover {
     list-style: none;
     padding-left: 20px;
     margin-top: 5px;
+    display: none;
 }
 
 .task-list li {
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
+    position: relative;
 }
 
 .task-item {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     margin-bottom: 5px;
 }
 
@@ -302,7 +316,7 @@ button:hover {
 
 .add-task, .add-milestone {
     background-color: #0A192F;
-    border-radius: 7px;
+    border-radius: 127px;
     color: white;
     font-size: 0.9em;
     font-weight: 600;
@@ -315,8 +329,21 @@ button:hover {
     margin-top: 10px;
 }
 
+.add-task {
+    margin-left: 150px;
+    font-size: 0.6em;
+    background-color: #F0F0F0;
+    color: #0A192F;
+}
+
 .add-task:hover, .add-milestone:hover {
     filter: brightness(75%);
+}
+
+.milestone-name {
+    font-size: 0.9em;
+    color: #333;
+    cursor: pointer;
 }
 
 
