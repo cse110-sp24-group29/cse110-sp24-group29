@@ -310,6 +310,40 @@ input[type="file"] {
     height: auto;
 }
 
+/* Dynamic Island CSS */
+.dynamic-island {
+    display: none;
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 600px;
+    background-color: #fff;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.dynamic-island-content {
+    position: relative;
+}
+
+.close-island {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.island-images img {
+    max-width: 100%;
+    margin-top: 10px;
+}
+
+
 .sidebar {
     width: 25%; /* Adjusted to take up 25% of the width */
     padding: 20px;
@@ -320,11 +354,6 @@ input[type="file"] {
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-<<<<<<< HEAD
-=======
-    overflow-y: auto;
-    margin-top: 0px;
->>>>>>> 8c895a27a59612fcb2992f50db138d1337787d51
 }
 
 .milestone-container h3 {
@@ -421,7 +450,7 @@ input[type="file"] {
 #TIHeader {
     color:  #CCFF00;
     font-weight: 700;
-    font-size: 3em; 
+    font-size: 2em; 
     display:flex;
     width: 100%;
     justify-content: center;
@@ -585,15 +614,9 @@ input[type="file"] {
     }
 }
 
-<<<<<<< HEAD
 /* md */
 @media (max-width: 768px) {
     .sidebar {
-=======
-/* 2xl */
-@media (max-width: 1536px) {
-    .sidebar{
->>>>>>> 8c895a27a59612fcb2992f50db138d1337787d51
         width: fit-content;
         align-content: center;
     }
@@ -667,7 +690,6 @@ input[type="file"] {
         align-items: center;
     }
 
-<<<<<<< HEAD
     .main-content {
         width: auto;
     }
@@ -685,12 +707,6 @@ input[type="file"] {
         display: flex;
         flex-direction: column;
     }
-=======
-    .main-content{
-        width: fit-content;
-    }
-
->>>>>>> 8c895a27a59612fcb2992f50db138d1337787d51
 
     .sidebar {
         width: fit-content;
@@ -719,7 +735,6 @@ input[type="file"] {
         flex-direction: column;
     }
 
-<<<<<<< HEAD
     .main-content {
         width: auto;
     }
@@ -739,19 +754,6 @@ input[type="file"] {
     }
 
     .sidebar {
-=======
-    .main-content{
-        width: fit-content;
-    }
-
-    .notes-container{
-        display: flex;
-        flex-direction: column;
-    }
-    
-
-    .sidebar{
->>>>>>> 8c895a27a59612fcb2992f50db138d1337787d51
         width: fit-content;
         align-content: center;
     }
