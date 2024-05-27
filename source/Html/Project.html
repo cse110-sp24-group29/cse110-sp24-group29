@@ -10,7 +10,7 @@
 <body>
     <header class="navbar">
         <div class="logo-container">
-            <img src="../../admin/branding/Logo1.png" alt="Team Logo" class="team-logo">
+            <img src="../../admin/branding/Logo1-nobg.png" alt="Team Logo" class="team-logo">
         </div>
         <div class="project-name">
             Project Name
@@ -19,8 +19,8 @@
             &#9776;
         </div>
         <div class="dropdown-menu" id="dropdown-menu">
-            <a href="home.html">Home</a>
-            <a href="logout.html">Logout</a>
+            <a href="../../source/Html/home.html">Home</a>
+            <a href="../../source/Html/index.html">Logout</a>
         </div>
     </header>
 
@@ -62,54 +62,9 @@
         </div>
         <div class="sidebar">
             <div class="milestone-container">
-                <h3>Milestones</h3>
+                <h3>Project Milestones</h3>
                 <ul class="milestone-list" id="milestone-list">
-                    <li>
-                        <label>Milestone 1</label>
-                        <div class="progress-bar">
-                            <div class="progress" id="progress1"></div>
-                        </div>
-                        <ul class="task-list" id="task-list1">
-                            <li>
-                                <div class="task-item">
-                                    <input type="checkbox" id="task1-1" onclick="updateProgress(1)">
-                                    <label for="task1-1">Task 1</label>
-                                </div>
-                                <textarea placeholder="Description"></textarea>
-                            </li>
-                            <li>
-                                <div class="task-item">
-                                    <input type="checkbox" id="task1-2" onclick="updateProgress(1)">
-                                    <label for="task1-2">Task 2</label>
-                                </div>
-                                <textarea placeholder="Description"></textarea>
-                            </li>
-                        </ul>
-                        <button class="add-task" onclick="addTask(this, 1)">Add Task +</button>
-                    </li>
-                    <li>
-                        <label>Milestone 2</label>
-                        <div class="progress-bar">
-                            <div class="progress" id="progress2"></div>
-                        </div>
-                        <ul class="task-list" id="task-list2">
-                            <li>
-                                <div class="task-item">
-                                    <input type="checkbox" id="task2-1" onclick="updateProgress(2)">
-                                    <label for="task2-1">Task 1</label>
-                                </div>
-                                <textarea placeholder="Description"></textarea>
-                            </li>
-                            <li>
-                                <div class="task-item">
-                                    <input type="checkbox" id="task2-2" onclick="updateProgress(2)">
-                                    <label for="task2-2">Task 2</label>
-                                </div>
-                                <textarea placeholder="Description"></textarea>
-                            </li>
-                        </ul>
-                        <button class="add-task" onclick="addTask(this, 2)">Add Task +</button>
-                    </li>
+                    <!-- Milestones will be added here -->
                 </ul>
                 <button class="add-milestone" onclick="addMilestone()">Add Milestone +</button>
             </div>
@@ -142,6 +97,6 @@
             </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="../../source/script/scriptProjectPage.js"></script>
 </body> 
 </html>
