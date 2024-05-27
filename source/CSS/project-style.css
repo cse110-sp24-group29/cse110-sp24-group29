@@ -320,6 +320,11 @@ input[type="file"] {
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+<<<<<<< HEAD
+=======
+    overflow-y: auto;
+    margin-top: 0px;
+>>>>>>> 8c895a27a59612fcb2992f50db138d1337787d51
 }
 
 .milestone-container h3 {
@@ -580,11 +585,76 @@ input[type="file"] {
     }
 }
 
+<<<<<<< HEAD
 /* md */
 @media (max-width: 768px) {
     .sidebar {
+=======
+/* 2xl */
+@media (max-width: 1536px) {
+    .sidebar{
+>>>>>>> 8c895a27a59612fcb2992f50db138d1337787d51
         width: fit-content;
         align-content: center;
+    }
+}
+
+/* xl */
+@media (max-width: 1280px) {
+    .sidebar{
+        width: fit-content;
+        align-content: center;
+    }
+}
+
+/* lg */
+@media (max-width: 1024px) {
+    .content{
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    .sidebar{
+        width: fit-content;
+        align-content: center;
+    }
+    
+
+    .navbar{
+        width: 100%
+    }
+
+    .timeline-Wrapper{
+        padding-left: 0;
+        position: relative;   
+    }
+}
+/* md */
+@media (max-width: 768px) {
+    .content{
+        display: flex;
+        justify-content: space-evenly;
+        flex-direction: column;
+    }
+
+    .main-content{
+        width: fit-content;
+    }
+
+
+    .sidebar{
+        width: fit-content;
+        align-content: center;
+    }
+    
+
+    .navbar{
+        width: 100%
+    }
+
+    .timeline-Wrapper{
+        padding-left: 0;
+        position: relative;   
     }
 }
 
@@ -594,8 +664,10 @@ input[type="file"] {
         display: flex;
         justify-content: space-evenly;
         flex-direction: column;
+        align-items: center;
     }
 
+<<<<<<< HEAD
     .main-content {
         width: auto;
     }
@@ -613,6 +685,12 @@ input[type="file"] {
         display: flex;
         flex-direction: column;
     }
+=======
+    .main-content{
+        width: fit-content;
+    }
+
+>>>>>>> 8c895a27a59612fcb2992f50db138d1337787d51
 
     .sidebar {
         width: fit-content;
@@ -641,6 +719,7 @@ input[type="file"] {
         flex-direction: column;
     }
 
+<<<<<<< HEAD
     .main-content {
         width: auto;
     }
@@ -660,6 +739,19 @@ input[type="file"] {
     }
 
     .sidebar {
+=======
+    .main-content{
+        width: fit-content;
+    }
+
+    .notes-container{
+        display: flex;
+        flex-direction: column;
+    }
+    
+
+    .sidebar{
+>>>>>>> 8c895a27a59612fcb2992f50db138d1337787d51
         width: fit-content;
         align-content: center;
     }
