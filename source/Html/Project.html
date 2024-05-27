@@ -30,19 +30,33 @@
                 <h2>Notes</h2>
                 <div class="notes-container">
                     <div class="notes-left">
-                        <div class="scrollable-container" id="entries-container">
-                            <!-- Previous entries will be added here -->
+                        <div class="entries-container">
+                            <div class="entry-tile">
+                                <h3>Entry 1</h3>
+                                <p>Content for entry 1...</p>
+                            </div>
+                            <div class="entry-tile">
+                                <h3>Entry 2</h3>
+                                <p>Content for entry 2...</p>
+                            </div>
+                            <div class="entry-tile">
+                                <h3>Entry 3</h3>
+                                <p>Content for entry 3...</p>
+                            </div>
                         </div>
                     </div>
                     <div class="notes-right">
                         <textarea id="notepad" placeholder="Write your notes here..."></textarea>
-                        <img src="path-to-your-pen-image.png" alt="Pen" class="pen">
-                        <input type="file" id="fileInput" accept="image/*, .txt, .js, .html, .css">
+                        <img src="../img/pen.png" alt="Pen" class="pen">
                         <div class="buttons">
-                            <button class="code-snippets-button" id="addSnippetButton">Code Snippets</button>
+                            <label class="code-snippets-button">
+                                Code Snippets
+                                <input type="file" id="fileInput" accept="image/*, .txt, .js, .html, .css" style="display:none;">
+                            </label>
                             <button class="add-entry-button" id="addEntryButton">Add Entry</button>
                         </div>
                     </div>
+                    
                 </div>
             </section>
         </div>
