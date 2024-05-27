@@ -86,29 +86,27 @@ document.addEventListener("DOMContentLoaded", function () {
     const notepad = document.getElementById('notepad');
     const addEntryButton = document.getElementById('addEntryButton');
     const entriesContainer = document.querySelector('.entries-container');
+    const dynamicIsland = document.getElementById('dynamicIsland');
+    const closeIsland = document.getElementById('closeIsland');
+    const islandTitle = document.getElementById('islandTitle');
+    const islandContent = document.getElementById('islandContent');
+    const islandImages = document.getElementById('islandImages');
 
     // Load entries from localStorage and display them
     function loadEntries() {
         const entries = JSON.parse(localStorage.getItem('entries')) || [];
-        entries.forEach(entry => addEntryTile(entry.title, entry.content));
+        entries.forEach(entry => addEntryTile(entry.title, entry.content, entry.images));
     }
 
     // Save a new entry to localStorage
-    function saveEntry(title, content) {
+    function saveEntry(title, content, images) {
         const entries = JSON.parse(localStorage.getItem('entries')) || [];
-        entries.push({ title, content });
-        localStorage.setItem('entries', JSON.stringify(entries));
-    }
-
-    // Delete an entry from localStorage
-    function deleteEntry(title) {
-        let entries = JSON.parse(localStorage.getItem('entries')) || [];
-        entries = entries.filter(entry => entry.title !== title);
+        entries.push({ title, content, images });
         localStorage.setItem('entries', JSON.stringify(entries));
     }
 
     // Add a new entry tile to the left container
-    function addEntryTile(title, content) {
+    function addEntryTile(title, content, images = []) {
         const entryTile = document.createElement('div');
         entryTile.classList.add('entry-tile');
 
@@ -116,16 +114,24 @@ document.addEventListener("DOMContentLoaded", function () {
         entryTitle.textContent = title;
 
         const entryContent = document.createElement('p');
-        entryContent.textContent = content.substring(0, 100) + '...'; // Limit content to 100 characters
+        entryContent.textContent = content.length > 100 ? content.substring(0, 100) + '...' : content;
 
         const trashIcon = document.createElement('img');
-        trashIcon.src = '../img/trash.png'; // Update the path to your trash icon
+        trashIcon.src = '../img/trash.png';
         trashIcon.alt = 'Delete';
         trashIcon.classList.add('trash-icon');
-        trashIcon.addEventListener('click', () => {
+        trashIcon.onclick = (event) => {
+            event.stopPropagation();
             entriesContainer.removeChild(entryTile);
-            deleteEntry(title); // Function to remove the entry from localStorage
-        });
+            // Remove the entry from localStorage
+            const entries = JSON.parse(localStorage.getItem('entries')) || [];
+            const updatedEntries = entries.filter(entry => entry.title !== title && entry.content !== content);
+            localStorage.setItem('entries', JSON.stringify(updatedEntries));
+        };
+
+        entryTile.onclick = () => {
+            showDynamicIsland(title, content, images);
+        };
 
         entryTile.appendChild(entryTitle);
         entryTile.appendChild(entryContent);
@@ -134,19 +140,35 @@ document.addEventListener("DOMContentLoaded", function () {
         entriesContainer.appendChild(entryTile);
     }
 
+    // Show the dynamic island with entry details
+    function showDynamicIsland(title, content, images) {
+        islandTitle.textContent = title;
+        islandContent.textContent = content;
+        islandImages.innerHTML = '';
+        images.forEach(imageSrc => {
+            const img = document.createElement('img');
+            img.src = imageSrc;
+            islandImages.appendChild(img);
+        });
+        dynamicIsland.style.display = 'block';
+    }
+
+    // Handle the close button for the dynamic island
+    closeIsland.onclick = () => {
+        dynamicIsland.style.display = 'none';
+    };
+
     // Handle the add entry button click
     addEntryButton.addEventListener('click', function () {
-        const content = notepad.value;
-        if (content.trim() !== "") {
-            const title = "Entry " + (entriesContainer.children.length + 1);
-            addEntryTile(title, content);
-            saveEntry(title, content);
-            notepad.value = ""; // Clear the notepad
+        const content = notepad.value.trim();
+        if (content) {
+            const title = `Entry ${entriesContainer.children.length + 1}`;
+            const images = []; // Assuming images are not handled yet
+            addEntryTile(title, content, images);
+            saveEntry(title, content, images);
+            notepad.value = '';
         }
     });
 
-    // Load existing entries on page load
     loadEntries();
 });
-
-
