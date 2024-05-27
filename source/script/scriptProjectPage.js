@@ -81,3 +81,47 @@ function deleteTask(taskElement, milestoneId) {
 function deleteMilestone(milestoneElement) {
     milestoneElement.closest('li').remove();
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    const addEntryButton = document.getElementById('addEntryButton');
+    const notepad = document.getElementById('notepad');
+    const entriesContainer = document.querySelector('.entries-container');
+
+    // Load entries from localStorage
+    loadEntries();
+
+    // Add entry button click event
+    addEntryButton.addEventListener('click', function() {
+        const content = notepad.value.trim();
+        if (content) {
+            addEntry(content);
+            saveEntry(content);
+            notepad.value = ''; // Clear the textarea
+        }
+    });
+
+    // Function to add an entry to the DOM
+    function addEntry(content) {
+        const entryTile = document.createElement('div');
+        entryTile.className = 'entry-tile';
+        entryTile.innerHTML = `
+            <h3>Entry</h3>
+            <p>${content}</p>
+        `;
+        entriesContainer.appendChild(entryTile);
+    }
+
+    // Function to save an entry to localStorage
+    function saveEntry(content) {
+        let entries = JSON.parse(localStorage.getItem('entries')) || [];
+        entries.push(content);
+        localStorage.setItem('entries', JSON.stringify(entries));
+    }
+
+    // Function to load entries from localStorage
+    function loadEntries() {
+        let entries = JSON.parse(localStorage.getItem('entries')) || [];
+        entries.forEach(content => addEntry(content));
+    }
+
+    // Function
