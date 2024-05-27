@@ -82,46 +82,71 @@ function deleteMilestone(milestoneElement) {
     milestoneElement.closest('li').remove();
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    const addEntryButton = document.getElementById('addEntryButton');
+document.addEventListener("DOMContentLoaded", function () {
     const notepad = document.getElementById('notepad');
+    const addEntryButton = document.getElementById('addEntryButton');
     const entriesContainer = document.querySelector('.entries-container');
 
-    // Load entries from localStorage
-    loadEntries();
-
-    // Add entry button click event
-    addEntryButton.addEventListener('click', function() {
-        const content = notepad.value.trim();
-        if (content) {
-            addEntry(content);
-            saveEntry(content);
-            notepad.value = ''; // Clear the textarea
-        }
-    });
-
-    // Function to add an entry to the DOM
-    function addEntry(content) {
-        const entryTile = document.createElement('div');
-        entryTile.className = 'entry-tile';
-        entryTile.innerHTML = `
-            <h3>Entry</h3>
-            <p>${content}</p>
-        `;
-        entriesContainer.appendChild(entryTile);
+    // Load entries from localStorage and display them
+    function loadEntries() {
+        const entries = JSON.parse(localStorage.getItem('entries')) || [];
+        entries.forEach(entry => addEntryTile(entry.title, entry.content));
     }
 
-    // Function to save an entry to localStorage
-    function saveEntry(content) {
-        let entries = JSON.parse(localStorage.getItem('entries')) || [];
-        entries.push(content);
+    // Save a new entry to localStorage
+    function saveEntry(title, content) {
+        const entries = JSON.parse(localStorage.getItem('entries')) || [];
+        entries.push({ title, content });
         localStorage.setItem('entries', JSON.stringify(entries));
     }
 
-    // Function to load entries from localStorage
-    function loadEntries() {
+    // Delete an entry from localStorage
+    function deleteEntry(title) {
         let entries = JSON.parse(localStorage.getItem('entries')) || [];
-        entries.forEach(content => addEntry(content));
+        entries = entries.filter(entry => entry.title !== title);
+        localStorage.setItem('entries', JSON.stringify(entries));
     }
 
-    // Function
+    // Add a new entry tile to the left container
+    function addEntryTile(title, content) {
+        const entryTile = document.createElement('div');
+        entryTile.classList.add('entry-tile');
+
+        const entryTitle = document.createElement('h3');
+        entryTitle.textContent = title;
+
+        const entryContent = document.createElement('p');
+        entryContent.textContent = content.substring(0, 100) + '...'; // Limit content to 100 characters
+
+        const trashIcon = document.createElement('img');
+        trashIcon.src = '../img/trash.png'; // Update the path to your trash icon
+        trashIcon.alt = 'Delete';
+        trashIcon.classList.add('trash-icon');
+        trashIcon.addEventListener('click', () => {
+            entriesContainer.removeChild(entryTile);
+            deleteEntry(title); // Function to remove the entry from localStorage
+        });
+
+        entryTile.appendChild(entryTitle);
+        entryTile.appendChild(entryContent);
+        entryTile.appendChild(trashIcon);
+
+        entriesContainer.appendChild(entryTile);
+    }
+
+    // Handle the add entry button click
+    addEntryButton.addEventListener('click', function () {
+        const content = notepad.value;
+        if (content.trim() !== "") {
+            const title = "Entry " + (entriesContainer.children.length + 1);
+            addEntryTile(title, content);
+            saveEntry(title, content);
+            notepad.value = ""; // Clear the notepad
+        }
+    });
+
+    // Load existing entries on page load
+    loadEntries();
+});
+
+

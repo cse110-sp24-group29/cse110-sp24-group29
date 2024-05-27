@@ -227,6 +227,10 @@ button:hover, .code-snippets-button:hover {
     justify-content: center;
     text-align: center;
     transition: transform 0.2s, box-shadow 0.2s;
+    height: 150px; /* Fixed height */
+    width: 150px; /* Fixed width */
+    overflow: hidden; /* Hide overflow content */
+    background-color: #f5f5f5; /* Consistent background color */
 }
 
 .entry-tile:hover {
@@ -243,7 +247,35 @@ button:hover, .code-snippets-button:hover {
 .entry-tile p {
     font-size: 1em;
     color: #555555; /* Medium gray for text */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Ellipsis for overflow text */
+    white-space: nowrap; /* Prevent text wrapping */
+    max-width: 100%; /* Ensure ellipsis works */
 }
+
+/* Container for the entries */
+.entries-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Three columns */
+    gap: 10px; /* Smaller gap between tiles */
+    padding: 5px;
+}
+
+/* Trash icon styles */
+.trash-icon {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.entry-tile:hover .trash-icon {
+    display: block;
+}
+
 
 /* Misc styles */
 input[type="file"] {
