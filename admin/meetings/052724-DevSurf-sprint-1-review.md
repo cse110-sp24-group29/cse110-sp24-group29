@@ -39,7 +39,7 @@
 ## Discussion on Individual involvement
 - Saksham:  Wrote backend code to register and login user, debugged code in all files, resolved merge conflicts while merging all feature branches, organized and led brainstorming meetings for the first sprint.
 - Aniruddh: Worked on the user log-in page pivoting to a PIN code system instead of username and password. I also worked on the JavaScript functionality to ensure the entering of the PIN code is automatically transferred to the adjacent box after the box is input. One of the challenges I faced was working on the JavaScript functionality and the regular expressions to ensure only numbers were input. Screen compatibility was also hard as I was unsure initially of how to layout the login page on smaller screens like the iPhone SE. I then used the media queries appropriately after experimenting with some layouts and also adjusted the JS functionality to work on smaller screens, too.
-- Ryan:
+- Ryan: Worked on implementing the final desired aspects of the timeline. This included the progress bar, the different colored completed tasks, and incorporating the icons for the completed tasks. The hardest part for me was trying to position everything corectly, especially for the images.
 - Ricky:
 - Aditya:
 - Ojasvi:
