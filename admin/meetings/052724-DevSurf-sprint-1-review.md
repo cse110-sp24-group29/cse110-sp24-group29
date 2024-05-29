@@ -44,7 +44,7 @@
 - Aditya:
 - Ojasvi:
 - Christopher: 
-- Jason:
+- Jason: Worked on the screen compatibility for the projects page. Some challenges I faced were that I didn't really know how to adjust the layout on smaller screens but after some research and experimenting I was able to use media queries to approriately size and layout each element of the project page.
 - Tianshi:
 - Shrey: 
 - Evan:  
