@@ -2,7 +2,7 @@
 
 ## Meeting Details
 **Type of Meeting:** Agile - Sprint Review Meeting
-**Date:** May 26, 2024  
+**Date:** May 27, 2024  
 **Location:** Zoom
 **Start-Time:** 3:00 pm
 
