@@ -43,9 +43,10 @@
 - Ricky:
 - Aditya:
 - Ojasvi:
-- Christopher: 
+- Christopher: Worked on the initial designing and drawing up wireframes for the project as well as took many notes and compiled them into the meeting notes and ADRs throughout the process.
 - Jason: Worked on the screen compatibility for the projects page. Some challenges I faced were that I didn't really know how to adjust the layout on smaller screens but after some research and experimenting I was able to use media queries to approriately size and layout each element of the project page.
-- Tianshi:
+- Brandon: Worked on setting up the HTML for the project card widgets on the home page as well as the CSS styling to match all the other components on the page. 
+- Tianshi:  Worked on the user info and stats radar chart on the homepage and the initial functionality as well as the organization of the project card widgets so that it is only 3 in a row and allows for scrolling.
 - Shrey: 
 - Evan:  
 
