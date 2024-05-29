@@ -48,5 +48,5 @@
 - Brandon: Worked on setting up the HTML for the project card widgets on the home page as well as the CSS styling to match all the other components on the page. 
 - Tianshi:  Worked on the user info and stats radar chart on the homepage and the initial functionality as well as the organization of the project card widgets so that it is only 3 in a row and allows for scrolling.
 - Shrey: 
-- Evan:  
+- Evan: Design and implemented Navbar component with hamburger menu for the Dev Journal application. Updated home page styling to fit DevSurf color theme. Adjusted item and component alignement with CSS for better visibility of homepage components (statsgraph, userIcon, search bar and project widgets). Began working on homepage responsive design and mobile screensize compatibility.
 
