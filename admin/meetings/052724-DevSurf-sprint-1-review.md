@@ -28,16 +28,17 @@
 
 ### Introduction
 - The team gathered formally on zoom to discuss the final result of the work done in Sprint 1, in our application: DevSurf.
-- Meeting Started at prompty at 3:00 pm.
+- Meeting Started promptly at 3:00 pm.
 
 
 ### Review of the Markup and Styling of Login, Home and Projects Page. 
 - Each member did a small demo of their implemented part and walked through the implementation in a quick - fashion. 
-- Members provided kudos on things well done, and feedback on changes needed, which everyone agreed to fix - as part of the next sprint.
+- Members provided kudos on things well done and feedback on changes needed, which everyone agreed to fix - as part of the next sprint.
 
 
 ## Discussion on Individual involvement
 - Saksham:  Wrote backend code to register and login user, debugged code in all files, resolved merge conflicts while merging all feature branches, organized and led brainstorming meetings for the first sprint.
+- Aniruddh: Worked on the user log-in page pivoting to a PIN code system instead of username and password. I also worked on the JavaScript functionality to ensure the entering of the PIN code is automatically transferred to the adjacent box after the box is input. One of the challenges I faced was working on the JavaScript functionality and the regular expressions to ensure only numbers were input. Screen compatibility was also hard as I was unsure initially of how to layout the login page on smaller screens like the iPhone SE. I then used the media queries appropriately after experimenting with some layouts and also adjusted the JS functionality to work on smaller screens, too.
 - Ryan:
 - Ricky:
 - Aditya:
@@ -47,4 +48,4 @@
 - Tianshi:
 - Shrey: 
 - Evan:  
-- Aniruddh: 
+
