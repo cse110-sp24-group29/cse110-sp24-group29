@@ -42,7 +42,7 @@
 - Ryan: Worked on implementing the final desired aspects of the timeline. This included the progress bar, the different colored completed tasks, and incorporating the icons for the completed tasks. The hardest part for me was trying to position everything corectly, especially for the images.
 - Ricky: Implemented the add button and search button for the home page. Changed the positioning of the elements relative to the other components on the home page and added visual elements to the add button and search button. Hardest part for me was making the components for the 2 interactables so I can grab their inputs later on and use them alongside JS.
 - Aditya:
-- Ojasvi:
+- Ojasvi: Wrote Backend code to enable saving of current user logged in to prevent unecessary relogging in and to keep valid user info easisly accesible in a json file for other js modules.
 - Christopher: Worked on the initial designing and drawing up wireframes for the project as well as took many notes and compiled them into the meeting notes and ADRs throughout the process.
 - Jason: Worked on the screen compatibility for the projects page. Some challenges I faced were that I didn't really know how to adjust the layout on smaller screens but after some research and experimenting I was able to use media queries to approriately size and layout each element of the project page.
 - Brandon: Worked on setting up the HTML for the project card widgets on the home page as well as the CSS styling to match all the other components on the page. 
