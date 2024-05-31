@@ -103,9 +103,6 @@ class NavbarComponent extends HTMLElement {
 
         <div class="nav-links" id="nav-links">
           <div><a href="home.html">Home</a></div>
-          <div><a href="Project.html">Projects</a></div>
-          <div><a href="fallback.html">Account</a></div>
-          <div><a href="fallback.html">Contact</a></div>
           <div><a href="index.html">Log Out</a></div>
         </div>
       `;
