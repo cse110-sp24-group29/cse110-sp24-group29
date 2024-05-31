@@ -283,3 +283,82 @@ body{
     }
 
 }
+
+@keyframes shake {
+    0% {
+        transform: translateX(0px);
+    }
+
+    25% {
+        transform: translateX(-10px);
+    }
+
+    75% {
+        transform: translateX(10px);
+    }
+
+    100% {
+        transform: translateX(0px);
+    }
+}
+
+.success-message {
+    color: green;
+    font-size: 16px;
+    margin-top: 20px;
+    animation: fadein 2s;
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+.message-box {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    color: #fff;
+    border-radius: 5px;
+    z-index: 1000;
+    display: none;
+    /* Initially hidden */
+    background-color: #0A192F;
+    /* Default background, changed dynamically */
+}
+
+.message-box.success {
+    background-color: green;
+    display: block;
+}
+
+.message-box.error {
+    background-color: red;
+    display: block;
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-10px);
+    }
+
+    75% {
+        transform: translateX(10px);
+    }
+}
+
+.pincode-box.shake {
+    animation: shake 0.5s linear;
+}
