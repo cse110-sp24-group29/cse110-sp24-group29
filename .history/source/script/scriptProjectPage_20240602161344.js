@@ -94,8 +94,7 @@ function updateProgress(milestoneId) {
     }
     else 
     {
-        timelineElement.classList.remove('completed');
-        timelineElement.classList.add('uncompleted');
+        
     }
     
 }

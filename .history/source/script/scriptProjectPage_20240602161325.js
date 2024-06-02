@@ -92,11 +92,6 @@ function updateProgress(milestoneId) {
         milestone.querySelector('.milestone-name').classList.add('completed');
         taskList.closest('ul').appendChild(milestone);
     }
-    else 
-    {
-        timelineElement.classList.remove('completed');
-        timelineElement.classList.add('uncompleted');
-    }
     
 }
 

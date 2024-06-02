@@ -29,12 +29,12 @@ function addTask(button, milestoneId) {
 
 function addMilestone() {
     const milestoneList = document.getElementById('milestone-list');
-    let milestoneCount;
+    let milesstoneCount;
     if(milestoneList.children.length == 0) {
         milestoneCount = 1;
     }
     else {
-        milestoneCount = milestoneList.children.length; 
+        mileStoneCount =milestoneList.children.length;
     }
     const newMilestone = document.createElement('li');
     const timelineList = document.getElementById('timeline-elements');
@@ -44,8 +44,6 @@ function addMilestone() {
     `
     <span>Milestone ${milestoneCount}</span>
     `;
-    newTimelineElement.classList.add('uncompleted');
-    newTimelineElement.setAttribute('data-id', `milestone-${milestoneCount}`);
     timelineList.insertBefore(newTimelineElement, timelineList.children[timelineCount - 1]);
     newMilestone.innerHTML = `
         <div contenteditable="true" class="milestone-name" ondblclick="deleteMilestone(this)" onclick="toggleTasks(${milestoneCount})">Milestone ${milestoneCount}</div>
@@ -58,7 +56,7 @@ function addMilestone() {
         <button class="add-task" onclick="addTask(this, ${milestoneCount})" style="display: none;">Add Task +</button>
     `;
     milestoneList.appendChild(newMilestone);
-    newMilestone.setAttribute('data-id', `milestone-${milestoneCount}`);
+    
     // Move the "Add Milestone" button to be at the end of the list
     milestoneList.appendChild(document.querySelector('.add-milestone'));
 }
@@ -82,22 +80,12 @@ function updateProgress(milestoneId) {
     const progress = document.getElementById(`progress${milestoneId}`);
     const progressPercentage = (completedTasks / tasks.length) * 100;
     progress.style.width = `${progressPercentage}%`;
-    let timelineElement = document.querySelector(`#timeline-elements [data-id="milestone-${milestoneId}"]`);
-    
+
     if (completedTasks === tasks.length && tasks.length > 0) {
-        
-        timelineElement.classList.remove('uncompleted');
-        timelineElement.classList.add('completed');
         const milestone = taskList.closest('li');
         milestone.querySelector('.milestone-name').classList.add('completed');
         taskList.closest('ul').appendChild(milestone);
     }
-    else 
-    {
-        timelineElement.classList.remove('completed');
-        timelineElement.classList.add('uncompleted');
-    }
-    
 }
 
 function deleteTask(taskElement, milestoneId) {
@@ -105,35 +93,8 @@ function deleteTask(taskElement, milestoneId) {
     updateProgress(milestoneId);
 }
 
-function renumberMilestones() {
-    const milestoneList = document.getElementById('milestone-list');
-    const timelineList = document.getElementById('timeline-elements');
-
-    const milestones = milestoneList.querySelectorAll('li[data-id]');
-    milestones.forEach((milestone, index) => {
-        const newNumber = index + 1;
-        milestone.querySelector('.milestone-name').textContent = `Milestone ${newNumber}`;
-        milestone.setAttribute('data-id', `milestone-${newNumber}`);
-    });
-
-    const timelineElements = timelineList.querySelectorAll('li[data-id]');
-    timelineElements.forEach((timeline, index) => {
-        const newNumber = index + 1;
-        timeline.querySelector('span').textContent = `Milestone ${newNumber}`;
-        timeline.setAttribute('data-id', `milestone-${newNumber}`);
-    });
-}
-
 function deleteMilestone(milestoneElement) {
-    const milestoneId = milestoneElement.closest('li').getAttribute('data-id');
     milestoneElement.closest('li').remove();
-
-    const timelineElement = document.querySelector(`#timeline-elements [data-id="${milestoneId}"]`);
-    if (timelineElement) {
-        timelineElement.remove();
-    }
-    
-    renumberMilestones();
 }
 
 document.addEventListener("DOMContentLoaded", function () {

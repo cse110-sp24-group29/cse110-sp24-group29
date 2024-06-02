@@ -82,20 +82,13 @@ function updateProgress(milestoneId) {
     const progress = document.getElementById(`progress${milestoneId}`);
     const progressPercentage = (completedTasks / tasks.length) * 100;
     progress.style.width = `${progressPercentage}%`;
-    let timelineElement = document.querySelector(`#timeline-elements [data-id="milestone-${milestoneId}"]`);
-    
+    const timelineElement = document.querySelector(`#timeline-elements [data-id="milestone-${milestoneId}"]`);
     if (completedTasks === tasks.length && tasks.length > 0) {
-        
-        timelineElement.classList.remove('uncompleted');
-        timelineElement.classList.add('completed');
         const milestone = taskList.closest('li');
         milestone.querySelector('.milestone-name').classList.add('completed');
         taskList.closest('ul').appendChild(milestone);
-    }
-    else 
-    {
-        timelineElement.classList.remove('completed');
-        timelineElement.classList.add('uncompleted');
+        timelineElement.classList.remove('uncompleted');
+        timelineElement.classList.add('completed');
     }
     
 }
