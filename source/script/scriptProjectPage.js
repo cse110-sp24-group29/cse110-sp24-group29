@@ -17,11 +17,10 @@ function addTask(button, milestoneId) {
     const taskCount = taskList.children.length + 1;
     const newTask = document.createElement('li');
     newTask.innerHTML = `
-        <div class="task-item">
+        <div contenteditable="true" class="task-item">
             <input type="checkbox" id="task-${milestoneId}-${taskCount}" onclick="updateProgress(${milestoneId})">
             <label for="task-${milestoneId}-${taskCount}" ondblclick="deleteTask(this, ${milestoneId})">Task ${taskCount}</label>
         </div>
-        <textarea placeholder="Description"></textarea>
     `;
     taskList.appendChild(newTask);
 }
@@ -48,7 +47,7 @@ function addMilestone() {
     newTimelineElement.setAttribute('data-id', `milestone-${milestoneCount}`);
     timelineList.insertBefore(newTimelineElement, timelineList.children[timelineCount - 1]);
     newMilestone.innerHTML = `
-        <div contenteditable="true" class="milestone-name" ondblclick="deleteMilestone(this)" onclick="toggleTasks(${milestoneCount})">Milestone ${milestoneCount}</div>
+        <div contenteditable="true" class="milestone-name" ondblclick="deleteMilestone(this)" onclick="toggleTasks(${milestoneCount})">Milestone</div>
         <div class="progress-bar">
             <div class="progress" id="progress${milestoneCount}"></div>
         </div>

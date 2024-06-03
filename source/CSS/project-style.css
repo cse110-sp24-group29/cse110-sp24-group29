@@ -354,18 +354,19 @@ input[type="file"] {
 }
 
 .milestone-container {
-    background-color: white;
+    background-color: #F0F0F0;
     padding: 20px;
     border-radius: 15px;
+    width: 300px;
+    max-height: 400px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-height: 500px;
-    overflow-y: auto;
 }
 
 .milestone-container h3 {
     margin-bottom: 10px;
     font-size: 1.1em;
     color: #333;
+    text-align: center;
 }
 
 .milestone-list {
@@ -376,11 +377,18 @@ input[type="file"] {
 
 .milestone-list li {
     margin-bottom: 20px;
+    position: relative;
 }
 
 .milestone-list label {
     font-size: 0.9em;
     color: #333;
+    cursor: pointer;
+}
+
+.milestone-list .completed {
+    color: #888;
+    text-decoration: lightgrey;
 }
 
 .progress-bar {
@@ -394,7 +402,7 @@ input[type="file"] {
 
 .progress {
     height: 10px;
-    background-color: #4caf50;
+    background-color: #333;
     width: 0%;
 }
 
@@ -402,17 +410,20 @@ input[type="file"] {
     list-style: none;
     padding-left: 20px;
     margin-top: 5px;
+    display: none;
 }
 
 .task-list li {
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
+    position: relative;
 }
 
 .task-item {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     margin-bottom: 5px;
 }
 
@@ -436,7 +447,7 @@ input[type="file"] {
 
 .add-task, .add-milestone {
     background-color: #0A192F;
-    border-radius: 7px;
+    border-radius: 127px;
     color: white;
     font-size: 0.9em;
     font-weight: 600;
@@ -449,9 +460,24 @@ input[type="file"] {
     margin-top: 10px;
 }
 
+.add-task {
+    margin-left: 150px;
+    font-size: 0.6em;
+    background-color: #F0F0F0;
+    color: #0A192F;
+}
+
 .add-task:hover, .add-milestone:hover {
     filter: brightness(75%);
+    color: #00FFB0;
 }
+
+.milestone-name {
+    font-size: 0.9em;
+    color: #333;
+    cursor: pointer;
+}
+
 
 #TIHeader {
     color:  #CCFF00;
