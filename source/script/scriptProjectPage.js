@@ -224,4 +224,30 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     loadEntries();
+
+        // Add event listener to timeline items
+        document.getElementById('timeline-elements').addEventListener('click', function (event) {
+            const target = event.target.closest('li');
+            if (target && target.dataset.id) {
+                const milestoneId = target.dataset.id;
+                const milestoneElement = document.querySelector(`#milestone-list [data-id="${milestoneId}"]`);
+                if (milestoneElement) {
+                    const milestoneName = milestoneElement.querySelector('.milestone-name').textContent;
+                    const taskElements = milestoneElement.querySelectorAll('.task-item label');
+                    const tasks = Array.from(taskElements).map(task => task.textContent);
+                    showMilestoneDetailsInIsland(milestoneName, tasks);
+                }
+            }
+        });
+    
+        function showMilestoneDetailsInIsland(milestoneName, tasks) {
+            islandTitle.textContent = milestoneName;
+            islandContent.innerHTML = '';
+            tasks.forEach(task => {
+                const taskItem = document.createElement('p');
+                taskItem.textContent = task;
+                islandContent.appendChild(taskItem);
+            });
+            dynamicIsland.style.display = 'block';
+        }
 });
