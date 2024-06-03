@@ -875,3 +875,9 @@ input[type="file"] {
     }
 
 }
+
+@media (min-height: 845px){
+    .timeline-Wrapper{
+        position: fixed;
+    }
+}
