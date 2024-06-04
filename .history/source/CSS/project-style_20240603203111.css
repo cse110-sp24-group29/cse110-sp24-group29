@@ -591,7 +591,7 @@ input[type="file"] {
 
 .timeline-container #line {
     width: 100%;
-    background:  #CCFF00;
+    background: linear-gradient(to right,  #00FFB0 20%, #CCFF00 20%, );
     height: 7px;
     position: absolute;
     top: 100%; 

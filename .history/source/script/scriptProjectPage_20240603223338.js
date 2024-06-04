@@ -182,7 +182,6 @@ function getMilestoneHTML(milestoneNumber) {
         <button class="add-task" onclick="addTask(this, ${milestoneNumber})" style="display: none;">Add Task +</button>
     `;
 }
-
 function deleteMilestone(milestoneElement) {
     const milestoneId = milestoneElement.closest('li').getAttribute('data-id');
     milestoneElement.closest('li').remove();

@@ -153,7 +153,7 @@ function renumberMilestones() {
         {
             milestoneNameElement.textContent = `${currentName}`;
         }
-        milestone.innerHTML = getMilestoneHTML(newNumber);
+        
         milestone.setAttribute('data-id', `milestone-${newNumber}`);
         
     });
@@ -170,18 +170,6 @@ function renumberMilestones() {
     });
 }
 
-function getMilestoneHTML(milestoneNumber) {
-    return `
-        <div contenteditable="true" class="milestone-name" ondblclick="deleteMilestone(this)" onclick="toggleTasks(${milestoneNumber});">Milestone ${milestoneNumber}</div>
-        <div class="progress-bar">
-            <div class="progress" id="progress${milestoneNumber}"></div>
-        </div>
-        <ul class="task-list" id="task-list${milestoneNumber}">
-            <!-- Tasks will be added here -->
-        </ul>
-        <button class="add-task" onclick="addTask(this, ${milestoneNumber})" style="display: none;">Add Task +</button>
-    `;
-}
 
 function deleteMilestone(milestoneElement) {
     const milestoneId = milestoneElement.closest('li').getAttribute('data-id');

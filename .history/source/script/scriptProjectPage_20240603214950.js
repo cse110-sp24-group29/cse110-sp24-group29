@@ -47,7 +47,7 @@ function addMilestone() {
     newTimelineElement.setAttribute('data-id', `milestone-${milestoneCount}`);
     timelineList.insertBefore(newTimelineElement, timelineList.children[timelineCount - 1]);
     newMilestone.innerHTML = `
-        <div contenteditable="true" class="milestone-name" ondblclick="deleteMilestone(this)" onclick="toggleTasks(${milestoneCount});">Milestone ${milestoneCount}</div>
+        <div contenteditable="true" class="milestone-name" ondblclick="deleteMilestone(this)" onclick="toggleTasks(${milestoneCount});" oninput="updateTimeline(this);">Milestone ${milestoneCount}</div>
         <div class="progress-bar">
             <div class="progress" id="progress${milestoneCount}"></div>
         </div>
@@ -57,19 +57,12 @@ function addMilestone() {
         <button class="add-task" onclick="addTask(this, ${milestoneCount})" style="display: none;">Add Task +</button>
     `;
 
-    //dynamically changes milestone name on TIMELINE
-    const milestoneNameElement = newMilestone.querySelector('.milestone-name');
-    milestoneNameElement.addEventListener('input', function() {
-        updateTimeline(this);
-    });
-    
     milestoneList.appendChild(newMilestone);
     newMilestone.setAttribute('data-id', `milestone-${milestoneCount}`);
     // Move the "Add Milestone" button to be at the end of the list
     milestoneList.appendChild(document.querySelector('.add-milestone'));
     updateTimelineProgress();
 }
-
 function updateTimeline(milestoneElement) {
     const milestoneId = milestoneElement.closest('li').getAttribute('data-id');
     const milestoneName = milestoneElement.textContent;
@@ -101,14 +94,14 @@ function updateProgress(milestoneId) {
     progress.style.width = `${progressPercentage}%`;
     let timelineElement = document.querySelector
         (`#timeline-elements [data-id="milestone-${milestoneId}"]`);
-    if (completedTasks === tasks.length && tasks.length > 0) {
+    
+        if (completedTasks === tasks.length && tasks.length > 0) {
         // All tasks are completed
         timelineElement.classList.remove('uncompleted');
         timelineElement.classList.add('completed');
         const milestone = taskList.closest('li');
         milestone.querySelector('.milestone-name').classList.add('completed');
-        } 
-    else {
+        } else {
         // Not all tasks are completed
         timelineElement.classList.remove('completed');
         timelineElement.classList.add('uncompleted');
@@ -135,10 +128,10 @@ function deleteTask(taskElement, milestoneId) {
     
 }
 
-
 function renumberMilestones() {
     const milestoneList = document.getElementById('milestone-list');
     const timelineList = document.getElementById('timeline-elements');
+
     const milestones = milestoneList.querySelectorAll('li[data-id]');
     
     milestones.forEach((milestone, index) => {
@@ -153,7 +146,7 @@ function renumberMilestones() {
         {
             milestoneNameElement.textContent = `${currentName}`;
         }
-        milestone.innerHTML = getMilestoneHTML(newNumber);
+        
         milestone.setAttribute('data-id', `milestone-${newNumber}`);
         
     });
@@ -170,19 +163,6 @@ function renumberMilestones() {
     });
 }
 
-function getMilestoneHTML(milestoneNumber) {
-    return `
-        <div contenteditable="true" class="milestone-name" ondblclick="deleteMilestone(this)" onclick="toggleTasks(${milestoneNumber});">Milestone ${milestoneNumber}</div>
-        <div class="progress-bar">
-            <div class="progress" id="progress${milestoneNumber}"></div>
-        </div>
-        <ul class="task-list" id="task-list${milestoneNumber}">
-            <!-- Tasks will be added here -->
-        </ul>
-        <button class="add-task" onclick="addTask(this, ${milestoneNumber})" style="display: none;">Add Task +</button>
-    `;
-}
-
 function deleteMilestone(milestoneElement) {
     const milestoneId = milestoneElement.closest('li').getAttribute('data-id');
     milestoneElement.closest('li').remove();
@@ -191,6 +171,7 @@ function deleteMilestone(milestoneElement) {
     if (timelineElement) {
         timelineElement.remove();
     }
+    
     renumberMilestones();
     updateTimelineProgress();
 }
