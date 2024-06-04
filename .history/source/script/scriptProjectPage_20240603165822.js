@@ -125,13 +125,9 @@ function renumberMilestones() {
         const currentName = milestoneNameElement.textContent.replace(/\s*\d*$/, ''); // Remove the existing number at the end
         if(currentName == 'Milestone') {
             milestoneNameElement.textContent = `${currentName.trim()} ${newNumber}`;
-        }
-        else 
-        {
-            milestoneNameElement.textContent = `${currentName}`;
+            milestone.setAttribute('data-id', `milestone-${newNumber}`);
         }
         
-        milestone.setAttribute('data-id', `milestone-${newNumber}`);
         
     });
 

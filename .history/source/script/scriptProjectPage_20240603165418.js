@@ -48,7 +48,7 @@ function addMilestone() {
     newTimelineElement.setAttribute('data-id', `milestone-${milestoneCount}`);
     timelineList.insertBefore(newTimelineElement, timelineList.children[timelineCount - 1]);
     newMilestone.innerHTML = `
-        <div contenteditable="true" class="milestone-name" ondblclick="deleteMilestone(this)" onclick="toggleTasks(${milestoneCount});" oninput="updateTimeline(this);">Milestone ${milestoneCount}</div>
+        <div contenteditable="true" class="milestone-name" ondblclick="deleteMilestone(this); updateTimeline(this);" onclick="toggleTasks(${milestoneCount})">Milestone ${milestoneCount}</div>
         <div class="progress-bar">
             <div class="progress" id="progress${milestoneCount}"></div>
         </div>
@@ -57,7 +57,6 @@ function addMilestone() {
         </ul>
         <button class="add-task" onclick="addTask(this, ${milestoneCount})" style="display: none;">Add Task +</button>
     `;
-
     milestoneList.appendChild(newMilestone);
     newMilestone.setAttribute('data-id', `milestone-${milestoneCount}`);
     // Move the "Add Milestone" button to be at the end of the list
@@ -71,6 +70,7 @@ function updateTimeline(milestoneElement) {
         timelineElement.textContent = milestoneName;
     }
 }
+
 function toggleTasks(milestoneId) {
     const taskList = document.getElementById(`task-list${milestoneId}`);
     const addTaskButton = taskList.nextElementSibling;
@@ -118,32 +118,17 @@ function renumberMilestones() {
     const timelineList = document.getElementById('timeline-elements');
 
     const milestones = milestoneList.querySelectorAll('li[data-id]');
-    
     milestones.forEach((milestone, index) => {
         const newNumber = index + 1;
-        const milestoneNameElement = milestone.querySelector('.milestone-name');
-        const currentName = milestoneNameElement.textContent.replace(/\s*\d*$/, ''); // Remove the existing number at the end
-        if(currentName == 'Milestone') {
-            milestoneNameElement.textContent = `${currentName.trim()} ${newNumber}`;
-        }
-        else 
-        {
-            milestoneNameElement.textContent = `${currentName}`;
-        }
-        
+        milestone.querySelector('.milestone-name').textContent = `Milestone ${newNumber}`;
         milestone.setAttribute('data-id', `milestone-${newNumber}`);
-        
     });
 
     const timelineElements = timelineList.querySelectorAll('li[data-id]');
-    
     timelineElements.forEach((timeline, index) => {
         const newNumber = index + 1;
-        const milestoneId = `milestone-${newNumber}`;
-        const milestone = milestoneList.querySelector(`li[data-id="${milestoneId}"]`);
-        const milestoneName = milestone ? milestone.querySelector('.milestone-name').textContent : `Milestone ${newNumber}`;
-        timeline.querySelector('span').textContent = milestoneName;
-        timeline.setAttribute('data-id', milestoneId);
+        timeline.querySelector('span').textContent = `Milestone ${newNumber}`;
+        timeline.setAttribute('data-id', `milestone-${newNumber}`);
     });
 }
 

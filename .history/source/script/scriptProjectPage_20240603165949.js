@@ -128,7 +128,7 @@ function renumberMilestones() {
         }
         else 
         {
-            milestoneNameElement.textContent = `${currentName}`;
+            milestoneNameElement.textContent
         }
         
         milestone.setAttribute('data-id', `milestone-${newNumber}`);

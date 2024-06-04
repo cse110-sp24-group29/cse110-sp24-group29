@@ -118,32 +118,17 @@ function renumberMilestones() {
     const timelineList = document.getElementById('timeline-elements');
 
     const milestones = milestoneList.querySelectorAll('li[data-id]');
-    
     milestones.forEach((milestone, index) => {
         const newNumber = index + 1;
-        const milestoneNameElement = milestone.querySelector('.milestone-name');
-        const currentName = milestoneNameElement.textContent.replace(/\s*\d*$/, ''); // Remove the existing number at the end
-        if(currentName == 'Milestone') {
-            milestoneNameElement.textContent = `${currentName.trim()} ${newNumber}`;
-        }
-        else 
-        {
-            milestoneNameElement.textContent = `${currentName}`;
-        }
-        
+        milestone.querySelector('.milestone-name').textContent = `Milestone ${newNumber}`;
         milestone.setAttribute('data-id', `milestone-${newNumber}`);
-        
     });
 
     const timelineElements = timelineList.querySelectorAll('li[data-id]');
-    
     timelineElements.forEach((timeline, index) => {
         const newNumber = index + 1;
-        const milestoneId = `milestone-${newNumber}`;
-        const milestone = milestoneList.querySelector(`li[data-id="${milestoneId}"]`);
-        const milestoneName = milestone ? milestone.querySelector('.milestone-name').textContent : `Milestone ${newNumber}`;
-        timeline.querySelector('span').textContent = milestoneName;
-        timeline.setAttribute('data-id', milestoneId);
+        timeline.querySelector('span').textContent = `Milestone ${newNumber}`;
+        timeline.setAttribute('data-id', `milestone-${newNumber}`);
     });
 }
 

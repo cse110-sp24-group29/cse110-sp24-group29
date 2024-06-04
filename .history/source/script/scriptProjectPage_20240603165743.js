@@ -123,16 +123,8 @@ function renumberMilestones() {
         const newNumber = index + 1;
         const milestoneNameElement = milestone.querySelector('.milestone-name');
         const currentName = milestoneNameElement.textContent.replace(/\s*\d*$/, ''); // Remove the existing number at the end
-        if(currentName == 'Milestone') {
-            milestoneNameElement.textContent = `${currentName.trim()} ${newNumber}`;
-        }
-        else 
-        {
-            milestoneNameElement.textContent = `${currentName}`;
-        }
-        
+        milestoneNameElement.textContent = `${currentName.trim()} ${newNumber}`;
         milestone.setAttribute('data-id', `milestone-${newNumber}`);
-        
     });
 
     const timelineElements = timelineList.querySelectorAll('li[data-id]');
