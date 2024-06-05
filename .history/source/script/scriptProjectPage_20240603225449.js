@@ -1,9 +1,6 @@
 /**
  * Toggles the display of the dropdown menu when the hamburger menu is clicked.
  */
-
-let currentWidth = 100;
-let mediaWidth = 300;
 function toggleMenu() {
     const dropdownMenu = document.getElementById('dropdown-menu');
     dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
@@ -54,10 +51,10 @@ function addMilestone() {
     else {
         milestoneCount = milestoneList.children.length; 
     }
-    let newMilestone = document.createElement('li');
-    let timelineList = document.getElementById('timeline-elements');
+    const newMilestone = document.createElement('li');
+    const timelineList = document.getElementById('timeline-elements');
     let newTimelineElement =  document.createElement('li');
-    let timelineCount = timelineList.children.length;
+    const timelineCount = timelineList.children.length;
     newTimelineElement.innerHTML = 
     `
     <span>Milestone ${milestoneCount}</span>
@@ -77,30 +74,7 @@ function addMilestone() {
     newMilestone.setAttribute('data-id', `milestone-${milestoneCount}`);
     // Move the "Add Milestone" button to be at the end of the list
     milestoneList.appendChild(document.querySelector('.add-milestone'));
-
-    //dynamically adds to the timeline to make it bigger when certain
-    //milestone number is reached
-    
-    if(milestoneCount > 3 ) {
-        addWidth();
-    }
     updateTimelineProgress();
-}
-/**
- * Updates the milestone name on the timeline based on the input.
- * 
- */
-function addWidth() {
-    let timelineContainer = document.
-        getElementsByClassName('timeline-container')[0];
-    let timelineList = document.getElementById('timeline-elements');
-    // Calculate the new width (current width + 20%)
-    currentWidth += 24;
-    let newWidth = currentWidth+ '%';
-    timelineList.style.width = newWidth ;
-    line = document.getElementById('line');
-    line.style.width = newWidth;
-    timelineContainer.style.overflowX = 'auto';
 }
 /**
  * Updates the milestone name on the timeline based on the input.
@@ -256,51 +230,12 @@ function getMilestoneHTML(milestoneNumber) {
 function deleteMilestone(milestoneElement) {
     const milestoneId = milestoneElement.closest('li').getAttribute('data-id');
     milestoneElement.closest('li').remove();
-    const milestoneList = document.getElementById('milestone-list');
-    let  milestoneCount = milestoneList.children.length;
+
     const timelineElement = document.querySelector(`#timeline-elements [data-id="${milestoneId}"]`);
     if (timelineElement) {
         timelineElement.remove();
     }
-    if(milestoneCount > 4) {
-        subWidth();
-    }
-    else {
-        resetWidth();
-    }
-    
     renumberMilestones();
-    updateTimelineProgress();
-}
-/**
- * Updates the timeline width when a milestone is deleted
- * 
- */
-function subWidth () {
-     let timelineContainer = document.
-        getElementsByClassName('timeline-container')[0];
-    let timelineList = document.getElementById('timeline-elements');
-    // Calculate the new width (current width + 20%)
-    currentWidth -= 24;
-    let newWidth = currentWidth+ '%';
-    timelineList.style.width = newWidth ;
-    line = document.getElementById('line');
-    line.style.width = newWidth;
-}
-
-/**
- * resets the width of the timeline when milestones <= 3
- * 
- */
-
-function resetWidth() {
-    let timelineContainer = document.
-        getElementsByClassName('timeline-container')[0];
-    let timelineList = document.getElementById('timeline-elements');
-    timelineList.style.width = 100 + '%';
-    line = document.getElementById('line');
-    line.style.width = 100 + '%';
-    timelineContainer.style.overflowX = 'visible';
 }
 
 document.addEventListener("DOMContentLoaded", function () {

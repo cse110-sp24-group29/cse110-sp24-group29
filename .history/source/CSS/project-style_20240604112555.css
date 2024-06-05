@@ -511,12 +511,11 @@ input[type="file"] {
     width: 100%;
     position: relative;
     height: 100px;
-    overflow-x: visible; 
+    /*overflow-x: auto;*/
     padding: 0 20px; 
 }
 
 .timeline-container ul {
-      /* when there are more then 4 milestones add 20%*/
     z-index: 9;
     width: 100%;
     display: flex; 
@@ -596,7 +595,7 @@ input[type="file"] {
 }
 
 .timeline-container #line {
-    width: 100%;
+    width: 120%;
     background:  #CCFF00;
     height: 7px;
     position: absolute;
@@ -604,8 +603,6 @@ input[type="file"] {
     transform: translateY(-700%);
     z-index: 1;
     border-radius: 100px;
-
-    /* when there are more then 4 milestones add 20%*/
 }
 
 .timeline-container li:hover:before {

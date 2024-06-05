@@ -262,7 +262,7 @@ function deleteMilestone(milestoneElement) {
     if (timelineElement) {
         timelineElement.remove();
     }
-    if(milestoneCount > 4) {
+    if(milestoneCount > 3) {
         subWidth();
     }
     else {
@@ -286,21 +286,7 @@ function subWidth () {
     timelineList.style.width = newWidth ;
     line = document.getElementById('line');
     line.style.width = newWidth;
-}
-
-/**
- * resets the width of the timeline when milestones <= 3
- * 
- */
-
-function resetWidth() {
-    let timelineContainer = document.
-        getElementsByClassName('timeline-container')[0];
-    let timelineList = document.getElementById('timeline-elements');
-    timelineList.style.width = 100 + '%';
-    line = document.getElementById('line');
-    line.style.width = 100 + '%';
-    timelineContainer.style.overflowX = 'visible';
+    timelineContainer.style.overflowX = 'auto';
 }
 
 document.addEventListener("DOMContentLoaded", function () {

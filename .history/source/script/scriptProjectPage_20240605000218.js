@@ -262,45 +262,10 @@ function deleteMilestone(milestoneElement) {
     if (timelineElement) {
         timelineElement.remove();
     }
-    if(milestoneCount > 4) {
-        subWidth();
-    }
-    else {
-        resetWidth();
-    }
-    
+    if()
+    subWidth();
     renumberMilestones();
     updateTimelineProgress();
-}
-/**
- * Updates the timeline width when a milestone is deleted
- * 
- */
-function subWidth () {
-     let timelineContainer = document.
-        getElementsByClassName('timeline-container')[0];
-    let timelineList = document.getElementById('timeline-elements');
-    // Calculate the new width (current width + 20%)
-    currentWidth -= 24;
-    let newWidth = currentWidth+ '%';
-    timelineList.style.width = newWidth ;
-    line = document.getElementById('line');
-    line.style.width = newWidth;
-}
-
-/**
- * resets the width of the timeline when milestones <= 3
- * 
- */
-
-function resetWidth() {
-    let timelineContainer = document.
-        getElementsByClassName('timeline-container')[0];
-    let timelineList = document.getElementById('timeline-elements');
-    timelineList.style.width = 100 + '%';
-    line = document.getElementById('line');
-    line.style.width = 100 + '%';
-    timelineContainer.style.overflowX = 'visible';
 }
 
 document.addEventListener("DOMContentLoaded", function () {

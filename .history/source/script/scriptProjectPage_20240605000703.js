@@ -262,7 +262,7 @@ function deleteMilestone(milestoneElement) {
     if (timelineElement) {
         timelineElement.remove();
     }
-    if(milestoneCount > 4) {
+    if(milestoneCount > 3) {
         subWidth();
     }
     else {

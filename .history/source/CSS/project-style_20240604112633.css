@@ -511,12 +511,11 @@ input[type="file"] {
     width: 100%;
     position: relative;
     height: 100px;
-    overflow-x: visible; 
+    /*overflow-x: auto;*/
     padding: 0 20px; 
 }
 
 .timeline-container ul {
-      /* when there are more then 4 milestones add 20%*/
     z-index: 9;
     width: 100%;
     display: flex; 

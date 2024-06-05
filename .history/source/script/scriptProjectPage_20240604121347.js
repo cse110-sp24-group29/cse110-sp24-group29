@@ -82,7 +82,7 @@ function addMilestone() {
     //milestone number is reached
     
     if(milestoneCount > 3 ) {
-        addWidth();
+        updateWidth();
     }
     updateTimelineProgress();
 }
@@ -90,13 +90,16 @@ function addMilestone() {
  * Updates the milestone name on the timeline based on the input.
  * 
  */
-function addWidth() {
+function updateWidth() {
     let timelineContainer = document.
-        getElementsByClassName('timeline-container')[0];
+    getElementsByClassName('timeline-container');
+    console.log(timelineContainer);
     let timelineList = document.getElementById('timeline-elements');
     // Calculate the new width (current width + 20%)
     currentWidth += 24;
+    mediaWidth += 30;
     let newWidth = currentWidth+ '%';
+    let newMediaWidth = mediaWidth +'%';
     timelineList.style.width = newWidth ;
     line = document.getElementById('line');
     line.style.width = newWidth;
@@ -256,51 +259,13 @@ function getMilestoneHTML(milestoneNumber) {
 function deleteMilestone(milestoneElement) {
     const milestoneId = milestoneElement.closest('li').getAttribute('data-id');
     milestoneElement.closest('li').remove();
-    const milestoneList = document.getElementById('milestone-list');
-    let  milestoneCount = milestoneList.children.length;
+
     const timelineElement = document.querySelector(`#timeline-elements [data-id="${milestoneId}"]`);
     if (timelineElement) {
         timelineElement.remove();
     }
-    if(milestoneCount > 4) {
-        subWidth();
-    }
-    else {
-        resetWidth();
-    }
-    
     renumberMilestones();
     updateTimelineProgress();
-}
-/**
- * Updates the timeline width when a milestone is deleted
- * 
- */
-function subWidth () {
-     let timelineContainer = document.
-        getElementsByClassName('timeline-container')[0];
-    let timelineList = document.getElementById('timeline-elements');
-    // Calculate the new width (current width + 20%)
-    currentWidth -= 24;
-    let newWidth = currentWidth+ '%';
-    timelineList.style.width = newWidth ;
-    line = document.getElementById('line');
-    line.style.width = newWidth;
-}
-
-/**
- * resets the width of the timeline when milestones <= 3
- * 
- */
-
-function resetWidth() {
-    let timelineContainer = document.
-        getElementsByClassName('timeline-container')[0];
-    let timelineList = document.getElementById('timeline-elements');
-    timelineList.style.width = 100 + '%';
-    line = document.getElementById('line');
-    line.style.width = 100 + '%';
-    timelineContainer.style.overflowX = 'visible';
 }
 
 document.addEventListener("DOMContentLoaded", function () {

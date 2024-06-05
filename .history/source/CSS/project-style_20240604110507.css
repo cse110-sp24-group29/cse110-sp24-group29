@@ -508,15 +508,12 @@ input[type="file"] {
 
 .timeline-container {
     margin: auto;
-    width: 100%;
+    width: 120%;
     position: relative;
     height: 100px;
-    overflow-x: visible; 
-    padding: 0 20px; 
 }
 
 .timeline-container ul {
-      /* when there are more then 4 milestones add 20%*/
     z-index: 9;
     width: 100%;
     display: flex; 
@@ -525,7 +522,6 @@ input[type="file"] {
     top: calc(90% + 10px); 
     transform: translateY(-240%);
     font-weight: bold;  
-    
 }
 
 .timeline-container li {
@@ -582,7 +578,6 @@ input[type="file"] {
     transform: translateX(-120%);
     width: 120%; /* Added */
     white-space: nowrap; 
-    overflow-x: visible;
 }
 
 .timeline-container li:first-child span {
@@ -604,8 +599,6 @@ input[type="file"] {
     transform: translateY(-700%);
     z-index: 1;
     border-radius: 100px;
-
-    /* when there are more then 4 milestones add 20%*/
 }
 
 .timeline-container li:hover:before {
@@ -656,10 +649,6 @@ input[type="file"] {
     }
     .timeline-container li {
         overflow: visible; /* Ensure overflow is not hidden */
-    }
-    .timeline-container li span {
-        left: -20%;
-        transform: translateX(-120%);
     }
 }
 
