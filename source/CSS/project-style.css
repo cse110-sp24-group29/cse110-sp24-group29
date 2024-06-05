@@ -703,7 +703,7 @@ input[type="file"] {
 }
 
 /* lg */
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
     .content{
         display: flex;
         justify-content: space-evenly;
@@ -724,10 +724,6 @@ input[type="file"] {
         position: relative;
     }
 
-    .pen{
-        display: none;
-    }
-
     .notes-container{
         max-width: 100%;
     }
@@ -739,65 +735,11 @@ input[type="file"] {
 
     .sidebar{
         width: 100%;
-        align-content: center;
-    }
-
-    .milestone-container{
-        max-width: 100%;
-    }
-    
-
-    .navbar{
-        width: 100%
-    }
-
-    .timeline-Wrapper{
-        padding-left: 0;
-        position: relative;   
-    }
-}
-/* md */
-@media (max-width: 768px) {
-    .content{
-        display: flex;
-        justify-content: space-evenly;
-        flex-direction: column;
+        align-items: center;
         vertical-align: middle;
     }
 
-    .main-content{
-        width: 100%;
-    }
-
-    .notes-section{
-        height: fit-content;
-        width: 100%;
-    }
-    
-    .navbar{
-        position: relative;
-    }
-
-    .pen{
-        display: none;
-    }
-
-    .notes-container{
-        max-width: 100%;
-    }
-
-    .entries-container{
-        max-width: 80px;
-    }
-
-
-    .sidebar{
-        width: 100%;
-        align-content: center;
-    }
-
     .milestone-container{
-        max-height: 80%;
         max-width: 100%;
     }
     
@@ -920,8 +862,53 @@ input[type="file"] {
 
 }
 
-@media (min-height: 1025px){
+@media (min-height: 1300px) and (min-width: 930px){
+
+    .content{
+        display: flex;
+        justify-content: space-evenly;
+        flex-direction: column;
+        vertical-align: middle;
+    }
+
+    .main-content{
+        width: 100%;
+    }
+
+    .notes-section{
+        height: fit-content;
+        width: 100%;
+    }
+    
+    .navbar{
+        position: relative;
+    }
+
+    .notes-container{
+        max-width: 100%;
+    }
+
+    .entries-container{
+        max-width: 80px;
+    }
+
+
+    .sidebar{
+        width: 100%;
+        align-content: center;
+    }
+
+    .milestone-container{
+        max-width: 100%;
+    }
+    
+
+    .navbar{
+        width: 100%
+    }
+
     .timeline-Wrapper{
-        position: fixed;
+        padding-left: 0;
+        position: fixed;   
     }
 }
