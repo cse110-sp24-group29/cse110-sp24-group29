@@ -495,7 +495,9 @@ input[type="file"] {
     line-height: 1.2em;
 }
 
+
 .timeline-Wrapper {
+
     position: relative;
     bottom: 0;
     height: 20%; 
@@ -504,6 +506,7 @@ input[type="file"] {
     text-align: center;
     box-sizing: border-box;
     vertical-align: bottom;
+
 }
 
 .timeline-container {
