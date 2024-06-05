@@ -177,18 +177,17 @@ function updateProgress(milestoneId) {
     progress.style.width = `${progressPercentage}%`;
     let timelineElement = document.querySelector
         (`#timeline-elements [data-id="milestone-${milestoneId}"]`);
-    const milestone = taskList.closest('li');
     if (completedTasks === tasks.length && tasks.length > 0) {
         // All tasks are completed
         timelineElement.classList.remove('uncompleted');
         timelineElement.classList.add('completed');
+        const milestone = taskList.closest('li');
         milestone.querySelector('.milestone-name').classList.add('completed');
         } 
     else {
         // Not all tasks are completed
         timelineElement.classList.remove('completed');
         timelineElement.classList.add('uncompleted');
-        milestone.querySelector('.milestone-name').classList.remove('completed');
     }
     
     // Update overall timeline progress
@@ -204,7 +203,8 @@ function updateTimelineProgress() {
     const timelineList = document.getElementById('timeline-elements');
     const timeline = timelineList.querySelectorAll('li');
     const timelineLength = timeline.length;
-    if(completedMI == timelineLength - 2) {
+    let tlProgress;
+    if(completedMI == timelineLength-2) {
         tlProgress = currentWidth;
         timeline[timelineLength - 1].classList.remove('uncompleted');
         timeline[timelineLength - 1].classList.add('completed');
@@ -215,6 +215,8 @@ function updateTimelineProgress() {
         timeline[timelineLength - 1 ].classList.remove('completed');
         timeline[timelineLength - 1].classList.add('uncompleted');
     }
+    
+    console.log(tlProgress);
     let line = document.getElementById('line2');
     line.style.width = tlProgress + '%';
 }
@@ -255,15 +257,17 @@ function renumberMilestones() {
         // Update the milestone number in the elements
         milestone.querySelector('.milestone-name').setAttribute('onclick', `toggleTasks(${newNumber});`);
         milestone.querySelector('.milestone-name').setAttribute('ondblclick', `deleteMilestone(this)`);
+
         const progressBar = milestone.querySelector('.progress');
         progressBar.id = `progress${newNumber}`;
+
         milestone.querySelector('.task-list').id = `task-list${newNumber}`;
         milestone.querySelector('.add-task').setAttribute('onclick', `addTask(this, ${newNumber})`);
         milestone.setAttribute('data-id', `milestone-${newNumber}`);
     });
 
     const timelineElements = timelineList.querySelectorAll('li[data-id]');
-    // updates the namne of the timeline when renumbering
+    
     timelineElements.forEach((timeline, index) => {
         const newNumber = index + 1;
         const milestoneId = `milestone-${newNumber}`;
@@ -372,7 +376,7 @@ function saveMilestoneToStorage () {
  */
 function saveTasksArrayToStorage () {
     const milestones = getMilestoneArray();
-    const taskArray = [];
+    const taskArray = []; 
     milestones.forEach(milestone => {
         const taskList = milestone.querySelector('.task-list');
         if (taskList) {
@@ -415,18 +419,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function loadMilestonesAndTasks(){
         const milestones = JSON.parse(localStorage.getItem('milestones')) || [];
-        milestones.forEach(milestone => addMilestone(milestone));
-        const milestoneList = getMilestoneArray();
-        const taskArray = JSON.parse(localStorage.getItem('tasks')) || [];
-
-        milestoneList.forEach((milestone, index) => {
-            const taskButton = milestone.querySelector('.add-task');
-            const tasks = taskArray[index] || [];
-            tasks.forEach(task => {
-                addTaskWithState(taskButton, index + 1, task.text, task.checked);
-                updateProgress(index+1);
-            });
+    milestones.forEach(milestone => addMilestone(milestone));
+    const milestoneList = getMilestoneArray();
+    const taskArray = JSON.parse(localStorage.getItem('tasks')) || [];
+    
+    for (let i = 0; i < milestoneList.length; i++) {
+        const taskButton = milestoneList[i].querySelector('button');
+        const tasks = taskArray[i];
+        tasks.forEach(task => {
+            addTaskWithState(taskButton, i + 1, task.text, task.checked);
         });
+    }
     }
     // Save a new entry to localStorage
     function saveEntry(title, content, images) {
@@ -445,6 +448,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const entryContent = document.createElement('p');
         entryContent.textContent = content.length > 100 ? content.substring(0, 100) + '...' : content;
+
         const trashIcon = document.createElement('img');
         trashIcon.src = '../img/trash.png';
         trashIcon.alt = 'Delete';

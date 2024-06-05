@@ -177,18 +177,17 @@ function updateProgress(milestoneId) {
     progress.style.width = `${progressPercentage}%`;
     let timelineElement = document.querySelector
         (`#timeline-elements [data-id="milestone-${milestoneId}"]`);
-    const milestone = taskList.closest('li');
     if (completedTasks === tasks.length && tasks.length > 0) {
         // All tasks are completed
         timelineElement.classList.remove('uncompleted');
         timelineElement.classList.add('completed');
+        const milestone = taskList.closest('li');
         milestone.querySelector('.milestone-name').classList.add('completed');
         } 
     else {
         // Not all tasks are completed
         timelineElement.classList.remove('completed');
         timelineElement.classList.add('uncompleted');
-        milestone.querySelector('.milestone-name').classList.remove('completed');
     }
     
     // Update overall timeline progress
@@ -204,7 +203,8 @@ function updateTimelineProgress() {
     const timelineList = document.getElementById('timeline-elements');
     const timeline = timelineList.querySelectorAll('li');
     const timelineLength = timeline.length;
-    if(completedMI == timelineLength - 2) {
+    let tlProgress;
+    if(completedMI == timelineLength-2) {
         tlProgress = currentWidth;
         timeline[timelineLength - 1].classList.remove('uncompleted');
         timeline[timelineLength - 1].classList.add('completed');
@@ -215,6 +215,8 @@ function updateTimelineProgress() {
         timeline[timelineLength - 1 ].classList.remove('completed');
         timeline[timelineLength - 1].classList.add('uncompleted');
     }
+    
+    console.log(tlProgress);
     let line = document.getElementById('line2');
     line.style.width = tlProgress + '%';
 }

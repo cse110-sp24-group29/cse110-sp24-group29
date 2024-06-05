@@ -204,17 +204,22 @@ function updateTimelineProgress() {
     const timelineList = document.getElementById('timeline-elements');
     const timeline = timelineList.querySelectorAll('li');
     const timelineLength = timeline.length;
+    console.log(completedMI);
+    let tlProgress;
     if(completedMI == timelineLength - 2) {
         tlProgress = currentWidth;
         timeline[timelineLength - 1].classList.remove('uncompleted');
         timeline[timelineLength - 1].classList.add('completed');
     }
     else {
+        console.log('hello')
         tlProgress = completedMI/(timelineLength - 1) * currentWidth;
         tlProgress = tlProgress.toFixed(2);
         timeline[timelineLength - 1 ].classList.remove('completed');
         timeline[timelineLength - 1].classList.add('uncompleted');
     }
+    
+    console.log(tlProgress);
     let line = document.getElementById('line2');
     line.style.width = tlProgress + '%';
 }
