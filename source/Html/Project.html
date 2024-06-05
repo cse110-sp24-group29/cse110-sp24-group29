@@ -8,20 +8,7 @@
     <link href='https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap' rel='stylesheet'>
 </head>
 <body>
-    <header class="navbar">
-        <div class="logo-container">
-            <img src="../../admin/branding/Logo1-nobg.png" alt="Team Logo" class="team-logo">
-        </div>
-        <div class="project-name">
-            Project Name
-        </div>
-        <div class="hamburger-menu" onclick="toggleMenu()">
-            &#9776;
-        </div>
-        <div class="dropdown-menu" id="dropdown-menu">
-            <a href="../../source/Html/home.html">Home</a>
-            <a href="../../source/Html/index.html">Logout</a>
-        </div>
+    <navbar-component></navbar-component>
     </header>
 
     <div class="content">
@@ -88,6 +75,6 @@
     
 
     <script src="../../source/script/scriptProjectPage.js"></script>
-
+    <script type="module" src="../components/navbar-component.js"></script>
 </body> 
 </html>
