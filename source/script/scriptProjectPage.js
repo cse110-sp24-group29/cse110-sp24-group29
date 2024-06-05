@@ -49,8 +49,8 @@ function addTask(button, milestoneId) {
 /**
  * Adds a new task with a specified state (checked or not).
  * 
- * @param {HTMLElement} button - The button element that triggered the function.
- * @param {number} milestoneId - The number of the milestone to which the task is being added.
+ne to which t * @param {HTMLElement} button - The button element that triggered the function.
+ * @param {number} milestoneId - The number of the milestohe task is being added.
  * @param {string} taskText - The text content of the task.
  * @param {boolean} isChecked - Whether the task is checked or not.
  */
@@ -85,16 +85,16 @@ function addMilestone(milestoneName) {
     let timelineList = document.getElementById('timeline-elements');
     let newTimelineElement =  document.createElement('li');
     let timelineCount = timelineList.children.length;
+    if (milestoneName == '') {
+        milestoneName = `Milestone ${milestoneCount}`;
+    }
     newTimelineElement.innerHTML = 
     `
-    <span>Milestone ${milestoneCount}</span>
+    <span>${milestoneName}</span>
     `;
     newTimelineElement.classList.add('uncompleted');
     newTimelineElement.setAttribute('data-id', `milestone-${milestoneCount}`);
     timelineList.insertBefore(newTimelineElement, timelineList.children[timelineCount - 1]);
-    if (milestoneName == '') {
-        milestoneName = `Milestone ${milestoneCount}`;
-    }
     newMilestone.innerHTML = getMilestoneHTML(milestoneCount,milestoneName);
 
     //dynamically changes milestone name on TIMELINE
@@ -226,7 +226,6 @@ function updateTimelineProgress() {
 }
 /**
  * Deletes a task and updates the progress.
- * 
  * @param {HTMLElement} taskElement - The task element to be deleted.
  * @param {number} milestoneId - The milestone number
  * from which the task is being deleted.
@@ -250,8 +249,6 @@ function renumberMilestones() {
         const newNumber = index + 1;
         const milestoneNameElement = milestone.querySelector('.milestone-name');
         const currentName = milestoneNameElement.textContent.replace(/\s*\d*$/, ''); // Remove the existing number at the end
-        const tasks = milestone.querySelector('.task-list').innerHTML;
-
         if (currentName === 'Milestone') {
             milestoneNameElement.textContent = `${currentName.trim()} ${newNumber}`;
         } else {
@@ -264,8 +261,19 @@ function renumberMilestones() {
         const progressBar = milestone.querySelector('.progress');
         progressBar.id = `progress${newNumber}`;
         milestone.querySelector('.task-list').id = `task-list${newNumber}`;
-        milestone.querySelector('.add-task').setAttribute('onclick', `addTask(this, ${newNumber})`);
+        milestone.querySelector('.add-task').
+            setAttribute('onclick', `addTask(this, ${newNumber})`);
         milestone.setAttribute('data-id', `milestone-${newNumber}`);
+        const tasks = milestone.querySelectorAll('.task-list .task-item');
+        tasks.forEach( (task,taskIndex)  => {
+            let taskCheckbox = task.querySelector('input');
+            taskCheckbox.id = `task-${newNumber}-${taskIndex + 1}`;
+            taskCheckbox.setAttribute('onclick', `updateProgress(${newNumber})`);
+            let taskLabel = task.querySelector('label');
+            taskLabel.setAttribute('ondblclick', `updateProgress(${newNumber})`);
+            taskLabel.setAttribute('for',`task-${newNumber}-${taskIndex + 1}`);
+            taskLabel.innerText = `Task ${taskIndex+1}`;
+        });
     });
 
     const timelineElements = timelineList.querySelectorAll('li[data-id]');
@@ -510,7 +518,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     loadEntries();
-    //loadMilestonesAndTasks();
+    loadMilestonesAndTasks();
      // Add event listener to timeline items
      document.getElementById('timeline-elements').addEventListener('click', function (event) {
         const target = event.target.closest('li');
