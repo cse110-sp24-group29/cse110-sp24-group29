@@ -679,6 +679,11 @@ input[type="file"] {
         top: 100%; 
         transform: translateY(-1200%);
     }
+    .timeline-container #line2 {
+        width: 0%;
+        top: 100%; 
+        transform: translateY(-1200%);
+    }
     .timeline-container li {
         overflow: visible; /* Ensure overflow is not hidden */
     }

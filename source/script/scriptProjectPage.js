@@ -3,8 +3,10 @@
  */
 
 let currentWidth = 100;
-let mediaWidth = 300;
-let completed = false;
+const mediaQuery = window.matchMedia("(max-width: 768px)");
+if(mediaQuery.matches) {
+    currentWidth = 300;
+}
 function toggleMenu() {
     const dropdownMenu = document.getElementById('dropdown-menu');
     dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
@@ -119,11 +121,15 @@ function addMilestone(milestoneName) {
  * 
  */
 function addWidth() {
+    let add = 24;
+    if(mediaQuery.matches) {    
+        add = 60;
+    }
     let timelineContainer = document.
         getElementsByClassName('timeline-container')[0];
     let timelineList = document.getElementById('timeline-elements');
     // Calculate the new width (current width + 20%)
-    currentWidth += 24;
+    currentWidth += add;
     let newWidth = currentWidth+ '%';
     timelineList.style.width = newWidth ;
     line = document.getElementById('line');
@@ -324,11 +330,15 @@ function deleteMilestone(milestoneElement) {
  * 
  */
 function subWidth () {
+    let sub = 24;
+    if(mediaQuery.matches) {
+        sub = 60;
+    }
      let timelineContainer = document.
         getElementsByClassName('timeline-container')[0];
     let timelineList = document.getElementById('timeline-elements');
     // Calculate the new width (current width + 20%)
-    currentWidth -= 24;
+    currentWidth -= sub;
     let newWidth = currentWidth+ '%';
     timelineList.style.width = newWidth ;
     line = document.getElementById('line');
@@ -500,7 +510,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     loadEntries();
-    loadMilestonesAndTasks();
+    //loadMilestonesAndTasks();
      // Add event listener to timeline items
      document.getElementById('timeline-elements').addEventListener('click', function (event) {
         const target = event.target.closest('li');
