@@ -196,12 +196,12 @@ body{
     margin-bottom: 50px;
 }
 .pincode-box input {
-    text-align: start;
-    width: 28px;
-    height: 28px;
-    border-radius: 5px;
-    font-size: 11px;
-    margin: 1.5px;
+    text-align: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 6px;
+    font-size: 18px;
+    margin: 2px;
     background-color: lightgray;
 }
 
@@ -238,11 +238,11 @@ body{
         text-align: start;
     }
     .pincode-box input {
-        width: 18px;
-        height: 18px;
+        width: 28px;
+        height: 28px;
         text-align: center;
         border-radius: 5px;
-        font-size: auto;
+        font-size: 11px;
         margin: 1.5px;
         background-color: lightgray;
     }
