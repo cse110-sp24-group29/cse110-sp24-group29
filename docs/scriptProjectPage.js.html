@@ -67,13 +67,15 @@ function addTask(button, milestoneId) {
             &lt;label for="task-${milestoneId}-${taskCount}" ondblclick="deleteTask(this, ${milestoneId})">Task ${taskCount}&lt;/label>
         &lt;/div>
     `;
-    taskList.appendChild(newTask);
+    taskList.appendChild(newTask);  
+    
 }
 /**
  * Adds a new milestone to the list.
  */
 
-function addMilestone() {
+function addMilestone(milestoneName) {
+
     const milestoneList = document.getElementById('milestone-list');
     let milestoneCount;
     if(milestoneList.children.length == 0) {
@@ -93,7 +95,10 @@ function addMilestone() {
     newTimelineElement.classList.add('uncompleted');
     newTimelineElement.setAttribute('data-id', `milestone-${milestoneCount}`);
     timelineList.insertBefore(newTimelineElement, timelineList.children[timelineCount - 1]);
-    newMilestone.innerHTML = getMilestoneHTML(milestoneCount);
+    if (milestoneName == '') {
+        milestoneName = `Milestone ${milestoneCount}`;
+    }
+    newMilestone.innerHTML = getMilestoneHTML(milestoneCount,milestoneName);
 
     //dynamically changes milestone name on TIMELINE
     const milestoneNameElement = newMilestone.querySelector('.milestone-name');
@@ -233,6 +238,7 @@ function renumberMilestones() {
         const milestoneNameElement = milestone.querySelector('.milestone-name');
         const currentName = milestoneNameElement.textContent
             .replace(/\s*\d*$/, ''); // Remove the existing number at the end
+        const tasks = milestone.querySelector('.task-list').innerHTML;
         if(currentName == 'Milestone') {
             milestoneNameElement.textContent = `${currentName.trim()} ${newNumber}`;
         }
@@ -240,8 +246,10 @@ function renumberMilestones() {
         {
             milestoneNameElement.textContent = `${currentName}`;
         }
-        milestone.innerHTML = getMilestoneHTML(newNumber);
+        milestone.innerHTML = getMilestoneHTML
+            (newNumber,milestoneNameElement.textContent);
         milestone.setAttribute('data-id', `milestone-${newNumber}`);
+        milestone.querySelector('.task-list').innerHTML = tasks;
         
     });
 
@@ -263,9 +271,9 @@ function renumberMilestones() {
  * @param {number} milestoneNumber - The number of the milestone.
  * @returns {string} The HTML structure for the milestone.
  */
-function getMilestoneHTML(milestoneNumber) {
+function getMilestoneHTML(milestoneNumber,milestoneName) {
     return `
-        &lt;div contenteditable="true" class="milestone-name" ondblclick="deleteMilestone(this)" onclick="toggleTasks(${milestoneNumber});">Milestone ${milestoneNumber}&lt;/div>
+        &lt;div contenteditable="true" class="milestone-name" ondblclick="deleteMilestone(this)" onclick="toggleTasks(${milestoneNumber});">${milestoneName}&lt;/div>
         &lt;div class="progress-bar">
             &lt;div class="progress" id="progress${milestoneNumber}">&lt;/div>
         &lt;/div>
@@ -331,6 +339,46 @@ function resetWidth() {
     timelineContainer.style.overflowX = 'visible';
 }
 
+/**
+ * saves milestones to storage after a milestone is created/deleted
+ */
+
+function saveMilestoneToStorage () {
+    let milestones = getMilestoneArray();
+    let milestoneNames = [];
+    for (let i = 0; i &lt; milestones.length; i++) {
+        const nameDiv = milestones[i].querySelector('.milestone-name');
+        const milestoneName = nameDiv.textContent;
+        milestoneNames.push(milestoneName);
+    }
+    let stored = JSON.stringify(milestoneNames);
+    localStorage.setItem('milestones', stored)
+}
+
+/**
+ * saves tasks to storage after a milestone is created/deleted
+ */
+function saveTasksArrayToStorage () {
+    let milestones = getMilestoneArray();
+    let taskArray = []; 
+    milestones.forEach(milestone => {
+        const taskList = milestone.querySelector('.task-list');
+        if (taskList) {
+            let tasks = taskList.querySelectorAll('li');
+            taskArray.push(tasks);
+        }
+    });
+    // Convert the array of arrays to a JSON string
+    let stored = JSON.stringify(taskArray);
+    // Store the JSON string in localStorage
+    localStorage.setItem('tasks', stored);
+}
+
+function getMilestoneArray () {
+    const milestoneList = document.getElementById('milestone-list');
+    let milestones = milestoneList.querySelectorAll('li[data-id]');
+    return milestones;
+}
 document.addEventListener("DOMContentLoaded", function () {
     const notepad = document.getElementById('notepad');
     const addEntryButton = document.getElementById('addEntryButton');
@@ -347,6 +395,21 @@ document.addEventListener("DOMContentLoaded", function () {
         entries.forEach(entry => addEntryTile(entry.title, entry.content, entry.images));
     }
 
+    function loadMilestonesAndTasks(){
+        const milestones = JSON.parse(localStorage.getItem('milestones')) || [];
+        milestones.forEach(milestone => addMilestone(milestone));
+        let milestoneList = getMilestoneArray();
+        const taskArray = JSON.parse(localStorage.getItem('tasks')) || [];
+        
+        for(let i = 0; i &lt; milestoneList.length; i++ ) {
+            let length = Object.keys(taskArray[i]).length
+            let taskButton = milestoneList[i].querySelector('button');
+            for(let j = 0 ; j &lt;length; j ++ ) {
+                addTask(taskButton, i+1);
+            }
+
+        }
+    }
     // Save a new entry to localStorage
     function saveEntry(title, content, images) {
         const entries = JSON.parse(localStorage.getItem('entries')) || [];
@@ -420,7 +483,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     loadEntries();
-
+    loadMilestonesAndTasks();
      // Add event listener to timeline items
      document.getElementById('timeline-elements').addEventListener('click', function (event) {
         const target = event.target.closest('li');
@@ -446,7 +509,16 @@ document.addEventListener("DOMContentLoaded", function () {
         });
         dynamicIsland.style.display = 'block';
     }
-});</code></pre>
+});
+window.addEventListener('beforeunload', function () {
+    saveMilestoneToStorage();
+    saveTasksArrayToStorage();
+});
+window.addEventListener('unload',function () {
+    saveMilestoneToStorage();
+    saveTasksArrayToStorage();
+});
+</code></pre>
         </article>
     </section>
 
@@ -456,13 +528,13 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Book.html">Book</a></li><li><a href="Project.html">Project</a></li><li><a href="User.html">User</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addMilestone">addMilestone</a></li><li><a href="global.html#addTask">addTask</a></li><li><a href="global.html#addUser">addUser</a></li><li><a href="global.html#addWidth">addWidth</a></li><li><a href="global.html#boxContainerElement">boxContainerElement</a></li><li><a href="global.html#currentWidth">currentWidth</a></li><li><a href="global.html#deleteMilestone">deleteMilestone</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#getMilestoneHTML">getMilestoneHTML</a></li><li><a href="global.html#getUser">getUser</a></li><li><a href="global.html#handleSignInButtonClick">handleSignInButtonClick</a></li><li><a href="global.html#handleSignUpButtonClick">handleSignUpButtonClick</a></li><li><a href="global.html#loadFromLocalStorage">loadFromLocalStorage</a></li><li><a href="global.html#renumberMilestones">renumberMilestones</a></li><li><a href="global.html#resetWidth">resetWidth</a></li><li><a href="global.html#saveToLocalStorage">saveToLocalStorage</a></li><li><a href="global.html#signInButtonElement">signInButtonElement</a></li><li><a href="global.html#signUpButtonElement">signUpButtonElement</a></li><li><a href="global.html#subWidth">subWidth</a></li><li><a href="global.html#toggleTasks">toggleTasks</a></li><li><a href="global.html#updateProgress">updateProgress</a></li><li><a href="global.html#updateTimeline">updateTimeline</a></li><li><a href="global.html#updateTimelineProgress">updateTimelineProgress</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Book.html">Book</a></li><li><a href="Project.html">Project</a></li><li><a href="User.html">User</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addMilestone">addMilestone</a></li><li><a href="global.html#addTask">addTask</a></li><li><a href="global.html#addUser">addUser</a></li><li><a href="global.html#addWidth">addWidth</a></li><li><a href="global.html#boxContainerElement">boxContainerElement</a></li><li><a href="global.html#currentWidth">currentWidth</a></li><li><a href="global.html#deleteMilestone">deleteMilestone</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#getMilestoneHTML">getMilestoneHTML</a></li><li><a href="global.html#getUser">getUser</a></li><li><a href="global.html#handleSignInButtonClick">handleSignInButtonClick</a></li><li><a href="global.html#handleSignUpButtonClick">handleSignUpButtonClick</a></li><li><a href="global.html#loadFromLocalStorage">loadFromLocalStorage</a></li><li><a href="global.html#renumberMilestones">renumberMilestones</a></li><li><a href="global.html#resetWidth">resetWidth</a></li><li><a href="global.html#saveMilestoneToStorage">saveMilestoneToStorage</a></li><li><a href="global.html#saveTasksArrayToStorage">saveTasksArrayToStorage</a></li><li><a href="global.html#saveToLocalStorage">saveToLocalStorage</a></li><li><a href="global.html#signInButtonElement">signInButtonElement</a></li><li><a href="global.html#signUpButtonElement">signUpButtonElement</a></li><li><a href="global.html#subWidth">subWidth</a></li><li><a href="global.html#toggleTasks">toggleTasks</a></li><li><a href="global.html#updateProgress">updateProgress</a></li><li><a href="global.html#updateTimeline">updateTimeline</a></li><li><a href="global.html#updateTimelineProgress">updateTimelineProgress</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.11</a> on Wed Jun 05 2024 08:09:05 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.11</a> on Wed Jun 05 2024 13:36:16 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
