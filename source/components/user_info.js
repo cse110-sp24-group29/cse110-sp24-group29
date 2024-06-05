@@ -120,7 +120,7 @@ class StatsGraph extends HTMLElement {
         new Chart(ctx, {
             type: 'radar',
             data: {
-                labels: ['Placeholder 1', 'Placeholder 2', 'Placeholder 3', 'Placeholder 4', 'Placeholder 5'],
+                labels: ['Frontend Engineering', 'Backend Engineering', 'Databases Engineering', 'Network Engineering', 'Data Analytics Engineering'],
                 datasets: [{
                     label: 'Stats',
                     data: [100, 80, 90, 60, 30],
@@ -158,7 +158,7 @@ class StatsGraph extends HTMLElement {
                         },
                         pointLabels: {
                             font: {
-                                size: 16
+                                size: 14
                             },
                             color: '#ffffff'
                         },
