@@ -233,7 +233,7 @@ function updateTimelineProgress() {
 function deleteTask(taskElement, milestoneId) {
     taskElement.closest('li').remove();
     updateProgress(milestoneId);
-    
+    renumberMilestones();
 }
 
 /**
@@ -265,15 +265,8 @@ function renumberMilestones() {
             setAttribute('onclick', `addTask(this, ${newNumber})`);
         milestone.setAttribute('data-id', `milestone-${newNumber}`);
         const tasks = milestone.querySelectorAll('.task-list .task-item');
-        tasks.forEach( (task,taskIndex)  => {
-            let taskCheckbox = task.querySelector('input');
-            taskCheckbox.id = `task-${newNumber}-${taskIndex + 1}`;
-            taskCheckbox.setAttribute('onclick', `updateProgress(${newNumber})`);
-            let taskLabel = task.querySelector('label');
-            taskLabel.setAttribute('ondblclick', `updateProgress(${newNumber})`);
-            taskLabel.setAttribute('for',`task-${newNumber}-${taskIndex + 1}`);
-            taskLabel.innerText = `Task ${taskIndex+1}`;
-        });
+        renumberTasks(tasks, newNumber);
+ 
     });
 
     const timelineElements = timelineList.querySelectorAll('li[data-id]');
@@ -289,6 +282,18 @@ function renumberMilestones() {
 
     updateTimelineProgress();
 }
+
+function renumberTasks (tasks,milestoneId) {   
+    tasks.forEach( (task,taskIndex)  => {
+        let taskCheckbox = task.querySelector('input');
+        taskCheckbox.id = `task-${milestoneId}-${taskIndex + 1}`;
+        taskCheckbox.setAttribute('onclick', `updateProgress(${milestoneId})`);
+        let taskLabel = task.querySelector('label');
+        taskLabel.setAttribute('ondblclick', `deleteTask(this, ${milestoneId})`);
+        taskLabel.setAttribute('for',`task-${milestoneId}-${taskIndex + 1}`);
+        taskLabel.innerText = `Task ${taskIndex+1}`;
+    });
+} 
 
 /**
  * Returns the HTML structure for a milestone given its number.
