@@ -27,14 +27,14 @@ body {
     display: flex;
     width: 100%;
     padding: 0 20px;
-    position: relative;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
 }
 
 .small-button-container {
     display: flex;
     align-items: center;
-    position: relative;
-    right: 30%;
 }
 
 .small-add-button {
@@ -56,7 +56,8 @@ body {
 .search-wrapper {
     display: flex;
     justify-content: center;
-    width: 100%;
+    flex-grow: 1.5; /* Adjust flex-grow as needed */
+    max-width: 600px; /* Increase the maximum width */
 }
 
 .search-container {
@@ -65,14 +66,13 @@ body {
     display: flex;
     align-items: center;
     border-radius: 10px;
-    width: 80%;
+    width: 100%;
     max-width: 500px;
     height: 40px;
 }
 
 .search-input {
     border: none;
-    padding: 10px;
     width: 100%;
     outline: none;
     font-size: 16px;

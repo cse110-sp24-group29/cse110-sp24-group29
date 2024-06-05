@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+navbar-component {
+    position: relative;
+}
+
 body {
     background-color: #0A192F;
     background: linear-gradient(to right, #0A192F 88%, #00FFB0);
@@ -22,7 +26,7 @@ body {
     padding: 10px 20px;
     width: 100%;
     border-radius: 0;
-    position: fixed;
+    position: relative;
     top: 0;
     left: 0;
     z-index: 1000;
@@ -350,16 +354,21 @@ input[type="file"] {
 }
 
 .milestone-container {
-    background-color: white;
+    background-color: #F0F0F0;
     padding: 20px;
     border-radius: 15px;
+    width: 300px;
+    max-height: 400px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    margin-top: 70px;
 }
 
 .milestone-container h3 {
     margin-bottom: 10px;
     font-size: 1.1em;
     color: #333;
+    text-align: center;
 }
 
 .milestone-list {
@@ -370,11 +379,18 @@ input[type="file"] {
 
 .milestone-list li {
     margin-bottom: 20px;
+    position: relative;
 }
 
 .milestone-list label {
     font-size: 0.9em;
     color: #333;
+    cursor: pointer;
+}
+
+.milestone-list .completed {
+    color: #888;
+    text-decoration: lightgrey;
 }
 
 .progress-bar {
@@ -388,7 +404,7 @@ input[type="file"] {
 
 .progress {
     height: 10px;
-    background-color: #4caf50;
+    background-color: #333;
     width: 0%;
 }
 
@@ -396,17 +412,20 @@ input[type="file"] {
     list-style: none;
     padding-left: 20px;
     margin-top: 5px;
+    display: none;
 }
 
 .task-list li {
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
+    position: relative;
 }
 
 .task-item {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     margin-bottom: 5px;
 }
 
@@ -430,7 +449,7 @@ input[type="file"] {
 
 .add-task, .add-milestone {
     background-color: #0A192F;
-    border-radius: 7px;
+    border-radius: 127px;
     color: white;
     font-size: 0.9em;
     font-weight: 600;
@@ -443,9 +462,24 @@ input[type="file"] {
     margin-top: 10px;
 }
 
+.add-task {
+    margin-left: 150px;
+    font-size: 0.6em;
+    background-color: #F0F0F0;
+    color: #0A192F;
+}
+
 .add-task:hover, .add-milestone:hover {
     filter: brightness(75%);
+    color: #00FFB0;
 }
+
+.milestone-name {
+    font-size: 0.9em;
+    color: #333;
+    cursor: pointer;
+}
+
 
 #TIHeader {
     color:  #CCFF00;
@@ -463,14 +497,16 @@ input[type="file"] {
 
 
 .timeline-Wrapper {
-    width: 85%; 
-    padding: 20px 0px; 
-    box-sizing: border-box;
-    position: fixed; 
+
+    position: relative;
+    bottom: 0;
+    height: 20%; 
+    width: 80%;
+    border-radius: 20px;
     text-align: center;
-    bottom: 0; 
-    z-index: 999; 
-    border-radius: 20px 20px 0 0;
+    box-sizing: border-box;
+    vertical-align: bottom;
+
 }
 
 .timeline-container {
@@ -478,9 +514,12 @@ input[type="file"] {
     width: 100%;
     position: relative;
     height: 100px;
+    overflow-x: visible; 
+    padding: 0 20px; 
 }
 
 .timeline-container ul {
+      /* when there are more then 4 milestones add 20%*/
     z-index: 9;
     width: 100%;
     display: flex; 
@@ -489,6 +528,7 @@ input[type="file"] {
     top: calc(90% + 10px); 
     transform: translateY(-240%);
     font-weight: bold;  
+    
 }
 
 .timeline-container li {
@@ -514,8 +554,7 @@ input[type="file"] {
 }
 
 .timeline-container li.completed:before {
-    background-color: rgba(0, 0, 0, 0.0);
-    border: solid 0px #CCFF00 ;
+    /* border: solid 0px #CCFF00 ;
     background-image: url('../img/2.png');
     background-size: cover; 
     width: 70px; 
@@ -526,7 +565,9 @@ input[type="file"] {
     border-radius: 0; 
     z-index: 2; 
     top: -50%;
-    transform: translateY(-60%);
+    transform: translateY(-60%); */
+    background-color: #00FFB0;
+    border-color: #00FFB0;
 }
 
 .timeline-container li.completed:first-child:before {
@@ -534,7 +575,7 @@ input[type="file"] {
 }
 
 .timeline-container li.completed {
-    color:#00FFB0;
+    color: #00FFB0
 }
 
 .timeline-container li span {
@@ -544,6 +585,7 @@ input[type="file"] {
     transform: translateX(-120%);
     width: 120%; /* Added */
     white-space: nowrap; 
+    overflow-x: visible;
 }
 
 .timeline-container li:first-child span {
@@ -558,13 +600,15 @@ input[type="file"] {
 
 .timeline-container #line {
     width: 100%;
-    background: linear-gradient(to right, #00FFB0 30%, #CCFF00 20%);
+    background:  #CCFF00;
     height: 7px;
     position: absolute;
     top: 100%; 
     transform: translateY(-700%);
     z-index: 1;
     border-radius: 100px;
+
+    /* when there are more then 4 milestones add 20%*/
 }
 
 .timeline-container li:hover:before {
@@ -575,11 +619,13 @@ input[type="file"] {
 }
 
 .timeline-container li.completed:hover:before {
-    background-image: url('../img/1.png');
+    /* background-image: url('../img/1.png');
     transition: all ease .2s;
     background-color: rgba(0, 0, 0, 0.0); 
     border-color: rgba(0, 0, 0, 0.0); 
-    transform: translateY(-60%) scale(1.1);
+    transform: translateY(-60%) scale(1.1); */
+    transform: scale (1.25);
+    transition: all ease .2s;
 }
 
 @media only screen and (max-width: 768px) {
@@ -614,15 +660,12 @@ input[type="file"] {
     .timeline-container li {
         overflow: visible; /* Ensure overflow is not hidden */
     }
-}
-
-/* md */
-@media (max-width: 768px) {
-    .sidebar {
-        width: fit-content;
-        align-content: center;
+    .timeline-container li span {
+        left: -20%;
+        transform: translateX(-120%);
     }
 }
+
 
 /* xl */
 @media (max-width: 1280px) {
@@ -633,15 +676,47 @@ input[type="file"] {
 }
 
 /* lg */
-@media (max-width: 1024px) {
+@media (max-width: 900px) {
     .content{
         display: flex;
         justify-content: space-evenly;
+        flex-direction: column;
+        vertical-align: middle;
     }
 
+    .main-content{
+        width: 100%;
+    }
+
+    .notes-section{
+        height: fit-content;
+        width: 100%;
+    }
+    
+    .navbar{
+        position: relative;
+    }
+
+    .pen{
+        display: none;
+    }
+
+    .notes-container{
+        max-width: 100%;
+    }
+
+    .entries-container{
+        max-width: 80px;
+    }
+
+
     .sidebar{
-        width: fit-content;
+        width: 100%;
         align-content: center;
+    }
+
+    .milestone-container{
+        max-width: 100%;
     }
     
 
@@ -660,16 +735,43 @@ input[type="file"] {
         display: flex;
         justify-content: space-evenly;
         flex-direction: column;
+        vertical-align: middle;
     }
 
     .main-content{
-        width: fit-content;
+        width: 100%;
+    }
+
+    .notes-section{
+        height: fit-content;
+        width: 100%;
+    }
+    
+    .navbar{
+        position: relative;
+    }
+
+    .pen{
+        display: none;
+    }
+
+    .notes-container{
+        max-width: 100%;
+    }
+
+    .entries-container{
+        max-width: 80px;
     }
 
 
     .sidebar{
-        width: fit-content;
+        width: 100%;
         align-content: center;
+    }
+
+    .milestone-container{
+        max-height: 80%;
+        max-width: 100%;
     }
     
 
@@ -689,43 +791,52 @@ input[type="file"] {
         display: flex;
         justify-content: space-evenly;
         flex-direction: column;
-        align-items: center;
-    }
-
-    .main-content {
-        width: auto;
-    }
-
-    .notes-section {
-        width: 100%;
-    }
-    
-    .notes-left {
-        width: 50%;
-    }
-
-    .notes-right {
-        width: 50%;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .sidebar {
-        width: fit-content;
+        vertical-align: middle;
         align-content: center;
     }
 
-    .main-content {
-        padding-left: 0;
+    .navbar{
+        position: relative;
     }
 
-    .navbar {
+    .pen{
+        display: none;
+    }
+
+    .notes-container{
+        display: flex;
+        flex-direction: column;
+        max-width: 100%;
+    }
+
+
+    .notes-left{
+        max-height: 360px;
+        max-width: 600px;
+    }   
+
+    .sidebar {
+        width: 95%;
+        align-content: center;
+        vertical-align: middle;
+        max-height: 80%;
+    }
+
+    .milestone-container{
+        max-height: 80%;
+        max-width: 100%;
+    }
+
+    .main-content {
+        padding-right: 0%;
+        max-width: 100%;
         width: 100%;
     }
 
-    .timeline-Wrapper {
-        padding-left: 0;
-        position: relative;   
+    .notes-section{
+        max-height: 90%;
+        max-width: 90%;
+        width: 100%;
     }
 }
 
@@ -735,41 +846,55 @@ input[type="file"] {
         display: flex;
         justify-content: space-evenly;
         flex-direction: column;
-    }
-
-    .main-content {
-        width: auto;
-    }
-
-    .notes-section {
-        width: 100%;
-    }
-    
-    .notes-left {
-        width: 50%;
-    }
-
-    .notes-right {
-        width: 50%;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .sidebar {
-        width: fit-content;
+        vertical-align: middle;
         align-content: center;
     }
 
+    .navbar{
+        position: relative;
+    }
+
+    .pen{
+        display: none;
+    }
+
+    .notes-container{
+        display: flex;
+        flex-direction: column;
+        max-width: 400px;
+    }
+
+
+    .notes-left{
+        max-height: 360px;
+        max-width: 360px;
+    }   
+
+    .sidebar {
+        width: 95%;
+        align-content: center;
+        vertical-align: middle;
+        max-height: 80%;
+    }
+
+    .milestone-container{
+        max-height: 80%;
+    }
+
     .main-content {
-        padding-left: 0;
+        padding-right: 0%;
+        max-width: 100%;
     }
 
-    .navbar {
-        width: 100%;
+    .notes-section{
+        max-height: 90%;
+        max-width: 90%;
     }
 
-    .timeline-Wrapper {
-        padding-left: 0;
-        position: relative;   
+}
+
+@media (min-height: 1025px){
+    .timeline-Wrapper{
+        position: fixed;
     }
 }
