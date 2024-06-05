@@ -39,13 +39,15 @@ function addTask(button, milestoneId) {
             <label for="task-${milestoneId}-${taskCount}" ondblclick="deleteTask(this, ${milestoneId})">Task ${taskCount}</label>
         </div>
     `;
-    taskList.appendChild(newTask);
+    taskList.appendChild(newTask);  
+    
 }
 /**
  * Adds a new milestone to the list.
  */
 
-function addMilestone() {
+function addMilestone(milestoneName) {
+
     const milestoneList = document.getElementById('milestone-list');
     let milestoneCount;
     if(milestoneList.children.length == 0) {
@@ -65,7 +67,10 @@ function addMilestone() {
     newTimelineElement.classList.add('uncompleted');
     newTimelineElement.setAttribute('data-id', `milestone-${milestoneCount}`);
     timelineList.insertBefore(newTimelineElement, timelineList.children[timelineCount - 1]);
-    newMilestone.innerHTML = getMilestoneHTML(milestoneCount);
+    if (milestoneName == '') {
+        milestoneName = `Milestone ${milestoneCount}`;
+    }
+    newMilestone.innerHTML = getMilestoneHTML(milestoneCount,milestoneName);
 
     //dynamically changes milestone name on TIMELINE
     const milestoneNameElement = newMilestone.querySelector('.milestone-name');
@@ -205,6 +210,7 @@ function renumberMilestones() {
         const milestoneNameElement = milestone.querySelector('.milestone-name');
         const currentName = milestoneNameElement.textContent
             .replace(/\s*\d*$/, ''); // Remove the existing number at the end
+        const tasks = milestone.querySelector('.task-list').innerHTML;
         if(currentName == 'Milestone') {
             milestoneNameElement.textContent = `${currentName.trim()} ${newNumber}`;
         }
@@ -212,8 +218,10 @@ function renumberMilestones() {
         {
             milestoneNameElement.textContent = `${currentName}`;
         }
-        milestone.innerHTML = getMilestoneHTML(newNumber);
+        milestone.innerHTML = getMilestoneHTML
+            (newNumber,milestoneNameElement.textContent);
         milestone.setAttribute('data-id', `milestone-${newNumber}`);
+        milestone.querySelector('.task-list').innerHTML = tasks;
         
     });
 
@@ -235,9 +243,9 @@ function renumberMilestones() {
  * @param {number} milestoneNumber - The number of the milestone.
  * @returns {string} The HTML structure for the milestone.
  */
-function getMilestoneHTML(milestoneNumber) {
+function getMilestoneHTML(milestoneNumber,milestoneName) {
     return `
-        <div contenteditable="true" class="milestone-name" ondblclick="deleteMilestone(this)" onclick="toggleTasks(${milestoneNumber});">Milestone ${milestoneNumber}</div>
+        <div contenteditable="true" class="milestone-name" ondblclick="deleteMilestone(this)" onclick="toggleTasks(${milestoneNumber});">${milestoneName}</div>
         <div class="progress-bar">
             <div class="progress" id="progress${milestoneNumber}"></div>
         </div>
@@ -303,6 +311,46 @@ function resetWidth() {
     timelineContainer.style.overflowX = 'visible';
 }
 
+/**
+ * saves milestones to storage after a milestone is created/deleted
+ */
+
+function saveMilestoneToStorage () {
+    let milestones = getMilestoneArray();
+    let milestoneNames = [];
+    for (let i = 0; i < milestones.length; i++) {
+        const nameDiv = milestones[i].querySelector('.milestone-name');
+        const milestoneName = nameDiv.textContent;
+        milestoneNames.push(milestoneName);
+    }
+    let stored = JSON.stringify(milestoneNames);
+    localStorage.setItem('milestones', stored)
+}
+
+/**
+ * saves tasks to storage after a milestone is created/deleted
+ */
+function saveTasksArrayToStorage () {
+    let milestones = getMilestoneArray();
+    let taskArray = []; 
+    milestones.forEach(milestone => {
+        const taskList = milestone.querySelector('.task-list');
+        if (taskList) {
+            let tasks = taskList.querySelectorAll('li');
+            taskArray.push(tasks);
+        }
+    });
+    // Convert the array of arrays to a JSON string
+    let stored = JSON.stringify(taskArray);
+    // Store the JSON string in localStorage
+    localStorage.setItem('tasks', stored);
+}
+
+function getMilestoneArray () {
+    const milestoneList = document.getElementById('milestone-list');
+    let milestones = milestoneList.querySelectorAll('li[data-id]');
+    return milestones;
+}
 document.addEventListener("DOMContentLoaded", function () {
     const notepad = document.getElementById('notepad');
     const addEntryButton = document.getElementById('addEntryButton');
@@ -319,6 +367,21 @@ document.addEventListener("DOMContentLoaded", function () {
         entries.forEach(entry => addEntryTile(entry.title, entry.content, entry.images));
     }
 
+    function loadMilestonesAndTasks(){
+        const milestones = JSON.parse(localStorage.getItem('milestones')) || [];
+        milestones.forEach(milestone => addMilestone(milestone));
+        let milestoneList = getMilestoneArray();
+        const taskArray = JSON.parse(localStorage.getItem('tasks')) || [];
+        
+        for(let i = 0; i < milestoneList.length; i++ ) {
+            let length = Object.keys(taskArray[i]).length
+            let taskButton = milestoneList[i].querySelector('button');
+            for(let j = 0 ; j <length; j ++ ) {
+                addTask(taskButton, i+1);
+            }
+
+        }
+    }
     // Save a new entry to localStorage
     function saveEntry(title, content, images) {
         const entries = JSON.parse(localStorage.getItem('entries')) || [];
@@ -392,7 +455,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     loadEntries();
-
+    loadMilestonesAndTasks();
      // Add event listener to timeline items
      document.getElementById('timeline-elements').addEventListener('click', function (event) {
         const target = event.target.closest('li');
@@ -418,4 +481,12 @@ document.addEventListener("DOMContentLoaded", function () {
         });
         dynamicIsland.style.display = 'block';
     }
+});
+window.addEventListener('beforeunload', function () {
+    saveMilestoneToStorage();
+    saveTasksArrayToStorage();
+});
+window.addEventListener('unload',function () {
+    saveMilestoneToStorage();
+    saveTasksArrayToStorage();
 });
