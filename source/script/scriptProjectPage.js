@@ -46,7 +46,7 @@ function addTask(button, milestoneId, taskName) {
         <div class="task-item">
             <input type="checkbox" id="task-${milestoneId}-${taskCount}" onclick="updateProgress(${milestoneId})">
             <label contenteditable="true">${taskName}</label>
-            <span onclick="deleteTask(this, ${milestoneId})" ><img class="milestoneX" src="../img/trash.png"></span>
+            <button class="milestone-trash" onclick="deleteTask(this, ${milestoneId})" tabindex="0"><img class="milestoneX" src="../img/trash.png"></button>
         </div>
     `;
     taskList.appendChild(newTask);
@@ -69,7 +69,7 @@ function addTaskWithState(button, milestoneId, taskText, isChecked) {
        <div class="task-item">
             <input type="checkbox" id="task-${milestoneId}-${taskCount}" onclick="updateProgress(${milestoneId})" ${isChecked ? 'checked' : ''}>
             <label contenteditable="true">${taskText}</label>
-            <span onclick="deleteTask(this, ${milestoneId})" ><img class="milestoneX" src="../img/trash.png"></span>
+            <button class="milestone-trash" onclick="deleteTask(this, ${milestoneId})" tabindex="0"><img class="milestoneX" src="../img/trash.png"></button>
         </div>
 
     `;
@@ -414,9 +414,9 @@ function getMilestoneHTML(milestoneNumber,milestoneName) {
         <div class="milestone-header">
             <div class="milestone-content">
                 <div contenteditable="true" class="milestone-name">${milestoneName}</div>
-                <span onclick="deleteMilestone(this)" ><img class="milestoneX" src="../img/trash.png"></span>
+                <button class="milestone-trash" onclick="deleteMilestone(this)" tabindex="0"><img class="milestoneX" src="../img/trash.png"></button>
             </div>
-            <span class="dropdown-arrow" id="dropdown-arrow-${milestoneNumber}" onclick="toggleTasks(${milestoneNumber});">▼</span>
+            <button class="dropdown-arrow" id="dropdown-arrow-${milestoneNumber}" onclick="toggleTasks(${milestoneNumber});" tabindex="0">▼</button>
         </div>
         <div class="progress-bar">
             <div class="progress" id="progress${milestoneNumber}"></div>

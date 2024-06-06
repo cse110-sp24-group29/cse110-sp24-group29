@@ -188,6 +188,11 @@ body {
     height: auto;
 }
 
+:focus{
+    outline: 3.5px solid cadetblue;
+    border-radius: 3px;
+}
+
 /* Style for the buttons container */
 .buttons {
     display: flex;
@@ -415,7 +420,6 @@ input[type="file"] {
     margin-top: 5px;
     display: none;
     overflow: hidden;
-    transition: height 0.3s ease;
 }
 
 
@@ -431,6 +435,8 @@ input[type="file"] {
     align-items: center;
     justify-content: space-between;
     margin-bottom: 5px;
+    margin-top: 5px;
+    margin-right: 17px;
 }
 
 
@@ -507,11 +513,44 @@ input[type="file"] {
     cursor: pointer;
 }
 
-.dropdown-arrow {
-    font-size: 1em;
+.dropdown-arrow{
+    font-size: 0.7em;
     cursor: pointer;
+    color: #333;
+    background-color: #F0F0F0;
+    padding: 3;
+    margin: 0;
 }
 
+.dropdown-arrow:hover {
+    font-size: 0.7em;
+    cursor: pointer;
+    color: #333;
+    background-color: #F0F0F0;
+    padding: 3;
+    margin: 0;
+}
+
+.milestone-trash {
+    cursor: pointer;
+    color: #333;
+    background-color: #F0F0F0;
+    align-content: center;
+    display: flex;
+    padding: 0;
+    margin: 0;
+    margin-left: 3px;
+}
+
+.milestone-trash:hover{
+    cursor: pointer;
+    color: #333;
+    background-color: #F0F0F0;
+    align-content: center;
+    display: flex;
+    padding: 0;
+    margin: 0;
+}
 
 #TIHeader {
     color:  #CCFF00;
