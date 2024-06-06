@@ -303,7 +303,15 @@ function renumberTasks (tasks,milestoneId) {
  */
 function getMilestoneHTML(milestoneNumber,milestoneName) {
     return `
-        <div contenteditable="true" class="milestone-name" ondblclick="deleteMilestone(this)" onclick="toggleTasks(${milestoneNumber});">${milestoneName}</div>
+        <div class="milestone-header">
+        <div class="milestone-content">
+            <div contenteditable="true" class="milestone-name">
+                ${milestoneName}
+            </div>
+            <span class="milestoneX" onclick="deleteMilestone(this)" style="color: red;">X</span> 
+        </div>
+            <span class="dropdown-arrow" onclick="toggleTasks(${milestoneNumber});">▼</span>
+        </div>
         <div class="progress-bar">
             <div class="progress" id="progress${milestoneNumber}"></div>
         </div>

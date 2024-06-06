@@ -477,6 +477,28 @@ input[type="file"] {
 .milestone-name {
     font-size: 0.9em;
     color: #333;
+    cursor: text;
+    flex-grow: 1;
+    padding-right: 10px;
+}
+
+.milestone-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Ensures the arrow is on the far right */
+}
+
+.milestone-content {
+    display: flex;
+    align-items: center;
+}
+
+.milestoneX {
+    cursor: pointer;
+}
+
+.dropdown-arrow {
+    font-size: 1em;
     cursor: pointer;
 }
 
