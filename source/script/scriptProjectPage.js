@@ -308,7 +308,7 @@ function getMilestoneHTML(milestoneNumber,milestoneName) {
                 <div contenteditable="true" class="milestone-name">
                     ${milestoneName}
                 </div>
-                <span class="milestoneX" onclick="deleteMilestone(this)" style="color: red; cursor: pointer;">X</span>
+                <span onclick="deleteMilestone(this)" ><img class="milestoneX" src="../img/trash.png"></span>
             </div>
             <span class="dropdown-arrow" onclick="toggleTasks(${milestoneNumber});">▼</span>
         </div>
