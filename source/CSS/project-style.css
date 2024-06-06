@@ -9,6 +9,7 @@ navbar-component {
 }
 
 body {
+    font-family: Montserrat;
     background-color: #0A192F;
     background: linear-gradient(to right, #0A192F 88%, #00FFB0);
     display: flex;
@@ -170,7 +171,7 @@ body {
     width: 100%;
     height: calc(100% - 80px); /* Adjust height as needed to leave space for buttons */
     padding: 20px 15px 20px 80px;; /* Adjust padding to change where the user starts writing */
-    font-family: 'Courier New', Courier, monospace;
+    /*font-family: 'Courier New', Courier, monospace; old font*/
     font-size: 16px;
     resize: none; /* Disable resizing */
     outline: none; /* Remove outline when clicking */
@@ -509,24 +510,26 @@ input[type="file"] {
     color:  #CCFF00;
     font-weight: 700;
     font-size: 2em; 
-    display:flex;
     width: 100%;
-    justify-content: center;
-    margin: auto;
-    text-align: center;
     text-transform: uppercase;
     letter-spacing: 7px;
     line-height: 1.2em;
+    margin-top: 20px;
+    margin-bottom: -10px;
+    transform: translateX(1.5%);
 }
 
 
 .timeline-Wrapper {
 
-    position: relative;
+    position: fixed;
     bottom: 0;
     height: 20%; 
     width: 80%;
     border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
     text-align: center;
     box-sizing: border-box;
     vertical-align: bottom;
@@ -580,18 +583,6 @@ input[type="file"] {
 }
 
 .timeline-container li.completed:before {
-    /* border: solid 0px #CCFF00 ;
-    background-image: url('../img/2.png');
-    background-size: cover; 
-    width: 70px; 
-    height: 70px; 
-    margin-bottom: -49px;
-    margin-right: -49px;
-    margin-left: 3px;
-    border-radius: 0; 
-    z-index: 2; 
-    top: -50%;
-    transform: translateY(-60%); */
     background-color: #00FFB0;
     border-color: #00FFB0;
     transition: background-color 1s ease-in-out, border-color 1s ease-in-out;
@@ -605,13 +596,31 @@ input[type="file"] {
     
 }
 
+.timeline-container li:after {
+    border: solid 0px #CCFF00 ;
+    background-image: url('../img/2.png');
+    background-size: cover; 
+    width: 70px; 
+    height: 70px; 
+    margin-left: 3px;
+    border-radius: 0; 
+    z-index: 99; 
+    transform: translateY(-12000%); 
+}
+
 .timeline-container li span {
     position: absolute;
-    display: inline-block;
     bottom: -24px; 
     width: 430%; /*Every Letter adds 30%*/
     transform: translateX(-50%);
     white-space: nowrap; 
+    font-family: Montserrat;
+}
+.timeline-container li img {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    transform: translateX(-50%);
 }
 
 .timeline-container li:first-child span {

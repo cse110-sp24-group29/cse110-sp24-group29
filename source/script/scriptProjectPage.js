@@ -2,9 +2,14 @@
  * Toggles the display of the dropdown menu when the hamburger menu is clicked.
  */
 
-let currentWidth = 100;
+let currentWidth;
 let mediaQuery = window.matchMedia("(max-width: 768px)");
-
+if(mediaQuery.matches) {
+    currentWidth = 300;
+}
+else {
+    currentWidth = 100;
+}
 function toggleMenu() {
     const dropdownMenu = document.getElementById('dropdown-menu');
     dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
@@ -123,7 +128,7 @@ function addMilestone(milestoneName) {
 function addWidth() {
     let add = 24;
     if(mediaQuery.matches) {    
-        add = 60;
+        add = 50;
     }
     let timelineContainer = document.
         getElementsByClassName('timeline-container')[0];
@@ -151,7 +156,7 @@ function resizeWidth() {
             addWidth();
         }
     }
-    
+    updateTimelineProgress();
 }
 /**
  * Updates the milestone name on the timeline based on the input.
@@ -165,13 +170,14 @@ function updateTimeline(milestoneElement) {
     const milestoneName = milestoneElement.textContent;
     let strLen = milestoneName.length;
     spanWidth = 430 + (strLen - 11)*30;
+    spanWidth;
     const timelineElement = document.querySelector
         (`#timeline-elements [data-id="${milestoneId}"] span`);
-    console.log(spanWidth);
     if (timelineElement) {
         timelineElement.textContent = milestoneName;
         timelineElement.style.width = spanWidth + '%';
     }
+    resizeWidth();
 }
 /**
  * Toggles the visibility of the tasks and the "Add Task" button for the specified milestone.
@@ -269,20 +275,19 @@ function renumberMilestones() {
     const milestoneList = document.getElementById('milestone-list');
     const timelineList = document.getElementById('timeline-elements');
     const milestones = milestoneList.querySelectorAll('li[data-id]');
-    
     milestones.forEach((milestone, index) => {
         const newNumber = index + 1;
         const milestoneNameElement = milestone.querySelector('.milestone-name');
-        const currentName = milestoneNameElement.textContent.replace(/\s*\d*$/, ''); // Remove the existing number at the end
+        const placeholder = milestoneNameElement.textContent;
+        const currentName = milestoneNameElement.textContent.replace(/\s*\d+$/, '');
         if (currentName === 'Milestone') {
             milestoneNameElement.textContent = `${currentName.trim()} ${newNumber}`;
         } else {
-            milestoneNameElement.textContent = `${currentName}`;
+            milestoneNameElement.textContent = `${placeholder}`;
         }
 
         // Update the milestone number in the elements
-        milestone.querySelector('.milestone-name').setAttribute('onclick', `toggleTasks(${newNumber});`);
-        milestone.querySelector('.milestone-name').setAttribute('ondblclick', `deleteMilestone(this)`);
+        milestone.querySelector('.dropdown-arrow').setAttribute('onclick', `toggleTasks(${newNumber});`);
         const progressBar = milestone.querySelector('.progress');
         progressBar.id = `progress${newNumber}`;
         milestone.querySelector('.task-list').id = `task-list${newNumber}`;
@@ -335,9 +340,7 @@ function getMilestoneHTML(milestoneNumber,milestoneName) {
     return `
         <div class="milestone-header">
             <div class="milestone-content">
-                <div contenteditable="true" class="milestone-name">
-                    ${milestoneName}
-                </div>
+                <div contenteditable="true" class="milestone-name">${milestoneName}</div>
                 <span onclick="deleteMilestone(this)" ><img class="milestoneX" src="../img/trash.png"></span>
             </div>
             <span class="dropdown-arrow" onclick="toggleTasks(${milestoneNumber});">▼</span>
@@ -383,7 +386,7 @@ function deleteMilestone(milestoneElement) {
 function subWidth () {
     let sub = 24;
     if(mediaQuery.matches) {
-        sub = 60;
+        sub = 50;
     }
      let timelineContainer = document.
         getElementsByClassName('timeline-container')[0];
@@ -402,14 +405,20 @@ function subWidth () {
  */
 
 function resetWidth() {
+    currentWidth = 100;
     let timelineContainer = document.
         getElementsByClassName('timeline-container')[0];
+    if(mediaQuery.matches) {
+        currentWidth = 300;
+    }
+    else {
+        timelineContainer.style.overflowX = 'visible';
+    }
     let timelineList = document.getElementById('timeline-elements');
-    timelineList.style.width = 100 + '%';
+    timelineList.style.width = currentWidth + '%';
     line = document.getElementById('line');
-    line.style.width = 100 + '%';
-    currentWidth = 100;
-    timelineContainer.style.overflowX = 'visible';
+    line.style.width = currentWidth + '%';
+
 }
 
 /**
