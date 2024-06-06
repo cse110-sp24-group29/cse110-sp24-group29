@@ -58,7 +58,7 @@ class User {
      * @returns {boolean} True if the update was successful, false otherwise.
      */
     editProject(projectID, updatedProject) {
-        let index = this.projects.findIndex(p => p.id === projectID);
+        let index = this.projects.findIndex(p => p.projID === projectID);
         if (index !== -1) {
             this.projects[index] = updatedProject;
             return true;
@@ -72,7 +72,7 @@ class User {
      * @returns {boolean} True if the deletion was successful, false otherwise.
      */
     deleteProject(projectID) {
-        let index = this.projects.findIndex(p => p.id === projectID);
+        let index = this.projects.findIndex(p => p.projID === projectID);
         if (index !== -1) {
             this.projects.splice(index, 1);
             return true;
@@ -125,3 +125,5 @@ function addUser(users, user) {
 function getUser(users, userID) {
     return users[userID];
 }
+
+module.exports = { Project, User };
