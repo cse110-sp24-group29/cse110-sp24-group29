@@ -464,10 +464,8 @@ input[type="file"] {
 }
 
 .add-task {
-    margin-left: 150px;
+    margin-left: 80%;
     font-size: 0.6em;
-    background-color: #F0F0F0;
-    color: #0A192F;
 }
 
 .add-task:hover, .add-milestone:hover {
@@ -807,6 +805,13 @@ input[type="file"] {
     .notes-section{
         max-height: 90%;
         max-width: 90%;
+        width: 80%;
+    }
+
+    .main-content{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         width: 100%;
     }
 }
@@ -901,7 +906,7 @@ input[type="file"] {
 
     .add-entry-button, .code-snippets-button {
         padding: 7px; /* Smaller padding */
-        font-size: 15px; /* Smaller font size */
+        font-size: 14px; /* Smaller font size */
     }
 
     .notes-left{
@@ -932,7 +937,7 @@ input[type="file"] {
 
 }
 
-@media (min-height: 1300px) and (min-width: 930px){
+@media (min-height: 1400px) and (min-width: 930px){
 
     .content{
         display: flex;
