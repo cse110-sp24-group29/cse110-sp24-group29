@@ -2,8 +2,9 @@
  * Toggles the display of the dropdown menu when the hamburger menu is clicked.
  */
 
-let currentWidth;
+let currentWidth = 100;
 let mediaQuery = window.matchMedia("(max-width: 768px)");
+
 function toggleMenu() {
     const dropdownMenu = document.getElementById('dropdown-menu');
     dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
@@ -122,7 +123,7 @@ function addMilestone(milestoneName) {
 function addWidth() {
     let add = 24;
     if(mediaQuery.matches) {    
-        add = 50;
+        add = 60;
     }
     let timelineContainer = document.
         getElementsByClassName('timeline-container')[0];
@@ -374,7 +375,7 @@ function deleteMilestone(milestoneElement) {
 function subWidth () {
     let sub = 24;
     if(mediaQuery.matches) {
-        sub = 40;
+        sub = 60;
     }
      let timelineContainer = document.
         getElementsByClassName('timeline-container')[0];
