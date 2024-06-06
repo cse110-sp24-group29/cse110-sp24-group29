@@ -1,4 +1,4 @@
-const { Project, User } = require('../source/script/DataStoreage.js');
+const { Project, User } = require('../source/script/DataStorage.js');
 
 describe('User class tests', () => {
     let user;
