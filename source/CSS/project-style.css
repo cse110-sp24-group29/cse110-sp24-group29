@@ -770,6 +770,23 @@ input[type="file"] {
 .milestone-header {
     display: flex;
     align-items: center;
+    justify-content: space-between; /* Ensures the arrow is on the far right */
+}
+
+.milestone-content {
+    display: flex;
+    align-items: center;
+}
+
+.milestoneX {
+    cursor: text;
+    flex-grow: 1;
+    padding-right: 10px;
+}
+
+.milestone-header {
+    display: flex;
+    align-items: center;
     justify-content: space-between;
 }
 
@@ -784,44 +801,11 @@ input[type="file"] {
     cursor: pointer;
 }
 
-.dropdown-arrow{
-    font-size: 0.7em;
+.dropdown-arrow {
+    font-size: 1em;
     cursor: pointer;
-    color: #333;
-    background-color: #F0F0F0;
-    padding: 3;
-    margin: 0;
 }
 
-.dropdown-arrow:hover {
-    font-size: 0.7em;
-    cursor: pointer;
-    color: #333;
-    background-color: #F0F0F0;
-    padding: 3;
-    margin: 0;
-}
-
-.milestone-trash {
-    cursor: pointer;
-    color: #333;
-    background-color: #F0F0F0;
-    align-content: center;
-    display: flex;
-    padding: 0;
-    margin: 0;
-    margin-left: 3px;
-}
-
-.milestone-trash:hover{
-    cursor: pointer;
-    color: #333;
-    background-color: #F0F0F0;
-    align-content: center;
-    display: flex;
-    padding: 0;
-    margin: 0;
-}
 
 #TIHeader {
     color:  #CCFF00;
