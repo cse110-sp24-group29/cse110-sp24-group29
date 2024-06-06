@@ -2,7 +2,7 @@
  * Toggles the display of the dropdown menu when the hamburger menu is clicked.
  */
 
-let currentWidth;
+let currentWidth = 100;
 let mediaQuery = window.matchMedia("(max-width: 768px)");
 let mediaQuery2 = window.matchMedia("(max-width: 1024px)");
 if (mediaQuery.matches) {
