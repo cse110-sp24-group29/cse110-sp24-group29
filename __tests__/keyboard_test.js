@@ -1,4 +1,4 @@
-describe('Keyboard Navigability for the Website', () => {
+describe('Keyboard Navigability for the Login Page', () => {
   beforeAll(async () => {
     // PLACEHOLDER WEBSITE LINK REPLACE WITH DEPLOYEMENT LINK
     await page.goto('https://elaine-ch.github.io/Lab6_Part1_Starter/', {waitUntil: 'networkidle0'});
@@ -46,6 +46,13 @@ describe('Keyboard Navigability for the Website', () => {
     const signInButtonFocused = await page.evaluate(() => document.activeElement.textContent.includes('Sign In'));
     expect(signInButtonFocused).toBe(true);
   });
+});
+
+describe('Keyboard Navigability for the Home Page', () => {
+  beforeAll(async () => {
+    // PLACEHOLDER WEBSITE LINK REPLACE WITH DEPLOYEMENT LINK
+    await page.goto('https://elaine-ch.github.io/Lab6_Part1_Starter/', {waitUntil: 'networkidle0'});
+  });
 
   // Checks for home page navigability_______________________________________________________________________________________
   it('should allow keyboard navigation to the navbar', async () => {
@@ -90,51 +97,65 @@ describe('Keyboard Navigability for the Website', () => {
     });
     expect(rightScrollButtonFocused).toBe(true);
   });
+});
 
-  // Checks for project page navigability_______________________________________________________________________________________
-  it('should allow keyboard navigation to the navbar', async () => {
-    await page.keyboard.press('Tab');  // Assuming navbar is the first focusable element
-    const navFocused = await page.evaluate(() => document.activeElement.tagName === 'NAVBAR-COMPONENT');
-    expect(navFocused).toBe(true);
+describe('Keyboard Navigability for the Projects Page', () => {
+  beforeAll(async () => {
+    // PLACEHOLDER WEBSITE LINK REPLACE WITH DEPLOYEMENT LINK
+    await page.goto('https://elaine-ch.github.io/Lab6_Part1_Starter/', {waitUntil: 'networkidle0'});
   });
 
-  it('should focus the textarea for notes', async () => {
-    await page.keyboard.press('Tab');  // Depending on the number of focusable elements before textarea
-    const textAreaFocused = await page.evaluate(() => document.activeElement.id === 'notepad');
-    expect(textAreaFocused).toBe(true);
+  describe('Keyboard Navigability for the Website', () => {
+  beforeAll(async () => {
+    // PLACEHOLDER WEBSITE LINK REPLACE WITH DEPLOYEMENT LINK
+    await page.goto('https://elaine-ch.github.io/Lab6_Part1_Starter/', {waitUntil: 'networkidle0'});
   });
 
-  it('should verify accessibility of the file input via its label', async () => {
-    await page.keyboard.press('Tab');  // Assuming one tab from textarea to the label of file input
-    const fileInputFocused = await page.evaluate(() => {
-      const fileInput = document.getElementById('fileInput');
-      const label = document.querySelector('.code-snippets-button');
-      return document.activeElement === label;
-    });
-    expect(fileInputFocused).toBe(true);
-  });
+  
+});// Checks for project page navigability_________________________________________________________________
+it('should allow keyboard navigation to the navbar', async () => {
+  await page.keyboard.press('Tab');  // Assuming navbar is the first focusable element
+  const navFocused = await page.evaluate(() => document.activeElement.tagName === 'NAVBAR-COMPONENT');
+  expect(navFocused).toBe(true);
+});
 
-  it('should focus the "Add Entry" button', async () => {
-    await page.keyboard.press('Tab');  // Assuming one tab from label to button
-    const addButtonFocused = await page.evaluate(() => document.activeElement.id === 'addEntryButton');
-    expect(addButtonFocused).toBe(true);
-  });
+it('should focus the textarea for notes', async () => {
+  await page.keyboard.press('Tab');  // Depending on the number of focusable elements before textarea
+  const textAreaFocused = await page.evaluate(() => document.activeElement.id === 'notepad');
+  expect(textAreaFocused).toBe(true);
+});
 
-  it('should focus the "Add Milestone" button', async () => {
-    await page.keyboard.press('Tab');  // Adjust based on actual focus order
-    const addMilestoneFocused = await page.evaluate(() => document.activeElement.classList.contains('add-milestone'));
-    expect(addMilestoneFocused).toBe(true);
+it('should verify accessibility of the file input via its label', async () => {
+  await page.keyboard.press('Tab');  // Assuming one tab from textarea to the label of file input
+  const fileInputFocused = await page.evaluate(() => {
+    const fileInput = document.getElementById('fileInput');
+    const label = document.querySelector('.code-snippets-button');
+    return document.activeElement === label;
   });
+  expect(fileInputFocused).toBe(true);
+});
 
-  it('should allow keyboard navigation to the project milestones', async () => {
-    await page.keyboard.press('Tab');  // Assuming one tab from the "Add Milestone" button
-    const milestoneListFocused = await page.evaluate(() => document.activeElement.classList.contains('milestone-list'));
-    expect(milestoneListFocused).toBe(false); // Assuming <ul> is not focusable by default, adjust if needed
-  });
+it('should focus the "Add Entry" button', async () => {
+  await page.keyboard.press('Tab');  // Assuming one tab from label to button
+  const addButtonFocused = await page.evaluate(() => document.activeElement.id === 'addEntryButton');
+  expect(addButtonFocused).toBe(true);
+});
 
-  it('should test keyboard interaction with the timeline', async () => {
-    await page.keyboard.press('Tab');  // Adjust based on actual focus order
-    const timelineFocused = await page.evaluate(() => document.activeElement.id === 'timeline-elements');
-    expect(timelineFocused).toBe(false); // Assuming <ul> is not focusable by default, adjust if needed
-  });
+it('should focus the "Add Milestone" button', async () => {
+  await page.keyboard.press('Tab');  // Adjust based on actual focus order
+  const addMilestoneFocused = await page.evaluate(() => document.activeElement.classList.contains('add-milestone'));
+  expect(addMilestoneFocused).toBe(true);
+});
+
+it('should allow keyboard navigation to the project milestones', async () => {
+  await page.keyboard.press('Tab');  // Assuming one tab from the "Add Milestone" button
+  const milestoneListFocused = await page.evaluate(() => document.activeElement.classList.contains('milestone-list'));
+  expect(milestoneListFocused).toBe(false); // Assuming <ul> is not focusable by default, adjust if needed
+});
+
+it('should test keyboard interaction with the timeline', async () => {
+  await page.keyboard.press('Tab');  // Adjust based on actual focus order
+  const timelineFocused = await page.evaluate(() => document.activeElement.id === 'timeline-elements');
+  expect(timelineFocused).toBe(false); // Assuming <ul> is not focusable by default, adjust if needed
+});
 });
