@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A project for Web Development Journal",
   "scripts": {
-    "test": "jest",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "lint": "eslint .",
     "prettify": "prettier --write .",
     "doc": "jsdoc -c jsdoc.json"
