@@ -2,11 +2,8 @@
  * Toggles the display of the dropdown menu when the hamburger menu is clicked.
  */
 
-let currentWidth = 100;
-const mediaQuery = window.matchMedia("(max-width: 768px)");
-if(mediaQuery.matches) {
-    currentWidth = 300;
-}
+let currentWidth;
+let mediaQuery = window.matchMedia("(max-width: 768px)");
 function toggleMenu() {
     const dropdownMenu = document.getElementById('dropdown-menu');
     dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
@@ -17,7 +14,7 @@ function toggleMenu() {
  * 
  * @param {Event} event - The click event of the hamburger menu.
  */
-window.onclick = function(event) {
+window.onclick = function(event) {  
     // if (!event.target.matches('.hamburger-menu')) {
     //     const dropdownMenu = document.getElementById('dropdown-menu');
     //     if (dropdownMenu.style.display === 'block') {
@@ -43,14 +40,13 @@ function addTask(button, milestoneId) {
         </div>
     `;
     taskList.appendChild(newTask);  
-    
 }
 
 /**
  * Adds a new task with a specified state (checked or not).
  * 
 ne to which t * @param {HTMLElement} button - The button element that triggered the function.
- * @param {number} milestoneId - The number of the milestohe task is being added.
+ * @param {number} milestoneId - The number of the milestone task is being added.
  * @param {string} taskText - The text content of the task.
  * @param {boolean} isChecked - Whether the task is checked or not.
  */
@@ -70,7 +66,6 @@ function addTaskWithState(button, milestoneId, taskText, isChecked) {
 /**
  * Adds a new milestone to the list.
  */
-
 function addMilestone(milestoneName) {
 
     const milestoneList = document.getElementById('milestone-list');
@@ -92,6 +87,8 @@ function addMilestone(milestoneName) {
     `
     <span>${milestoneName}</span>
     `;
+    let length = newTimelineElement.length;
+    newTimelineElement.style.width = 430 + (length-11)*30;
     newTimelineElement.classList.add('uncompleted');
     newTimelineElement.setAttribute('data-id', `milestone-${milestoneCount}`);
     timelineList.insertBefore(newTimelineElement, timelineList.children[timelineCount - 1]);
@@ -116,6 +113,8 @@ function addMilestone(milestoneName) {
     }
     updateTimelineProgress();
 }
+
+
 /**
  * Updates the timeline if > 3 milestones exist
  * 
@@ -123,7 +122,7 @@ function addMilestone(milestoneName) {
 function addWidth() {
     let add = 24;
     if(mediaQuery.matches) {    
-        add = 60;
+        add = 50;
     }
     let timelineContainer = document.
         getElementsByClassName('timeline-container')[0];
@@ -136,6 +135,23 @@ function addWidth() {
     line.style.width = newWidth;
     timelineContainer.style.overflowX = 'auto';
 }
+
+function resizeWidth() {
+    if(mediaQuery.matches) {
+        currentWidth = 300;
+    }
+    else {
+        currentWidth = 100;
+    }
+    let milestones = getMilestoneArray();
+    let mINumber = milestones.length;
+    if(mINumber > 3) {
+        for ( let i = 0; i < mINumber; i++) {
+            addWidth();
+        }
+    }
+    
+}
 /**
  * Updates the milestone name on the timeline based on the input.
  * 
@@ -143,12 +159,17 @@ function addWidth() {
  */
 
 function updateTimeline(milestoneElement) {
+    let spanWidth = 430;
     const milestoneId = milestoneElement.closest('li').getAttribute('data-id');
     const milestoneName = milestoneElement.textContent;
+    let strLen = milestoneName.length;
+    spanWidth = 430 + (strLen - 11)*30;
     const timelineElement = document.querySelector
         (`#timeline-elements [data-id="${milestoneId}"] span`);
+    console.log(spanWidth);
     if (timelineElement) {
         timelineElement.textContent = milestoneName;
+        timelineElement.style.width = spanWidth + '%';
     }
 }
 /**
@@ -210,12 +231,15 @@ function updateTimelineProgress() {
     const timelineList = document.getElementById('timeline-elements');
     const timeline = timelineList.querySelectorAll('li');
     const timelineLength = timeline.length;
+    // check for completion
     if(completedMI == timelineLength - 2) {
+        // if completed bar is filled and end is set to complete
         tlProgress = currentWidth;
         timeline[timelineLength - 1].classList.remove('uncompleted');
         timeline[timelineLength - 1].classList.add('completed');
     }
     else {
+         // if progress bar is dynamically calculated and end is set to uncomplete
         tlProgress = completedMI/(timelineLength - 1) * currentWidth;
         tlProgress = tlProgress.toFixed(2);
         timeline[timelineLength - 1 ].classList.remove('completed');
@@ -282,7 +306,12 @@ function renumberMilestones() {
 
     updateTimelineProgress();
 }
-
+/**
+ * Renumbers and correctly assigns correct data 
+ * @param {HTMLElement} tasks a node list to the tasks of a milestone
+ * @param {number} milestoneId the milestone number of 
+ * the tasklist that is being modified
+ */
 function renumberTasks (tasks,milestoneId) {   
     tasks.forEach( (task,taskIndex)  => {
         let taskCheckbox = task.querySelector('input');
@@ -345,7 +374,7 @@ function deleteMilestone(milestoneElement) {
 function subWidth () {
     let sub = 24;
     if(mediaQuery.matches) {
-        sub = 60;
+        sub = 40;
     }
      let timelineContainer = document.
         getElementsByClassName('timeline-container')[0];
@@ -550,6 +579,11 @@ document.addEventListener("DOMContentLoaded", function () {
         dynamicIsland.style.display = 'block';
     }
 });
+
+mediaQuery.addEventListener('change', function () {
+    resizeWidth();
+});
+
 window.addEventListener('beforeunload', function () {
     saveMilestoneToStorage();
     saveTasksArrayToStorage();
