@@ -45,7 +45,8 @@ function addTask(button, milestoneId, taskName) {
     newTask.innerHTML = `
         <div class="task-item">
             <input type="checkbox" id="task-${milestoneId}-${taskCount}" onclick="updateProgress(${milestoneId})">
-            <label for="task-${milestoneId}-${taskCount}" contenteditable="true" ondblclick="deleteTask(this, ${milestoneId})">${taskName}</label>
+            <label contenteditable="true">${taskName}</label>
+            <span onclick="deleteTask(this, ${milestoneId})" ><img class="milestoneX" src="../img/trash.png"></span>
         </div>
     `;
     taskList.appendChild(newTask);
@@ -67,7 +68,8 @@ function addTaskWithState(button, milestoneId, taskText, isChecked) {
     newTask.innerHTML = `
        <div class="task-item">
             <input type="checkbox" id="task-${milestoneId}-${taskCount}" onclick="updateProgress(${milestoneId})" ${isChecked ? 'checked' : ''}>
-            <label for="task-${milestoneId}-${taskCount}" contenteditable="true" ondblclick="deleteTask(this, ${milestoneId})">${taskText}</label>
+            <label contenteditable="true">${taskText}</label>
+            <span onclick="deleteTask(this, ${milestoneId})" ><img class="milestoneX" src="../img/trash.png"></span>
         </div>
 
     `;
@@ -215,13 +217,16 @@ function updateTimeline() {
  */
 function toggleTasks(milestoneId) {
     const taskList = document.getElementById(`task-list${milestoneId}`);
+    const arrowElement = document.getElementById(`dropdown-arrow-${milestoneId}`);
     const addTaskButton = taskList.nextElementSibling;
     if (taskList.style.display === 'block') {
         taskList.style.display = 'none';
         addTaskButton.style.display = 'none';
+        arrowElement.textContent = '▼';
     } else {
         taskList.style.display = 'block';
         addTaskButton.style.display = 'block';
+        arrowElement.textContent = '▲';
     }
 }
 
@@ -386,7 +391,6 @@ function renumberTasks (tasks,milestoneId) {
         taskCheckbox.setAttribute('onclick', `updateProgress(${milestoneId})`);
         let taskLabel = task.querySelector('label');
         taskLabel.setAttribute('ondblclick', `deleteTask(this, ${milestoneId})`);
-        taskLabel.setAttribute('for',`task-${milestoneId}-${taskIndex + 1}`);
         const placeholder = taskLabel.textContent;
         const currentName = placeholder.replace(/\s*\d+$/, '');
         if(currentName == 'Task') {
@@ -412,7 +416,7 @@ function getMilestoneHTML(milestoneNumber,milestoneName) {
                 <div contenteditable="true" class="milestone-name">${milestoneName}</div>
                 <span onclick="deleteMilestone(this)" ><img class="milestoneX" src="../img/trash.png"></span>
             </div>
-            <span class="dropdown-arrow" onclick="toggleTasks(${milestoneNumber});">▼</span>
+            <span class="dropdown-arrow" id="dropdown-arrow-${milestoneNumber}" onclick="toggleTasks(${milestoneNumber});">▼</span>
         </div>
         <div class="progress-bar">
             <div class="progress" id="progress${milestoneNumber}"></div>
