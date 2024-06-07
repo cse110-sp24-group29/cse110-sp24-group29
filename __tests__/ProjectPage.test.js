@@ -128,6 +128,11 @@ describe('Project Page Notes and Entry functionality', () => {
     await browser.close();
   });
 
+  test('should display placeholder text in the input box when empty', async () => {
+    const placeholderText = await page.$eval('#notepad', el => el.getAttribute('placeholder'));
+    expect(placeholderText).toBe('Write your notes here...');
+  }, 10000);
+
   test('should load entries from localStorage and display them', async () => {
     await page.evaluate(() => {
         localStorage.setItem('entries', JSON.stringify([
@@ -155,6 +160,7 @@ test('should add a new entry', async () => {
 });
 
 test('should edit an existing entry', async () => {
+    await page.hover('.entry-tile:last-child');
     await page.click('.entry-tile:last-child .edit-icon');
     await page.click('#notepad');
     await page.keyboard.down('Control');
@@ -168,8 +174,9 @@ test('should edit an existing entry', async () => {
 });
 
 test('should delete an entry', async () => {
-    await page.click('.entry-tile:last-child .trash-icon');
-
+    await page.hover('.entry-tile:last-child');
+    const trashIcon = await page.$('.entry-tile:last-child .trash-icon');
+    await trashIcon.click();
     await page.waitForFunction(() => document.querySelectorAll('.entry-tile').length === 2);
     const entryCount = await page.$$eval('.entry-tile', entries => entries.length);
     expect(entryCount).toBe(2);
@@ -192,4 +199,51 @@ test('should close', async () => {
     const islandDisplay = await page.$eval('#dynamicIsland', el => window.getComputedStyle(el).display);
     expect(islandDisplay).toBe('none');
 });
+
+test('adding multiple entries', async () => {
+  for (let i = 0; i < 5; i++) {
+    await page.click('#notepad');
+    await page.type('#notepad', 'New Entry Content');
+    await page.click('#addEntryButton');
+
+    await page.waitForSelector('.entry-tile:last-child h3');
+  } 
+  const entryTitle = await page.$eval('.entry-tile:last-child h3', el => el.textContent);
+  const entryContent = await page.$eval('.entry-tile:last-child p', el => el.textContent);
+  const entryCount = await page.$$eval('.entry-tile', entries => entries.length);
+  expect(entryCount).toBe(7);
+  expect(entryTitle).toBe('Entry 7');
+  expect(entryContent).toBe('New Entry Content');
+});
+
+test('deleting multiple entries', async () => {
+  for (let i = 0; i < 5; i++) {
+    await page.hover('.entry-tile:first-child');
+    const trashIcon = await page.$('.entry-tile:first-child .trash-icon');
+    await trashIcon.click();
+}
+const entryCount = await page.$$eval('.entry-tile', entries => entries.length);
+expect(entryCount).toBe(7-5);
+}, 15000);
+
+test('notepad textbox changes when markdown button is clicked', async () => {
+  await page.click('.note-type-button[data-type="markdown"]');
+    const placeholderText = await page.$eval('#markdown', el => el.getAttribute('placeholder'));
+    expect(placeholderText).toBe('Write your markdown here...');
+}, 10000);
+
+
+  test('should render markdown note with clickable link', async () => {
+    await page.click('.note-type-button[data-type="markdown"]');
+    const markdownContent = '[Youtube](https://www.youtube.com)';
+    await page.type('#markdown', markdownContent);
+    await page.click('#addEntryButton');
+    await page.waitForSelector('.entry-tile:last-child');
+    await page.click('.entry-tile:last-child');
+    await page.waitForSelector('#dynamicIsland .markdown-view a');
+    const linkHref = await page.$eval('#dynamicIsland .markdown-view a', el => el.href);
+    expect(linkHref).toBe('https://www.youtube.com/');
+    const linkText = await page.$eval('#dynamicIsland .markdown-view a', el => el.textContent);
+    expect(linkText).toBe('Youtube');
+  }, 15000);
 });
