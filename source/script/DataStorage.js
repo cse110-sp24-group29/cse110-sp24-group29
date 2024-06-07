@@ -1,26 +1,189 @@
 /**
+ * Class representing a note.
+ * @class
+ */
+class Note {
+    /**
+     * Create a note.
+     * @param {string} title - The title of the note.
+     * @param {string} text - The markdown text of the note.
+     */
+    constructor(title, text) {
+        this.title = title;
+        this.text = text;
+    }
+
+    /**
+     * Update the title and text of the note.
+     * @param {string} newTitle - The new title of the note.
+     * @param {string} newText - The new markdown text of the note.
+     */
+    update(newTitle, newText) {
+        this.title = newTitle;
+        this.text = newText;
+    }
+}
+
+/**
  * Class representing a project.
  * @class
  */
 class Project {
     /**
-     * Create a project.
+     * Create a project with default parameters.
      * @param {number} projID - The unique ID of the project.
-     * @param {string} name - The name of the project.
-     * @param {string} description - A brief description of the project.
-     * @param {string[]} tags - Related tags for the project.
-     * @param {string[]} tasks - An array of tasks associated with the project.
-     * @param {string[]} milestones - Milestones to be achieved in the project.
-     * @param {string} notes - Additional notes in markdown format.
+     * @param {string} [name="New Project"] - The name of the project.
+     * @param {string} [description="No description."] - A brief description of the project.
+     * @param {string} [tag="Choose"] - A single related tag for the project chosen from a predefined set of options.
+     * @param {Object} [milestonesTasks={}] - A dictionary of milestones and tasks where the key is a tuple of milestone name and number,
+     *                                          and the value is an array of tuples of task name, task completion status (boolean) and task completion date.
+     * @param {Object[]} [notes=[]] - A list of objects where each object contains a note title and markdown text of the note.
      */
-    constructor(projID, name, description, tags, tasks, milestones, notes) {
+    constructor(projID, name = "New Project", description = "No description.", 
+                tag = "Choose", milestonesTasks = {}, notes = []) {
         this.projID = projID;
         this.name = name;
         this.description = description;
-        this.tags = tags;
-        this.tasks = tasks;
-        this.milestones = milestones;
+        this.tag = tag;  
+        this.milestonesTasks = milestonesTasks;
         this.notes = notes;
+    }
+
+    /**
+     * Update the project name.
+     * @param {string} newName - The new name for the project.
+     */
+    updateName(newName) {
+        this.name = newName;
+    }
+
+    /**
+     * Update the project description.
+     * @param {string} newDescription - The new description for the project.
+     */
+    updateDescription(newDescription) {
+        this.description = newDescription;
+    }
+
+    /**
+     * Update the project tag.
+     * @param {string} newTag - The new tag for the project.
+     */
+    updateTag(newTag) {
+        this.tag = newTag;
+    }
+
+    /**
+     * Add or edit a milestone. If the milestone exists, it updates the milestone with new tasks.
+     * @param {string} milestoneName - The name of the milestone.
+     * @param {Array} tasks - Array of tasks to be associated with the milestone.
+     */
+    addMilestone(milestoneName, tasks = []) {
+        this.milestonesTasks[milestoneName] = tasks;
+    }
+
+    /**
+     * Remove a milestone from the project.
+     * @param {string} milestoneName - The name of the milestone to remove.
+     */
+    removeMilestone(milestoneName) {
+        if (this.milestonesTasks.hasOwnProperty(milestoneName)) {
+            delete this.milestonesTasks[milestoneName];
+        } else {
+            throw new Error("Milestone not found");
+        }
+    }
+
+    /**
+     * Add a task to a specific milestone.
+     * @param {string} milestoneName - The milestone to which the task will be added.
+     * @param {Object} task - The task object { name: string, checked: boolean, date: string }.
+     */
+    addTaskToMilestone(milestoneName, task) {
+        if (!this.milestonesTasks[milestoneName]) {
+            this.milestonesTasks[milestoneName] = [];
+        }
+        this.milestonesTasks[milestoneName].push(task);
+    }
+
+    /**
+     * Remove a task from a milestone.
+     * @param {string} milestoneName - The milestone from which the task will be removed.
+     * @param {number} taskIndex - The index of the task to remove.
+     */
+    removeTaskFromMilestone(milestoneName, taskIndex) {
+        if (this.milestonesTasks[milestoneName] && this.milestonesTasks[milestoneName][taskIndex]) {
+            this.milestonesTasks[milestoneName].splice(taskIndex, 1);
+        } else {
+            throw new Error("Task not found");
+        }
+    }
+
+    /**
+     * Edit the name of a task within a milestone.
+     * @param {string} milestoneName - The milestone containing the task.
+     * @param {number} taskIndex - The index of the task to update.
+     * @param {string} newName - The new name for the task.
+     */
+    editTaskName(milestoneName, taskIndex, newName) {
+        if (this.milestonesTasks[milestoneName] && this.milestonesTasks[milestoneName][taskIndex]) {
+            this.milestonesTasks[milestoneName][taskIndex].name = newName;
+        } else {
+            throw new Error("Task not found");
+        }
+    }
+
+    /**
+     * Toggle the completion status of a task within a milestone, setting the date when marked completed.
+     * @param {string} milestoneName - The milestone containing the task.
+     * @param {number} taskIndex - The index of the task to update.
+     * @param {boolean} isChecked - The completion status to set.
+     */
+    toggleTaskCompletion(milestoneName, taskIndex, isChecked) {
+        if (this.milestonesTasks[milestoneName] && this.milestonesTasks[milestoneName][taskIndex]) {
+            this.milestonesTasks[milestoneName][taskIndex].checked = isChecked;
+            // Update the date to current date if task is marked completed
+            if (isChecked) {
+                this.milestonesTasks[milestoneName][taskIndex].date = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+            }
+        } else {
+            throw new Error("Task not found");
+        }
+    }
+
+    /**
+     * Add a new note to the project.
+     * @param {string} title - The title of the note.
+     * @param {string} text - The markdown text of the note.
+     */
+    addNote(title, text) {
+        this.notes.push(new Note(title, text));
+    }
+
+    /**
+     * Update an existing note in the project.
+     * @param {number} index - The index of the note to update.
+     * @param {string} title - The new title of the note.
+     * @param {string} text - The new markdown text of the note.
+     */
+    updateNote(index, title, text) {
+        if (index >= 0 && index < this.notes.length) {
+            this.notes[index].update(title, text);
+        } else {
+            throw new Error("Invalid note index");
+        }
+    }
+
+    /**
+     * Remove a note from the project.
+     * @param {number} index - The index of the note to remove.
+     */
+    removeNote(index) {
+        if (index >= 0 && index < this.notes.length) {
+            this.notes.splice(index, 1);
+        } else {
+            throw new Error("Invalid note index");
+        }
     }
 }
 
@@ -36,7 +199,7 @@ class User {
      * @param {string} password - The password for the user.
      * @param {Project[]} projects - The projects associated with the user.
      */
-    constructor(userID, name, password, projects) {
+    constructor(userID, name = 'Default', password, projects = []) {
         this.userID = userID;
         this.name = name;
         this.password = password;
@@ -48,6 +211,9 @@ class User {
      * @param {Project} project - The new project to add.
      */
     addProject(project) {
+        if (this.getProjectById(project.projID)) {
+            throw new Error("Project with the same ID already exists.");
+        }
         this.projects.push(project);
     }
 
@@ -79,54 +245,154 @@ class User {
         }
         return false;
     }
+
+    /**
+     * Retrieve a project by its ID.
+     * @param {number} projID - The ID of the project.
+     * @returns {Project|null} The project if found, null otherwise.
+     */
+    getProjectById(projID) {
+        return this.projects.find(project => project.projID === projID) || null;
+    }
+}
+
+/**
+ * Class representing the overall data structure for page management.
+ * @class
+ */
+class PagesData {
+    /**
+     * Create the page data context.
+     * @param {User[]} users - List of all users.
+     * @param {User} currUser - The current user logged in.
+     * @param {Project} currProj - The current project being viewed or edited.
+     */
+    constructor(users = [], currUser = null, currProj = null) {
+        this.users = users;
+        this.currUser = currUser;
+        this.currProj = currProj;
+    }
+
+    /**
+     * Set the current user by their ID.
+     * @param {number} userID - The ID of the user to set as current.
+     */
+    setCurrentUser(userID) {
+        const user = this.getUser(userID);
+        if (user) {
+            this.currUser = user;
+        } else {
+            throw new Error("User not found");
+        }
+    }
+
+    /**
+     * Set the current project by its ID.
+     * @param {number} projectID - The ID of the project to set as current.
+     */
+    setCurrentProject(projectID) {
+        if (!this.currUser) {
+            throw new Error("No current user set");
+        }
+        const project = this.currUser.projects.find(project => project.projID === projectID);
+        if (project) {
+            this.currProj = project;
+        } else {
+            throw new Error("Project not found");
+        }
+    }
+
+    /**
+     * Add a new user to the system.
+     * @param {User} user - The new user to add.
+     */
+    addUser(user) {
+        if (this.users.find(u => u.userID === user.userID)) {
+            throw new Error("User already exists");
+        }
+        this.users.push(user);
+    }
+
+    /**
+     * Retrieve a user by their ID.
+     * @param {number} userID - The ID of the user to retrieve.
+     * @returns {User} The user if found, undefined otherwise.
+     */
+    getUser(userID) {
+        return this.users.find(user => user.userID === userID);
+    }
 }
 
 /**
  * Save user data to local storage.
- * @param {User[]} users - The array of users to save.
+ * @param {PagesData} pagesDat - The array of users to save.
  */
-function saveToLocalStorage(users) {
-    localStorage.setItem('softwareSurferesDevJournalUsersData', JSON.stringify(users));
+function saveToLocalStorage(pagesDat) {
+    const data = {
+        users: pagesDat.users.map(user => ({
+            userID: user.userID,
+            name: user.name,
+            password: user.password,
+            projects: user.projects.map(project => ({
+                projID: project.projID,
+                name: project.name,
+                description: project.description,
+                tag: project.tag,
+                milestonesTasks: project.milestonesTasks,
+                notes: project.notes.map(note => ({
+                    title: note.title,
+                    text: note.text
+                }))
+            }))
+        })),
+        currUserID: pagesDat.currUser ? pagesData.currUser.userID : null,
+        currProjID: pagesDat.currProj ? pagesData.currProj.projID : null
+    };
+    localStorage.setItem('softwareSurferesDevJournalPagesData', JSON.stringify(data));
 }
 
 /**
- * Load user data from local storage.
- * @returns {Object} The users loaded from local storage.
+ * Load the entire PagesData from local storage.
+ * @returns {PagesData} The PagesData instance loaded from local storage.
  */
 function loadFromLocalStorage() {
-    let usersStr = localStorage.getItem('softwareSurferesDevJournalUsersData');
-    if (!usersStr) return {};
-    let usersData = JSON.parse(usersStr);
-    let users = {};
-    Object.keys(usersData).forEach(userID => {
-        let userData = usersData[userID];
-        let projects = userData.project.map(p => new Project(p.id, p.name, p.description, p.tags, p.tasks, p.milestones, p.notes));
-        users[userData.name] = new User(userData.userID, userData.name, userData.password, projects);
-    });
-    return users;
+    const dataStr = localStorage.getItem('softwareSurferesDevJournalPagesData');
+    if (!dataStr) return new PagesData(); // Return an empty PagesData if nothing is stored
+    const data = JSON.parse(dataStr);
+
+    const users = data.users.map(userData => new User(
+        userData.userID,
+        userData.name,
+        userData.password,
+        userData.projects.map(proj => new Project(
+            proj.projID,
+            proj.name,
+            proj.description,
+            proj.tag,
+            proj.milestonesTasks,
+            proj.notes.map(note => new Note(note.title, note.text))
+        ))
+    ));
+
+    const pagesData = new PagesData(users);
+    pagesData.currUser = users.find(user => user.userID === data.currUserID) || null;
+    pagesData.currProj = pagesData.currUser ? pagesData.currUser.projects.find(project => project.projID === data.currProjID) : null;
+
+    return pagesData;
 }
 
 /**
- * Add a new user to the local storage.
- * @param {Object} users - The current list of users.
- * @param {User} user - The new user to add.
+ * Set the current user and save the update to local storage.
+ * @param {PagesData} pagesData - The instance of PagesData.
+ * @param {number} userID - The ID of the user to set as current.
  */
-function addUser(users, user) {
-    users[user.userID] = user;
-    saveToLocalStorage(users);
+function updateAndSaveCurrUser(pagesData, userID) {
+    const user = pagesData.users.find(u => u.userID === userID);
+    if (!user) {
+        throw new Error("User not found");
+    }
+    pagesData.currUser = user;
+    saveToLocalStorage(pagesData);
 }
 
-/**
- * Retrieve a user by ID.
- * @param {Object} users - The current list of users.
- * @param {number} userID - The ID of the user to retrieve.
- * @returns {User} The user if found, undefined otherwise.
- */
-function getUser(users, userID) {
-    return users[userID];
-}
-
-// I don't know who set it up but it wasn't ES6 and 
-// I didn't want to break anything so I just learned  
-// how to do it the non ES6 way
-module.exports = { Project, User };
+module.exports = { Note, Project, User, PagesData, saveToLocalStorage, loadFromLocalStorage, updateAndSaveCurrUser};
