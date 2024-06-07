@@ -130,8 +130,34 @@ class StatsGraph extends HTMLElement {
                 }
             }
         });
+
+        this.updateChart();
     }
 
+    updateChart() {
+        const tagCounts = {
+            frontend: 0,
+            backend: 0,
+            database: 0,
+            network: 0,
+            data: 0
+        };
+
+        customElements.whenDefined('project-card').then(() => {
+            document.querySelectorAll('project-card').forEach(card => {
+                const tag = card.shadowRoot.querySelector('#tags').value;
+                if (tagCounts[tag] !== undefined) {
+                    tagCounts[tag]++;
+                }
+            });
+
+            const total = Object.values(tagCounts).reduce((acc, count) => acc + count, 0);
+            const percentages = total > 0 ? Object.values(tagCounts).map(count => (count / total) * 100) : [0, 0, 0, 0, 0];
+
+            this.chart.data.datasets[0].data = percentages;
+            this.chart.update();
+        });
+    }
 }
 
 customElements.define('stats-graph', StatsGraph);

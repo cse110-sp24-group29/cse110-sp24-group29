@@ -105,6 +105,10 @@ class ProjectCard extends HTMLElement {
             }
         `;
         this.shadowRoot.append(style);
+
+        this.shadowRoot.querySelector('#tags').addEventListener('change', () => {
+            document.querySelector('stats-graph').updateChart();
+        });
     }
 }
 
