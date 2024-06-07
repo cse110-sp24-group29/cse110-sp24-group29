@@ -19,5 +19,8 @@
     "jsdoc": "^3.6.7",
     "prettier": "^2.7.1",
     "puppeteer": "^22.10.0"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
   }
 }
