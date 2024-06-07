@@ -8,7 +8,7 @@ if(mediaQuery.matches) {
     currentWidth = 300;
 }
 else {
-    currentWidth = 99;
+    currentWidth = 100;
 }
 function toggleMenu() {
     const dropdownMenu = document.getElementById('dropdown-menu');
@@ -165,7 +165,7 @@ function resizeWidth() {
         currentWidth = 300;
     }
     else {
-        currentWidth = 99;
+        currentWidth = 100;
     }
     let milestones = getMilestoneArray();
     let mINumber = milestones.length;
@@ -487,7 +487,7 @@ function subWidth () {
  */
 
 function resetWidth() {
-    currentWidth = 99;
+    currentWidth = 100;
     let timelineContainer = document.
         getElementsByClassName('timeline-container')[0];
     if(mediaQuery.matches) {
@@ -549,8 +549,10 @@ function getMilestoneArray () {
     let milestones = milestoneList.querySelectorAll('li[data-id]');
     return milestones;
 }
+
 document.addEventListener("DOMContentLoaded", function () {
     const notepad = document.getElementById('notepad');
+    const markdown = document.getElementById('markdown');
     const addEntryButton = document.getElementById('addEntryButton');
     const entriesContainer = document.querySelector('.entries-container');
     const dynamicIsland = document.getElementById('dynamicIsland');
@@ -558,14 +560,19 @@ document.addEventListener("DOMContentLoaded", function () {
     const islandTitle = document.getElementById('islandTitle');
     const islandContent = document.getElementById('islandContent');
     const islandImages = document.getElementById('islandImages');
+    const noteTypeButtons = document.querySelectorAll('.note-type-button');
+
+    let activeNoteType = 'notes'; // Default to 'notes'
+    let isEditing = false;
+    let editingEntryIndex = null;
 
     // Load entries from localStorage and display them
     function loadEntries() {
         const entries = JSON.parse(localStorage.getItem('entries')) || [];
-        entries.forEach(entry => addEntryTile(entry.title, entry.content, entry.images));
+        entries.forEach((entry, index) => addEntryTile(entry.title, entry.content, entry.type, entry.images, index));
     }
 
-    function loadMilestonesAndTasks(){
+    function loadMilestonesAndTasks() {
         const milestones = JSON.parse(localStorage.getItem('milestones')) || [];
         milestones.forEach(milestone => addMilestone(milestone));
         const milestoneList = getMilestoneArray();
@@ -576,77 +583,181 @@ document.addEventListener("DOMContentLoaded", function () {
             const tasks = taskArray[index] || [];
             tasks.forEach(task => {
                 addTaskWithState(taskButton, index + 1, task.text, task.checked);
-                updateProgress(index+1);
+                updateProgress(index + 1);
             });
         });
     }
+
     // Save a new entry to localStorage
-    function saveEntry(title, content, images) {
+    function saveEntry(title, content, type, images) {
         const entries = JSON.parse(localStorage.getItem('entries')) || [];
-        entries.push({ title, content, images });
+        if (isEditing && editingEntryIndex !== null) {
+            entries[editingEntryIndex] = { title, content, type, images };
+            updateEntryTile(editingEntryIndex, title, content, type);
+            isEditing = false;
+            editingEntryIndex = null;
+            addEntryButton.textContent = 'Add Entry';
+        } else {
+            entries.push({ title, content, type, images });
+            addEntryTile(title, content, type, images, entries.length - 1);
+        }
         localStorage.setItem('entries', JSON.stringify(entries));
     }
 
     // Add a new entry tile to the left container
-    function addEntryTile(title, content, images = []) {
+    function addEntryTile(title, content, type = 'notes', images = [], index) {
         const entryTile = document.createElement('div');
         entryTile.classList.add('entry-tile');
+        entryTile.dataset.index = index;
+        entryTile.dataset.type = type;
         const entryTitle = document.createElement('h3');
         entryTitle.textContent = title;
         const entryContent = document.createElement('p');
         entryContent.textContent = content.length > 100 ? content.substring(0, 100) + '...' : content;
+
+        const editIcon = document.createElement('img');
+        editIcon.src = '../img/edit.png';
+        editIcon.alt = 'Edit';
+        editIcon.classList.add('edit-icon');
+        editIcon.onclick = (event) => {
+            event.stopPropagation();
+            loadEntryToEdit(index);
+        };
+
         const trashIcon = document.createElement('img');
         trashIcon.src = '../img/trash.png';
         trashIcon.alt = 'Delete';
         trashIcon.classList.add('trash-icon');
         trashIcon.onclick = (event) => {
             event.stopPropagation();
-            entriesContainer.removeChild(entryTile);
-            // Remove the entry from localStorage
-            const entries = JSON.parse(localStorage.getItem('entries')) || [];
-            const updatedEntries = entries.filter(entry => entry.title !== title && entry.content !== content);
-            localStorage.setItem('entries', JSON.stringify(updatedEntries));
+            deleteEntry(entryTile, index);
         };
 
         entryTile.onclick = () => {
-            showDynamicIsland(title, content, images);
+            showDynamicIsland(title, content, type, images);
         };
 
         entryTile.appendChild(entryTitle);
         entryTile.appendChild(entryContent);
+        entryTile.appendChild(editIcon);
         entryTile.appendChild(trashIcon);
 
         entriesContainer.appendChild(entryTile);
     }
 
+    // Update an existing entry tile with new content
+    function updateEntryTile(index, title, content, type) {
+        const entryTile = entriesContainer.querySelector(`.entry-tile[data-index="${index}"]`);
+        const entryTitle = entryTile.querySelector('h3');
+        const entryContent = entryTile.querySelector('p');
+
+        entryTitle.textContent = title;
+        entryContent.textContent = content.length > 100 ? content.substring(0, 100) + '...' : content;
+        entryTile.dataset.type = type;
+    }
+
+    function loadEntryToEdit(index) {
+        const entries = JSON.parse(localStorage.getItem('entries')) || [];
+        const entry = entries[index];
+        if (entry.type === 'markdown') {
+            markdown.value = entry.content;
+            activeNoteType = 'markdown';
+            markdown.style.display = 'block';
+            notepad.style.display = 'none';
+        } else {
+            notepad.value = entry.content;
+            activeNoteType = 'notes';
+            notepad.style.display = 'block';
+            markdown.style.display = 'none';
+        }
+        addEntryButton.textContent = 'Save Entry';
+        isEditing = true;
+        editingEntryIndex = index;
+    }
+
+    function deleteEntry(entryTile, index) {
+        entriesContainer.removeChild(entryTile);
+        const entries = JSON.parse(localStorage.getItem('entries')) || [];
+        entries.splice(index, 1);
+        localStorage.setItem('entries', JSON.stringify(entries));
+        renumberEntries();
+    }
+
+    function renumberEntries() {
+        const entries = document.querySelectorAll('.entry-tile');
+        entries.forEach((entry, index) => {
+            entry.dataset.index = index;
+            const entryTitle = entry.querySelector('h3');
+            entryTitle.textContent = `Entry ${index + 1}`;
+        });
+    }
+
     // Show the dynamic island with entry details
-    function showDynamicIsland(title, content, images) {
+    function showDynamicIsland(title, content, type, images) {
         islandTitle.textContent = title;
-        islandContent.textContent = content;
+        islandContent.innerHTML = '';
+
+        if (type === 'markdown') {
+            // Render Markdown
+            const markdownView = document.createElement('div');
+            markdownView.classList.add('markdown-view');
+            markdownView.innerHTML = marked.parse(content); // Render Markdown
+            islandContent.appendChild(markdownView);
+        } else {
+            // Render Notes
+            const noteView = document.createElement('p');
+            noteView.textContent = content;
+            islandContent.appendChild(noteView);
+        }
+
         islandImages.innerHTML = '';
         images.forEach(imageSrc => {
             const img = document.createElement('img');
             img.src = imageSrc;
             islandImages.appendChild(img);
         });
+
         dynamicIsland.style.display = 'block';
     }
 
     // Handle the close button for the dynamic island
     closeIsland.onclick = () => {
-        dynamicIsland.style.display = 'none';
+        dynamicIsland.classList.add('close');
+        setTimeout(() => {
+            dynamicIsland.style.display = 'none';
+            dynamicIsland.classList.remove('close');
+        }, 300); // Match this duration with the CSS animation duration
     };
 
     // Handle the add entry button click
     addEntryButton.addEventListener('click', function () {
-        const content = notepad.value.trim();
+        const content = activeNoteType === 'markdown' ? markdown.value.trim() : notepad.value.trim();
         if (content) {
-            const title = `Entry ${entriesContainer.children.length + 1}`;
+            const title = `Entry ${editingEntryIndex !== null ? editingEntryIndex + 1 : entriesContainer.children.length + 1}`;
             const images = []; // Assuming images are not handled yet
-            addEntryTile(title, content, images);
-            saveEntry(title, content, images);
-            notepad.value = '';
+            saveEntry(title, content, activeNoteType, images);
+            if (activeNoteType === 'markdown') {
+                markdown.value = '';
+            } else {
+                notepad.value = '';
+            }
         }
+    });
+
+    // Handle note-type button clicks
+    noteTypeButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            noteTypeButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            activeNoteType = this.getAttribute('data-type');
+            if (activeNoteType === 'markdown') {
+                markdown.style.display = 'block';
+                notepad.style.display = 'none';
+            } else {
+                notepad.style.display = 'block';
+                markdown.style.display = 'none';
+            }
+        });
     });
 
     loadEntries();
@@ -680,11 +791,82 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-    checkbox.addEventListener('keydown', function (event) {
-        toggleCheckboxOnEnter(event, checkbox);
+
+
+// Initialize highlight.js
+document.addEventListener("DOMContentLoaded", (event) => {
+    document.querySelectorAll('pre code').forEach((block) => {
+        hljs.highlightBlock(block);
     });
 });
+
+// Function to render Markdown
+function renderMarkdown(markdownText) {
+    // Set up marked to use highlight.js
+    marked.setOptions({
+        highlight: function(code, language) {
+            // Use 'plaintext' as fallback language
+            const validLanguage = hljs.getLanguage(language) ? language : 'plaintext';
+            return hljs.highlight(validLanguage, code).value;
+        }
+    });
+
+    // Parse Markdown to HTML
+    const htmlContent = marked(markdownText);
+    // Insert HTML into the dynamic island content area
+    document.getElementById('islandContent').innerHTML = htmlContent;
+}
+
+// Function to renumber entries after deletion
+function renumberEntries() {
+    const entries = document.querySelectorAll('.entry-tile');
+    entries.forEach((entry, index) => {
+        const entryTitle = entry.querySelector('h3');
+        entryTitle.textContent = `Entry ${index + 1}`;
+    });
+}
+
+// Function to delete an entry
+function deleteEntry(entryElement) {
+    entryElement.remove();
+    renumberEntries();
+}
+
+// Add event listeners to delete buttons
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.trash-icon').forEach(icon => {
+        icon.addEventListener('click', (e) => {
+            const entryElement = e.target.closest('.entry-tile');
+            deleteEntry(entryElement);
+        });
+    });
+});
+
+// Function to add new entry
+function addEntry(content) {
+    const entryContainer = document.querySelector('.entries-container');
+
+    // Create a new entry tile
+    const newEntry = document.createElement('div');
+    newEntry.className = 'entry-tile';
+    const entryNumber = entryContainer.childElementCount + 1;
+
+    newEntry.innerHTML = `
+        <h3>Entry ${entryNumber}</h3>
+        <p>${content}</p>
+        <img src="../img/trash-icon.png" class="trash-icon" alt="Delete">
+    `;
+
+    entryContainer.appendChild(newEntry);
+
+    // Add event listener to the delete button
+    newEntry.querySelector('.trash-icon').addEventListener('click', (e) => {
+        deleteEntry(newEntry);
+    });
+
+    renumberEntries(); // Renumber after adding
+}
+
 
 mediaQuery.addEventListener('change', function () {
     resizeWidth();

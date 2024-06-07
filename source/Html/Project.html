@@ -6,29 +6,34 @@
     <title>Project Page</title>
     <link rel="stylesheet" href="../CSS/project-style.css">
     <link href='https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap' rel='stylesheet'>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
 </head>
 <body>
     <navbar-component></navbar-component>
-    </header>
 
     <div class="content">
         <div class="main-content">
             <section class="notes-section">
                 <h2>Notes</h2>
                 <div class="notes-container">
+                    <div class="note-type-buttons">
+                        <button class="note-type-button active" data-type="notes">Notes</button>
+                        <button class="note-type-button" data-type="markdown">Markdown</button>
+                    </div>
                     <div class="notes-left">
                         <div class="entries-container">
                             <!-- Existing entries here -->
                         </div>
                     </div>
                     <div class="notes-right">
-                        <textarea id="notepad" placeholder="Write your notes here..."></textarea>
-                        <img src="../img/pen.png" alt="Pen" class="pen">
+                        <div class="notepad-wrapper">
+                            <img src="../img/pen.png" alt="Pen" class="pen">
+                            <textarea id="notepad" placeholder="Write your notes here..."></textarea>
+                            <textarea id="markdown" placeholder="Write your markdown here..."></textarea>
+                        </div>
                         <div class="buttons">
-                            <label class="code-snippets-button">
-                                Code Snippets
-                                <input type="file" id="fileInput" accept="image/*, .txt, .js, .html, .css" style="display:none;">
-                            </label>
                             <button class="add-entry-button" id="addEntryButton">Add Entry</button>
                         </div>
                     </div>
@@ -48,18 +53,18 @@
 
     <div class="timeline-Wrapper">
         <h1 id="TIHeader">Timeline</h1>
-        <div class="timeline-container">  
-                <ul id='timeline-elements'>
-                    <li class="completed">
-                        <span>Start</span>
-                    </li>
-                    <li class="uncompleted">
-                        <span>End</span>
-                    </li>
-                </ul>
-                <div id="line"></div>
-                <div id="line2"></div>
-            </div>
+        <div class="timeline-container">
+            <ul id='timeline-elements'>
+                <li class="completed">
+                    <span>Start</span>
+                </li>
+                <li class="uncompleted">
+                    <span>End</span>
+                </li>
+            </ul>
+            <div id="line"></div>
+            <div id="line2"></div>
+        </div>
     </div>
 
     <div id="dynamicIsland" class="dynamic-island">
@@ -72,9 +77,8 @@
             </div>
         </div>
     </div>
-    
 
     <script src="../../source/script/scriptProjectPage.js"></script>
     <script type="module" src="../components/navbar-component.js"></script>
-</body> 
+</body>
 </html>
