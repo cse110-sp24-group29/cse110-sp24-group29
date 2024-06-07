@@ -218,6 +218,7 @@ body {
     height: 100%;
 }
 
+/* Default styles for the notepad */
 #notepad, #markdown {
     background: transparent;
     border: none;
@@ -231,6 +232,74 @@ body {
     box-shadow: none;
     overflow: auto;
 }
+/* Adjustments for smaller screens */
+@media (max-width: 768px) {
+    #notepad, #markdown {
+        font-size: 16px; /* Increase font size */
+        padding: 20px 10px 20px 60px; /* Adjust padding */
+    }
+
+    .note-type-buttons {
+        top: 10px; /* Adjust position above the notepad */
+        right: 10px; /* Align to the right */
+        gap: 5px; /* Adjust gap between buttons */
+    }
+
+    .notes-section h2 {
+        font-size: 1.5em; /* Adjust heading font size */
+    }
+
+    .buttons {
+        bottom: 15px; /* Adjust bottom position */
+        right: 15px; /* Adjust right position */
+    }
+}
+
+@media (max-width: 640px) {
+    #notepad, #markdown {
+        font-size: 14px; /* Further increase font size */
+        padding: 15px 5px 15px 40px; /* Adjust padding more */
+    }
+
+    .note-type-buttons {
+        top: 8px; /* Adjust position above the notepad */
+        right: 8px; /* Align to the right */
+        gap: 4px; /* Adjust gap between buttons */
+    }
+
+    .notes-section h2 {
+        font-size: 1.4em; /* Adjust heading font size */
+    }
+
+    .buttons {
+        bottom: 10px; /* Adjust bottom position */
+        right: 10px; /* Adjust right position */
+    }
+}
+
+@media (max-width: 475px) {
+    #notepad, #markdown {
+        font-size: 12px; /* Further increase font size */
+        padding: 10px 5px 10px 30px; /* Adjust padding more */
+        height: 300px; /* Adjust height */
+    }
+
+    .note-type-buttons {
+        top: 5px; /* Adjust position above the notepad */
+        right: 5px; /* Align to the right */
+        gap: 3px; /* Adjust gap between buttons */
+    }
+
+    .notes-section h2 {
+        font-size: 1.2em; /* Adjust heading font size */
+    }
+
+    .buttons {
+        bottom: 5px; /* Adjust bottom position */
+        right: 5px; /* Adjust right position */
+    }
+}
+
 
 #markdown {
     display: none;
