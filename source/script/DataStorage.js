@@ -9,8 +9,8 @@ class Project {
      * @param {string} name - The name of the project.
      * @param {string} description - A brief description of the project.
      * @param {string[]} tags - Related tags for the project.
-     * @param {Object[]} tasks - An array of tasks associated with the project.
-     * @param {Object[]} milestones - Milestones to be achieved in the project.
+     * @param {string[]} tasks - An array of tasks associated with the project.
+     * @param {string[]} milestones - Milestones to be achieved in the project.
      * @param {string} notes - Additional notes in markdown format.
      */
     constructor(projID, name, description, tags, tasks, milestones, notes) {
@@ -58,7 +58,7 @@ class User {
      * @returns {boolean} True if the update was successful, false otherwise.
      */
     editProject(projectID, updatedProject) {
-        let index = this.projects.findIndex(p => p.id === projectID);
+        let index = this.projects.findIndex(p => p.projID === projectID);
         if (index !== -1) {
             this.projects[index] = updatedProject;
             return true;
@@ -72,7 +72,7 @@ class User {
      * @returns {boolean} True if the deletion was successful, false otherwise.
      */
     deleteProject(projectID) {
-        let index = this.projects.findIndex(p => p.id === projectID);
+        let index = this.projects.findIndex(p => p.projID === projectID);
         if (index !== -1) {
             this.projects.splice(index, 1);
             return true;
@@ -125,3 +125,8 @@ function addUser(users, user) {
 function getUser(users, userID) {
     return users[userID];
 }
+
+// I don't know who set it up but it wasn't ES6 and 
+// I didn't want to break anything so I just learned  
+// how to do it the non ES6 way
+module.exports = { Project, User };
