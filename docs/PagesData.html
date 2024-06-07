@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: User</title>
+    <title>JSDoc: Class: PagesData</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: User</h1>
+    <h1 class="page-title">Class: PagesData</h1>
 
     
 
@@ -28,9 +28,9 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>User<span class="signature">(userID, name, password, projects)</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>PagesData<span class="signature">(users, currUser, currProj)</span><span class="type-signature"></span></h2>
         
-            <div class="class-description"><p>Class representing a user.</p></div>
+            <div class="class-description"><p>Class representing the overall data structure for page management.</p></div>
         
     
 </header>
@@ -45,7 +45,7 @@
     
 
     
-    <h4 class="name" id="User"><span class="type-signature"></span>new User<span class="signature">(userID, name, password, projects)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="PagesData"><span class="type-signature"></span>new PagesData<span class="signature">(users, currUser, currProj)</span><span class="type-signature"></span></h4>
     
 
     
@@ -53,7 +53,7 @@
 
 
 <div class="description">
-    <p>Create a user.</p>
+    <p>Create the page data context.</p>
 </div>
 
 
@@ -91,13 +91,13 @@
 
         <tr>
             
-                <td class="name"><code>userID</code></td>
+                <td class="name"><code>users</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">Array.&lt;<a href="User.html">User</a>></span>
 
 
             
@@ -111,20 +111,20 @@
                 </td>
             
 
-            <td class="description last"><p>The unique identifier for the user.</p></td>
+            <td class="description last"><p>List of all users.</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>name</code></td>
+                <td class="name"><code>currUser</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type"><a href="User.html">User</a></span>
 
 
             
@@ -135,25 +135,25 @@
             
                 <td class="default">
                 
-                    Default
+                    null
                 
                 </td>
             
 
-            <td class="description last"><p>The name of the user.</p></td>
+            <td class="description last"><p>The current user logged in.</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>password</code></td>
+                <td class="name"><code>currProj</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type"><a href="Project.html">Project</a></span>
 
 
             
@@ -164,37 +164,12 @@
             
                 <td class="default">
                 
-                </td>
-            
-
-            <td class="description last"><p>The password for the user.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>projects</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;<a href="Project.html">Project</a>></span>
-
-
-            
-            </td>
-
-            
-
-            
-                <td class="default">
+                    null
                 
                 </td>
             
 
-            <td class="description last"><p>The projects associated with the user.</p></td>
+            <td class="description last"><p>The current project being viewed or edited.</p></td>
         </tr>
 
     
@@ -235,7 +210,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataStorage.js.html">DataStorage.js</a>, <a href="DataStorage.js.html#line194">line 194</a>
+        <a href="DataStorage.js.html">DataStorage.js</a>, <a href="DataStorage.js.html#line254">line 254</a>
     </li></ul></dd>
     
 
@@ -291,7 +266,7 @@
     
 
     
-    <h4 class="name" id="addProject"><span class="type-signature"></span>addProject<span class="signature">(project)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="addUser"><span class="type-signature"></span>addUser<span class="signature">(user)</span><span class="type-signature"></span></h4>
     
 
     
@@ -299,7 +274,7 @@
 
 
 <div class="description">
-    <p>Add a new project to the user's list of projects.</p>
+    <p>Add a new user to the system.</p>
 </div>
 
 
@@ -335,13 +310,13 @@
 
         <tr>
             
-                <td class="name"><code>project</code></td>
+                <td class="name"><code>user</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="Project.html">Project</a></span>
+<span class="param-type"><a href="User.html">User</a></span>
 
 
             
@@ -351,7 +326,7 @@
 
             
 
-            <td class="description last"><p>The new project to add.</p></td>
+            <td class="description last"><p>The new user to add.</p></td>
         </tr>
 
     
@@ -392,7 +367,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataStorage.js.html">DataStorage.js</a>, <a href="DataStorage.js.html#line213">line 213</a>
+        <a href="DataStorage.js.html">DataStorage.js</a>, <a href="DataStorage.js.html#line300">line 300</a>
     </li></ul></dd>
     
 
@@ -428,7 +403,7 @@
     
 
     
-    <h4 class="name" id="deleteProject"><span class="type-signature"></span>deleteProject<span class="signature">(projectID)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    <h4 class="name" id="getUser"><span class="type-signature"></span>getUser<span class="signature">(userID)</span><span class="type-signature"> &rarr; {<a href="User.html">User</a>}</span></h4>
     
 
     
@@ -436,7 +411,166 @@
 
 
 <div class="description">
-    <p>Delete a project from the user's list.</p>
+    <p>Retrieve a user by their ID.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>userID</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The ID of the user to retrieve.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="DataStorage.js.html">DataStorage.js</a>, <a href="DataStorage.js.html#line312">line 312</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>The user if found, undefined otherwise.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="User.html">User</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="setCurrentProject"><span class="type-signature"></span>setCurrentProject<span class="signature">(projectID)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Set the current project by its ID.</p>
 </div>
 
 
@@ -488,7 +622,7 @@
 
             
 
-            <td class="description last"><p>The ID of the project to delete.</p></td>
+            <td class="description last"><p>The ID of the project to set as current.</p></td>
         </tr>
 
     
@@ -529,7 +663,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataStorage.js.html">DataStorage.js</a>, <a href="DataStorage.js.html#line240">line 240</a>
+        <a href="DataStorage.js.html">DataStorage.js</a>, <a href="DataStorage.js.html#line284">line 284</a>
     </li></ul></dd>
     
 
@@ -554,28 +688,6 @@
 
 
 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>True if the deletion was successful, false otherwise.</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">boolean</span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 
@@ -587,7 +699,7 @@
     
 
     
-    <h4 class="name" id="editProject"><span class="type-signature"></span>editProject<span class="signature">(projectID, updatedProject)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+    <h4 class="name" id="setCurrentUser"><span class="type-signature"></span>setCurrentUser<span class="signature">(userID)</span><span class="type-signature"></span></h4>
     
 
     
@@ -595,7 +707,7 @@
 
 
 <div class="description">
-    <p>Update an existing project.</p>
+    <p>Set the current user by their ID.</p>
 </div>
 
 
@@ -631,7 +743,7 @@
 
         <tr>
             
-                <td class="name"><code>projectID</code></td>
+                <td class="name"><code>userID</code></td>
             
 
             <td class="type">
@@ -647,30 +759,7 @@
 
             
 
-            <td class="description last"><p>The ID of the project to update.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>updatedProject</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Project.html">Project</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The updated project details.</p></td>
+            <td class="description last"><p>The ID of the user to set as current.</p></td>
         </tr>
 
     
@@ -711,7 +800,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataStorage.js.html">DataStorage.js</a>, <a href="DataStorage.js.html#line226">line 226</a>
+        <a href="DataStorage.js.html">DataStorage.js</a>, <a href="DataStorage.js.html#line271">line 271</a>
     </li></ul></dd>
     
 
@@ -736,28 +825,6 @@
 
 
 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    <p>True if the update was successful, false otherwise.</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">boolean</span>
-
-
-    </dd>
-</dl>
-
-    
 
 
 
