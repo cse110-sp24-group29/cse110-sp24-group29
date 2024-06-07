@@ -5,4 +5,6 @@ module.exports = {
     '**/?(*.)+(spec|test).js' // Matches files with .spec.js or .test.js suffix
   ],
   transform: {},
+  preset: "jest-puppeteer",
+  verbose: true
 };
