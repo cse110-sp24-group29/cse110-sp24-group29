@@ -633,7 +633,6 @@ document.addEventListener("DOMContentLoaded", function () {
         editIcon.classList.add('edit-icon');
         editIcon.onclick = (event) => {
             event.stopPropagation();
-            document.getElementById('notepad').focus();
             loadEntryToEdit(index);
         };
 
@@ -703,11 +702,13 @@ document.addEventListener("DOMContentLoaded", function () {
             activeNoteType = 'markdown';
             markdown.style.display = 'block';
             notepad.style.display = 'none';
+            document.getElementById('markdown').focus();
         } else {
             notepad.value = entry.content;
             activeNoteType = 'notes';
             notepad.style.display = 'block';
             markdown.style.display = 'none';
+            document.getElementById('notepad').focus();
         }
         addEntryButton.textContent = 'Save Entry';
         isEditing = true;
