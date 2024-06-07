@@ -889,7 +889,7 @@ input[type="file"] {
 }
 
 .timeline-container #line, #line2 {
-    width: 99%;
+    width: 100%;
     background:  #CCFF00;
     height: 7px;
     position: absolute;
