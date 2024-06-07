@@ -26,38 +26,39 @@ class StatsGraph extends HTMLElement {
 
         this.shadowRoot.innerHTML = `
         <style>
-            body {
-                margin: 0;
-                font-family: Arial, sans-serif;
+            :host {
+                display: block;
+                width: ${width};
+                height: ${height};
+                max-width: 100%;
+                margin: 0 auto;
             }
 
             .container {
-                display: flexbox;
-                flex-direction: row;
-                padding: 20px;
-                width: ${width};
-                height: ${height};
-                margin: 5% 0;
-                justify-content: center;
-                align-items: center;
-                gap: 8rem;
-            }
-
-            .chart-container {
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                width: 100%;
+                height: 100%;
+            }
+
+            .chart-container {
+                position: relative;
+                width: 100%;
+                height: 100%;
+                max-width: 600px; /* Set max-width for the chart container */
+                max-height: 600px; /* Set max-height for the chart container */
             }
 
             #statsChart {
-                width: 450px; /* Increase the width */
-                height: 450px; /* Increase the height */
+                width: 100%;
+                height: 100%;
             }
         </style>
 
         <div class="container">
             <div class="chart-container">
-                <canvas id="statsChart" width="600" height="600"></canvas>
+                <canvas id="statsChart"></canvas>
             </div>
         </div>
         `;
@@ -65,13 +66,19 @@ class StatsGraph extends HTMLElement {
 
     loadChart() {
         const ctx = this.shadowRoot.querySelector('#statsChart').getContext('2d');
-        new Chart(ctx, {
+        this.chart = new Chart(ctx, {
             type: 'radar',
             data: {
-                labels: ['Frontend Engineering', 'Backend Engineering', 'Databases Engineering', 'Network Engineering', 'Data Analytics Engineering'],
+                labels: [
+                    'Frontend\nEngineering',
+                    'Backend\nEngineering',
+                    'Databases\nEngineering',
+                    'Network\nEngineering',
+                    'Data Analytics\nEngineering'
+                ],
                 datasets: [{
                     label: 'Stats',
-                    data: [100, 80, 90, 60, 30],
+                    data: [0, 0, 0, 0, 0],
                     fill: true,
                     backgroundColor: 'rgba(54, 162, 235, 0.2)', // all chart grid colors changed to teal and grey
                     borderColor: 'rgb(54, 162, 235)', 
@@ -88,7 +95,8 @@ class StatsGraph extends HTMLElement {
                         borderWidth: 3
                     }
                 },
-                responsive: false, // Disable responsiveness to respect the canvas size
+                responsive: true, // Enable responsiveness
+                maintainAspectRatio: false, // Disable maintaining aspect ratio to use width and height 100%
                 plugins: {
                     legend: {
                         display: false
@@ -99,16 +107,20 @@ class StatsGraph extends HTMLElement {
                         min: 0,
                         max: 100,
                         grid: {
-                            color: 'rgba(54, 54, 54, 0.2)' // Light gray for the grid lines
+                            color: 'rgba(54, 54, 54, 0.5)' // Light gray for the grid lines
                         },
                         angleLines: {
-                            color: 'rgba(54, 54, 54, 0.2)' // Light gray for the angle lines
+                            color: 'rgba(54, 54, 54, 0.5)' // Light gray for the angle lines
                         },
                         pointLabels: {
                             font: {
                                 size: 14
                             },
-                            color: 'rgb(54, 162, 235)' // Teal color for the labels
+                            color: 'rgb(0, 0, 0)', // Teal color for the labels
+                            callback: function(value) {
+                                // Split the label into multiple lines
+                                return value.split('\n');
+                            }
                         },
                         ticks: {
                             display: false,
@@ -119,6 +131,7 @@ class StatsGraph extends HTMLElement {
             }
         });
     }
+
 }
 
 customElements.define('stats-graph', StatsGraph);
