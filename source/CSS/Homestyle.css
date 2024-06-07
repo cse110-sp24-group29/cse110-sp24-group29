@@ -11,7 +11,6 @@ header {
     color: white;
     box-sizing: border-box;
 }
-
 .header-center {
     position: absolute;
     left: 50%; 
@@ -54,6 +53,7 @@ body {
     overflow: hidden;
     border-radius: 25px;
     background-color: #ffffff;
+    margin-top:20px;
 }
 
 .section-heading {
@@ -262,4 +262,99 @@ scroll-button:hover {
     height: 100px;
     width: auto;
 }
+@media (max-width: 1024px) {
+    body {
+        height: auto; 
+    }
 
+    .container {
+        margin-bottom: 50px;
+        flex-direction: column;
+        height: auto; 
+    }
+
+    .left-side,
+    .right-side {
+        width: 100%;
+        max-width: none;
+        height: auto; 
+    }
+
+    .right-side {
+        border-top-left-radius: 45px;
+        border-bottom-left-radius: 0;
+        border-top-right-radius: 45px;
+        border-bottom-right-radius: 0;
+        margin-top: 20px;
+    }
+
+    .logout-button {
+        font-size: 14px; 
+        padding: 4px 8px; 
+        right:0px;
+    }
+    .header-center {
+        text-align: center;
+        
+    }
+    .right-heading {
+        margin-top: 20px;
+    }
+
+}
+
+
+@media (max-width: 768px) {
+    body {
+        height: auto; 
+    }
+
+    .container {
+        margin-top: 20px;
+        margin-bottom: 50px;
+        flex-direction: column;
+        height: auto; 
+    }
+
+    .left-side,
+    .right-side {
+        width: 100%;
+        max-width: none;
+        height: auto; 
+    }
+
+    .right-side {
+        border-top-left-radius: 45px;
+        border-bottom-left-radius: 0;
+        border-top-right-radius: 45px;
+        border-bottom-right-radius: 0;
+        margin-top: 20px;
+    }
+
+    .logout-button {
+        font-size: 14px; 
+        padding: 4px 8px; 
+        top: 10px; 
+        right: 10px; 
+    }
+    .header-center {
+        text-align: center;
+        
+    }
+    .main-heading {
+        display: none; 
+    }
+    .sub-heading{
+        display:none;
+    }
+    .right-heading {
+        margin-top: 20px;
+    }
+    .greeting {
+        margin-right: 20px;
+        font-size: 12px;
+        font-weight: bold;
+        display: inline;
+        text-align: center;
+    }
+}
