@@ -95,7 +95,7 @@ body {
 .main-content {
     width: 75%; /* Adjusted to take up 75% of the width */
     padding: 20px;
-    height: 100%;}
+}
 
 .notes-section {
     background-color: #F0F0F0; /* Light background for the notes section */
@@ -103,7 +103,7 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
     position: relative;
-    height:100%;
+    height: 500px;
 }
 
 .notes-section h2 {
@@ -514,14 +514,14 @@ input[type="file"] {
     text-transform: uppercase;
     letter-spacing: 7px;
     line-height: 1.2em;
-    margin-top: 20px;
     transform: translateX(1.5%);
+    transform: translateY(-1.5%);
 }
 
 
 .timeline-Wrapper {
 
-    position: relative;
+    position: fixed;
     bottom: 0;
     height: 20%; 
     width: 80%;
@@ -539,10 +539,9 @@ input[type="file"] {
     margin: auto;
     width: 100%;
     position: relative;
-    height: 140px;
+    height: 100px;
     overflow-x: visible; 
-    padding: 0px 25px; 
-    overflow-y: visible;
+    padding: 0 25px; 
 }
 
 .timeline-container ul {
@@ -585,7 +584,7 @@ input[type="file"] {
 .timeline-container li.completed:before {
     background-color: #00FFB0;
     border-color: #00FFB0;
-    transition: background-color .8s ease-in-out, border-color .8s ease-in-out;
+    transition: background-color 1s ease-in-out, border-color 1s ease-in-out;
     z-index: 40;
     
 }
@@ -596,6 +595,18 @@ input[type="file"] {
     
 }
 
+.timeline-container li:after {
+    border: solid 0px #CCFF00 ;
+    background-image: url('../img/2.png');
+    background-size: cover; 
+    width: 70px; 
+    height: 70px; 
+    margin-left: 3px;
+    border-radius: 0; 
+    z-index: 99; 
+    transform: translateY(-12000%); 
+}
+
 .timeline-container li span {
     position: absolute;
     bottom: -24px; 
@@ -603,14 +614,6 @@ input[type="file"] {
     transform: translateX(-50%);
     white-space: nowrap; 
     font-family: Montserrat;
-}
-.timeline-container li img {
-    position: absolute;
-    width: 55px;
-    height: 55px;
-    transform: translateX(-12.5%) translateY(-120%);
-    z-index: -1;
-    opacity: 1;
 }
 
 .timeline-container li:first-child span {
@@ -623,13 +626,13 @@ input[type="file"] {
     transform: translateX(-50%);
 }
 
-.timeline-container #line, #line2 {
-    width: 99%;
+.timeline-container #line {
+    width: 100%;
     background:  #CCFF00;
     height: 7px;
     position: absolute;
     top: 100%; 
-    transform: translateY(-760%);
+    transform: translateY(-700%);
     z-index: 1;
     border-radius: 100px;
     /* when there are more then 4 milestones add 20%*/
@@ -637,22 +640,31 @@ input[type="file"] {
 .timeline-container #line2 {
     width: 0%;
     background: #00FFB0;
+    height: 7px;
+    position: absolute;
+    top: 100%; 
+    transform: translateY(-700%);
     z-index: 2;
-    transition: width .8s
+    border-radius: 100px;
+    transition: width 1s
     /* when there are more then 4 milestones add 20%*/
 }
+
 .timeline-container li:hover:before {
-    transform: scale(1.05);
-    transition: all ease .3s;
+    transform: scale(1.25);
+    transition: all ease .2s;
     background-color: #00FFB0; 
     border-color: #00FFB0; 
 }
 
-.timeline-container li:hover img {
-    transform: translateX(-12.5%) translateY(-122%);
-    width: 58px;
-    height: 58px;
-    transition: all ease .3s;
+.timeline-container li.completed:hover:before {
+    /* background-image: url('../img/1.png');
+    transition: all ease .2s;
+    background-color: rgba(0, 0, 0, 0.0); 
+    border-color: rgba(0, 0, 0, 0.0); 
+    transform: translateY(-60%) scale(1.1); */
+    transform: scale (1.25);
+    transition: all ease .2s;
 }
 
 @media only screen and (max-width: 768px) {

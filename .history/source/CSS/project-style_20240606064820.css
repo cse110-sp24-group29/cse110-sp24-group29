@@ -95,7 +95,7 @@ body {
 .main-content {
     width: 75%; /* Adjusted to take up 75% of the width */
     padding: 20px;
-    height: 100%;}
+}
 
 .notes-section {
     background-color: #F0F0F0; /* Light background for the notes section */
@@ -103,7 +103,7 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
     position: relative;
-    height:100%;
+    height: 500px;
 }
 
 .notes-section h2 {
@@ -612,7 +612,6 @@ input[type="file"] {
     z-index: -1;
     opacity: 1;
 }
-
 .timeline-container li:first-child span {
     width: 220%;
     transform: translateX(-50%);
@@ -641,20 +640,31 @@ input[type="file"] {
     transition: width .8s
     /* when there are more then 4 milestones add 20%*/
 }
-.timeline-container li:hover:before {
-    transform: scale(1.05);
-    transition: all ease .3s;
-    background-color: #00FFB0; 
-    border-color: #00FFB0; 
+
+.timeline-container li:hover {
+    transform: scale(1.1); 
+    color: #00FFB0;
+    
+
 }
 
 .timeline-container li:hover img {
-    transform: translateX(-12.5%) translateY(-122%);
-    width: 58px;
-    height: 58px;
-    transition: all ease .3s;
+    transform: translateX(-12.5%) translateY(-123%); 
+    width: 55px;
+    height: 55px;
 }
 
+.timeline-container img:hover {
+    transform: translateX(-12.5%) translateY(-123%); /* Transform the image */
+    width: 55px;
+    height: 55px;
+}
+
+.timeline-container img:hover + li {
+    transform: scale(1.1); 
+    color: #00FFB0;
+    background-color: #00FFB0;
+}
 @media only screen and (max-width: 768px) {
     /* Styles for iPhone layout */
     .timeline-container {

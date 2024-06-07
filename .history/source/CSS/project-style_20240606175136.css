@@ -95,7 +95,7 @@ body {
 .main-content {
     width: 75%; /* Adjusted to take up 75% of the width */
     padding: 20px;
-    height: 100%;}
+}
 
 .notes-section {
     background-color: #F0F0F0; /* Light background for the notes section */
@@ -103,7 +103,7 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
     position: relative;
-    height:100%;
+    height:100 %x;
 }
 
 .notes-section h2 {
