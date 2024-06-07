@@ -10,6 +10,7 @@ navbar-component {
 }
 
 body {
+    font-family: Montserrat;
     background-color: #0A192F;
     background: linear-gradient(to right, #0A192F 88%, #00FFB0);
     display: flex;
@@ -339,6 +340,11 @@ body {
     z-index: 1;
 }
 
+:focus{
+    outline: 3.5px solid cadetblue;
+    border-radius: 3px;
+}
+
 /* Style for the buttons container */
 
 
@@ -632,7 +638,9 @@ input[type="file"] {
     padding-left: 20px;
     margin-top: 5px;
     display: none;
+    overflow: hidden;
 }
+
 
 .task-list li {
     display: flex;
@@ -646,15 +654,23 @@ input[type="file"] {
     align-items: center;
     justify-content: space-between;
     margin-bottom: 5px;
+    margin-top: 5px;
+    margin-right: 17px;
 }
+
+
 
 .task-list input[type="checkbox"] {
     margin-right: 10px;
+    cursor: pointer;
 }
 
 .task-list label {
     font-size: 0.85em;
     color: #555;
+    flex-grow: 1;
+    padding-right: 10px;
+    cursor: text;
 }
 
 .task-list textarea {
@@ -682,10 +698,8 @@ input[type="file"] {
 }
 
 .add-task {
-    margin-left: 150px;
+    margin-left: 80%;
     font-size: 0.6em;
-    background-color: #F0F0F0;
-    color: #0A192F;
 }
 
 .add-task:hover, .add-milestone:hover {
@@ -718,24 +732,55 @@ input[type="file"] {
     cursor: pointer;
 }
 
-.dropdown-arrow {
-    font-size: 1em;
+.dropdown-arrow{
+    font-size: 0.7em;
     cursor: pointer;
+    color: #333;
+    background-color: #F0F0F0;
+    padding: 3;
+    margin: 0;
 }
 
+.dropdown-arrow:hover {
+    font-size: 0.7em;
+    cursor: pointer;
+    color: #333;
+    background-color: #F0F0F0;
+    padding: 3;
+    margin: 0;
+}
+
+.milestone-trash {
+    cursor: pointer;
+    color: #333;
+    background-color: #F0F0F0;
+    align-content: center;
+    display: flex;
+    padding: 0;
+    margin: 0;
+    margin-left: 3px;
+}
+
+.milestone-trash:hover{
+    cursor: pointer;
+    color: #333;
+    background-color: #F0F0F0;
+    align-content: center;
+    display: flex;
+    padding: 0;
+    margin: 0;
+}
 
 #TIHeader {
     color:  #CCFF00;
     font-weight: 700;
     font-size: 2em; 
-    display:flex;
     width: 100%;
-    justify-content: center;
-    margin: auto;
-    text-align: center;
     text-transform: uppercase;
     letter-spacing: 7px;
     line-height: 1.2em;
+    margin-top: 20px;
+    transform: translateX(1.5%);
 }
 
 
@@ -746,6 +791,9 @@ input[type="file"] {
     height: 20%; 
     width: 80%;
     border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
     text-align: center;
     box-sizing: border-box;
     vertical-align: bottom;
@@ -756,9 +804,10 @@ input[type="file"] {
     margin: auto;
     width: 100%;
     position: relative;
-    height: 100px;
+    height: 140px;
     overflow-x: visible; 
-    padding: 0 25px; 
+    padding: 0px 25px; 
+    overflow-y: visible;
 }
 
 .timeline-container ul {
@@ -799,21 +848,9 @@ input[type="file"] {
 }
 
 .timeline-container li.completed:before {
-    /* border: solid 0px #CCFF00 ;
-    background-image: url('../img/2.png');
-    background-size: cover; 
-    width: 70px; 
-    height: 70px; 
-    margin-bottom: -49px;
-    margin-right: -49px;
-    margin-left: 3px;
-    border-radius: 0; 
-    z-index: 2; 
-    top: -50%;
-    transform: translateY(-60%); */
     background-color: #00FFB0;
     border-color: #00FFB0;
-    transition: background-color 1s ease-in-out, border-color 1s ease-in-out;
+    transition: background-color .8s ease-in-out, border-color .8s ease-in-out;
     z-index: 40;
     
 }
@@ -826,11 +863,19 @@ input[type="file"] {
 
 .timeline-container li span {
     position: absolute;
-    display: inline-block;
     bottom: -24px; 
     width: 430%; /*Every Letter adds 30%*/
     transform: translateX(-50%);
     white-space: nowrap; 
+    font-family: Montserrat;
+}
+.timeline-container li img {
+    position: absolute;
+    width: 55px;
+    height: 55px;
+    transform: translateX(-12.5%) translateY(-120%);
+    z-index: -1;
+    opacity: 1;
 }
 
 .timeline-container li:first-child span {
@@ -843,13 +888,13 @@ input[type="file"] {
     transform: translateX(-50%);
 }
 
-.timeline-container #line {
-    width: 100%;
+.timeline-container #line, #line2 {
+    width: 99%;
     background:  #CCFF00;
     height: 7px;
     position: absolute;
     top: 100%; 
-    transform: translateY(-700%);
+    transform: translateY(-760%);
     z-index: 1;
     border-radius: 100px;
     /* when there are more then 4 milestones add 20%*/
@@ -857,31 +902,22 @@ input[type="file"] {
 .timeline-container #line2 {
     width: 0%;
     background: #00FFB0;
-    height: 7px;
-    position: absolute;
-    top: 100%; 
-    transform: translateY(-700%);
     z-index: 2;
-    border-radius: 100px;
-    transition: width 1s
+    transition: width .8s
     /* when there are more then 4 milestones add 20%*/
 }
-
 .timeline-container li:hover:before {
-    transform: scale(1.25);
-    transition: all ease .2s;
+    transform: scale(1.05);
+    transition: all ease .3s;
     background-color: #00FFB0; 
     border-color: #00FFB0; 
 }
 
-.timeline-container li.completed:hover:before {
-    /* background-image: url('../img/1.png');
-    transition: all ease .2s;
-    background-color: rgba(0, 0, 0, 0.0); 
-    border-color: rgba(0, 0, 0, 0.0); 
-    transform: translateY(-60%) scale(1.1); */
-    transform: scale (1.25);
-    transition: all ease .2s;
+.timeline-container li:hover img {
+    transform: translateX(-12.5%) translateY(-122%);
+    width: 58px;
+    height: 58px;
+    transition: all ease .3s;
 }
 
 @media only screen and (max-width: 768px) {
@@ -917,10 +953,16 @@ input[type="file"] {
 
 
 /* xl */
-@media (max-width: 1280px) {
+@media (min-width: 1280px) {
     .sidebar{
         width: fit-content;
         align-content: center;
+    }
+
+    .add-task {
+        margin-left: 55%;
+        font-size: 10px;
+
     }
 }
 
@@ -935,6 +977,11 @@ input[type="file"] {
 
     .main-content{
         width: 100%;
+    }
+
+    .add-task {
+        margin-left: 77%;
+        font-size: 10PX;
     }
 
     .notes-section{
@@ -1036,7 +1083,19 @@ input[type="file"] {
     .notes-section{
         max-height: 90%;
         max-width: 90%;
+        width: 80%;
+    }
+
+    .main-content{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         width: 100%;
+    }
+
+    .add-task {
+        margin-left: 70%;
+        font-size: 5 px;
     }
 }
 
@@ -1052,6 +1111,12 @@ input[type="file"] {
 
     .navbar{
         position: relative;
+    }
+
+    .add-task {
+        margin-left: 57%;
+        font-size: 0.5em;
+
     }
 
     .pen{
@@ -1110,6 +1175,12 @@ input[type="file"] {
         align-content: center;
     }
 
+    .add-task {
+        margin-left: 40%;
+        font-size: 0.6em;
+
+    }
+
     .navbar{
         position: relative;
     }
@@ -1130,7 +1201,7 @@ input[type="file"] {
 
     .add-entry-button, .code-snippets-button {
         padding: 7px; /* Smaller padding */
-        font-size: 15px; /* Smaller font size */
+        font-size: 14px; /* Smaller font size */
     }
 
     .notes-left{
@@ -1161,7 +1232,7 @@ input[type="file"] {
 
 }
 
-@media (min-height: 1300px) and (min-width: 930px){
+@media (min-height: 1400px) and (min-width: 930px){
 
     .content{
         display: flex;
