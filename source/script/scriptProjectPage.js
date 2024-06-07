@@ -8,7 +8,7 @@ if(mediaQuery.matches) {
     currentWidth = 300;
 }
 else {
-    currentWidth = 99;
+    currentWidth = 100;
 }
 function toggleMenu() {
     const dropdownMenu = document.getElementById('dropdown-menu');
@@ -165,7 +165,7 @@ function resizeWidth() {
         currentWidth = 300;
     }
     else {
-        currentWidth = 99;
+        currentWidth = 100;
     }
     let milestones = getMilestoneArray();
     let mINumber = milestones.length;
@@ -487,7 +487,7 @@ function subWidth () {
  */
 
 function resetWidth() {
-    currentWidth = 99;
+    currentWidth = 100;
     let timelineContainer = document.
         getElementsByClassName('timeline-container')[0];
     if(mediaQuery.matches) {
