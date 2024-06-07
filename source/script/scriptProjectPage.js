@@ -701,7 +701,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-
 // Initialize highlight.js
 document.addEventListener("DOMContentLoaded", (event) => {
     document.querySelectorAll('pre code').forEach((block) => {
