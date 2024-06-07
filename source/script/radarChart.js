@@ -32,7 +32,7 @@ class StatsGraph extends HTMLElement {
             }
 
             .container {
-                display: flex;
+                display: flexbox;
                 flex-direction: row;
                 padding: 20px;
                 width: ${width};
@@ -43,17 +43,6 @@ class StatsGraph extends HTMLElement {
                 gap: 8rem;
             }
 
-            .container > div {
-                flex: 1;
-                width: 50%;
-                height: auto;
-                margin: 0 10px;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-            }
-
             .chart-container {
                 display: flex;
                 justify-content: center;
@@ -61,55 +50,14 @@ class StatsGraph extends HTMLElement {
             }
 
             #statsChart {
-                width: 400px; /* Increase the width */
-                height: 400px; /* Increase the height */
+                width: 450px; /* Increase the width */
+                height: 450px; /* Increase the height */
             }
-
-            .user-info {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                
-            }
-
-            .user-pic {
-                width: 150px;
-                height: 150px;
-                background-image: url('../../admin/branding/user_icon.jpg');
-                background-size: cover;
-                background-position: center;
-                border-radius: 50%;
-                margin-bottom: 20px;
-                border: 2px solid #000;
-            }
-
-            .user-text {
-                text-align: center;
-                font-size: 20px;
-                color: white;
-            }
-
-            .user-text p {
-                margin: 5px 0;
-            }
-
-            #devsurf {
-                color: #00FFB0;
-            }
-
         </style>
 
         <div class="container">
             <div class="chart-container">
                 <canvas id="statsChart" width="600" height="600"></canvas>
-            </div>
-            <div class="user-info">
-                <div class="user-pic"></div>
-                <div class="user-text">
-                    <p>Hello, user_id</p>
-                    <p>Welcome to <a id="devsurf">DevSurf</a></p>
-                </div>
             </div>
         </div>
         `;
@@ -125,12 +73,12 @@ class StatsGraph extends HTMLElement {
                     label: 'Stats',
                     data: [100, 80, 90, 60, 30],
                     fill: true,
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgb(75, 192, 192)',
-                    pointBackgroundColor: 'rgb(75, 192, 192)',
-                    pointBorderColor: '#fff',
-                    pointHoverBackgroundColor: '#fff',
-                    pointHoverBorderColor: 'rgb(75, 192, 192)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)', // all chart grid colors changed to teal and grey
+                    borderColor: 'rgb(54, 162, 235)', 
+                    pointBackgroundColor: 'rgb(54, 162, 235)', 
+                    pointBorderColor: 'rgb(75, 75, 75)', 
+                    pointHoverBackgroundColor: 'rgb(75, 75, 75)',
+                    pointHoverBorderColor: 'rgb(54, 162, 235)', 
                     pointRadius: 0
                 }]
             },
@@ -151,16 +99,16 @@ class StatsGraph extends HTMLElement {
                         min: 0,
                         max: 100,
                         grid: {
-                            color: 'rgba(255, 255, 225)'
+                            color: 'rgba(54, 54, 54, 0.2)' // Light gray for the grid lines
                         },
                         angleLines: {
-                            color: 'rgba(255, 255, 255)'
+                            color: 'rgba(54, 54, 54, 0.2)' // Light gray for the angle lines
                         },
                         pointLabels: {
                             font: {
                                 size: 14
                             },
-                            color: '#ffffff'
+                            color: 'rgb(54, 162, 235)' // Teal color for the labels
                         },
                         ticks: {
                             display: false,

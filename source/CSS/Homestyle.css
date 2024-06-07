@@ -1,133 +1,243 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Merriweather:wght@300;400;700&display=swap');
+
 header {
     width: 100%;
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: linear-gradient(to right, #0A192F 80%, #00FFB0);
+    color: white;
+    box-sizing: border-box;
+}
+
+.header-center {
+    text-align: center;
+}
+
+.main-heading {
+    font-family: 'Merriweather', serif;
+    font-size: 36px;
+    margin: 0;
+}
+
+.sub-heading {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
     margin: 0;
 }
 
 body {
     background: linear-gradient(to right, #0A192F 80%, #00FFB0);
-    background-color: black;
     font-family: 'Montserrat', sans-serif;
     height: 100vh;
     margin: 0;
-    width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center content horizontally */
+    align-items: center;
     justify-content: flex-start;
 }
 
-.user-container {
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-}
-
-.search-add-container {
+.container {
     display: flex;
     width: 100%;
-    padding: 0 20px;
-    box-sizing: border-box;
-    justify-content: center;
+    height: calc(100vh - 90px);
+    justify-content: space-between;
     align-items: center;
-}
-
-.small-button-container {
-    display: flex;
-    align-items: center;
-}
-
-.small-add-button {
-    background-color: #757575;
-    color: rgba(0, 0, 0, 0.466);
-    border: none;
-    cursor: pointer;
-    border-radius: 50%;
-    font-size: 24px;
-    transition: background-color 0.3s;
-    width: 40px;
-    height: 40px; 
-}
-
-.small-add-button:hover {
-    background-color: #494949;
-}
-
-.search-wrapper {
-    display: flex;
-    justify-content: center;
-    flex-grow: 1.5; /* Adjust flex-grow as needed */
-    max-width: 600px; /* Increase the maximum width */
-}
-
-.search-container {
-    background-color: white;
-    border: 1px solid #ccc;
-    display: flex;
-    align-items: center;
-    border-radius: 10px;
-    width: 100%;
-    max-width: 500px;
-    height: 40px;
-}
-
-.search-input {
-    border: none;
-    width: 100%;
-    outline: none;
-    font-size: 16px;
-    border-radius: 10px;
-}
-
-.search-input::placeholder {
-    color: #aaa;
-}
-
-.project-widget-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 39%;
-    padding: 0 20px;
-    flex-wrap: wrap;
-    margin-bottom: 5rem;
+    position: relative;
     overflow: hidden;
+    background-color: #ffffff;
 }
 
-.project-widget-container-wrapper {
+.section-heading {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+.right-heading {
+    font-family: 'Merriweather', serif;
+    font-size: 28px;
+    margin: 0;
+    color: #0A192F;
+    background: #00FFB0;
+    padding: 10px;
+    border-radius: 10px;
+    display: inline-block;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.left-heading {
+    font-family: 'Merriweather', serif;
+    font-size: 28px;
+    margin-top: 50px;
+    color: #0A192F;
+    background: #00FFB0;
+    padding: 10px;
+    border-radius: 10px;
+    display: inline-block;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.left-side,
+.right-side {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.left-side {
+    background: #ffffff;
+    height: 100%;
+    max-width: 900px;
+    max-height: 900px;
+}
+
+.right-side {
+    background: #CCFF00;
+    height: 100%;
+    border-top-left-radius: 15%;
+    border-bottom-left-radius: 15%;
+}
+
+.project-card-container {
     display: flex;
     justify-content: center;
-    margin-top: 0px;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin-top: 20px;
 }
 
-.projects {
+.project-card-wrapper {
     display: flex;
+    overflow: hidden;
+    width: 500px;
+    height: 580px;
+    position: relative;
+}
+
+.project-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 20px;
+    width: 100%;
     transition: transform 0.3s ease;
 }
 
-.big-button-container {
-    display: flex;
-    justify-content: center;
+project-card,
+add-project-card {
     width: 100%;
-    padding: 20px 0;
+    background-color: rgba(75, 192, 192, 0.2);
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
 }
 
-.big-add-button {
-    background-color: #757575;  
-    color: rgba(0, 0, 0, 0.8);
-    border: none;
-    cursor: pointer;
+project-card h3,
+add-project-card h3 {
+    text-align: center;
+    color: white;
+    margin: 10px 0;
+}
+
+project-card p {
+    margin: 5px 0;
+    color: white;
+}
+
+project-card .description-box {
+    border: 1px solid white;
     border-radius: 5px;
-    font-size: 12px;
-    outline: none;
-    padding: 35px 20px;
-    height: 60px;
-    transition: background-color 0.3s;
+    padding: 5px;
+    margin-bottom: 5px;
+    min-height: 50px;
+    background-color: rgba(75, 192, 192, 0.2);
+}
+
+project-card .tags {
+    display: flex;
+    flex-direction: column;
+}
+
+project-card .tags label {
+    color: white;
+    margin-bottom: 5px;
+}
+
+project-card .tags select {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid white;
+    background-color: rgba(10, 25, 47, 0.8);
+    color: white;
+}
+
+project-card button,
+add-project-card button {
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 5px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+project-card button img,
+add-project-card button img {
+    width: 20px;
+    height: 20px;
+}
+
+scroll-button {
+    cursor: pointer;
+    user-select: none;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #757575;
+    color: white;
+    font-size: 24px;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 0 10px;
 }
 
-.big-add-button:hover {
+scroll-button:hover {
     background-color: #494949;
+}
+
+.greeting {
+    margin-right: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    display: inline;
+}
+
+.logout-button {
+    background-color: red;
+    border: none;
+    border-radius: 5px;
+    color: #0A192F;
+    font-size: 16px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: inline;
+}
+
+.logo {
+    height: 100px;
+    width: auto;
 }
