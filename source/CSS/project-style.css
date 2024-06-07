@@ -864,7 +864,7 @@ input[type="file"] {
 .timeline-container li span {
     position: absolute;
     bottom: -24px; 
-    width: 430%; /*Every Letter adds 30%*/
+    width: 460%; /*Every Letter adds 30%*/
     transform: translateX(-50%);
     white-space: nowrap; 
     font-family: Montserrat;
@@ -919,11 +919,13 @@ input[type="file"] {
     height: 58px;
     transition: all ease .3s;
 }
-
+.date {
+    display: none;
+}
 @media only screen and (max-width: 768px) {
     /* Styles for iPhone layout */
     .timeline-container {
-        height: 150px;
+        height: 180px;
         overflow-x: auto;
     }
     .timeline-container ul {
@@ -933,8 +935,7 @@ input[type="file"] {
         overflow: visible; 
         top: calc(90% + 10px); 
         transform: translateY(-350%);
-        padding: 0; 
-        margin: 0; 
+         
     }
     .timeline-container #line {
         width: 300%;
@@ -948,6 +949,9 @@ input[type="file"] {
     }
     .timeline-container li {
         overflow: visible; /* Ensure overflow is not hidden */
+    }
+    #TIHeader {
+        margin-bottom: 15px;
     }
 }
 

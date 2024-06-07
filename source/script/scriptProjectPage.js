@@ -29,29 +29,29 @@ window.onclick = function(event) {
     // }
 }
 
+
 /**
- * Adds a new task to the specified milestone.
+ * Adds current date to the task if it is checked
  * 
- * @param {HTMLElement} button - The button element that triggered the function.
- * @param {number} milestoneId - The number of the milestone to which the task is being added.
+ * @param {HTMLElement} check- the input checkbox that is checked
  */
-function addTask(button, milestoneId, taskName) {
-    const taskList = document.getElementById(`task-list${milestoneId}`);
-    const taskCount = taskList.children.length + 1;
-    const newTask = document.createElement('li');
-    if(taskName == '') {
-        taskName = `Task ${taskCount}`;
+function updateDate (check) {
+    let now = new Date();
+    task = check.parentElement;
+    let milestone = task.closest('[data-id^="milestone-"]');
+    let currentDate = now.toLocaleDateString('en-GB');
+    let dateDiv = task.querySelector('.date');
+    if(check.checked) {
+        dateDiv.innerText = currentDate;
+        if(milestone.querySelector('.completed')) {
+            milestone.querySelector('.date').innerText = currentDate;
+        }
     }
-    newTask.innerHTML = `
-        <div class="task-item">
-            <input type="checkbox" id="task-${milestoneId}-${taskCount}" onclick="updateProgress(${milestoneId})" onkeydown="toggleCheckboxOnEnter(event, this)">
-            <label contenteditable="true">${taskName}</label>
-            <button class="milestone-trash" onclick="deleteTask(this, ${milestoneId})" tabindex="0"><img class="milestoneX" src="../img/trash.png"></button>
-        </div>
-    `;
-    taskList.appendChild(newTask);
-    updateProgress(milestoneId);
-}
+    else {
+        dateDiv.innerText = '';
+        milestone.querySelector('.date').innerText = '';
+    }
+} 
 
 function toggleCheckboxOnEnter(event, checkbox) {
     if (event.key === 'Enter') {
@@ -70,19 +70,30 @@ ne to which t * @param {HTMLElement} button - The button element that triggered 
  * @param {string} taskText - The text content of the task.
  * @param {boolean} isChecked - Whether the task is checked or not.
  */
-function addTaskWithState(button, milestoneId, taskText, isChecked) {
+function addTask(button, milestoneId, taskText, isChecked, dateCompleted) {
     const taskList = document.getElementById(`task-list${milestoneId}`);
     const taskCount = taskList.children.length + 1;
     const newTask = document.createElement('li');
+    if(taskText == '') {
+        taskText = `Task ${taskCount}`;
+    }
     newTask.innerHTML = `
        <div class="task-item">
-            <input type="checkbox" id="task-${milestoneId}-${taskCount}" onclick="updateProgress(${milestoneId})" ${isChecked ? 'checked' : ''} onkeydown="toggleCheckboxOnEnter(event, this)">
+            <input type="checkbox" id="task-${milestoneId}-${taskCount}" onclick="updateProgress(${milestoneId}); updateDate(this)" ${isChecked ? 'checked' : ''} onkeydown="toggleCheckboxOnEnter(event, this)">
             <label contenteditable="true">${taskText}</label>
+            <div class = date>${dateCompleted}</div> 
             <button class="milestone-trash" onclick="deleteTask(this, ${milestoneId})" tabindex="0"><img class="milestoneX" src="../img/trash.png"></button>
         </div>
 
     `;
-    taskList.appendChild(newTask);  
+    let taskLabel = newTask.querySelector('label');
+    if(taskLabel) {
+        taskLabel.addEventListener('input', function () {
+        limitInnerTextLength(taskLabel);
+    });
+    }
+    taskList.appendChild(newTask);
+    updateProgress(milestoneId);  
 }
 
 /**
@@ -120,6 +131,7 @@ function addMilestone(milestoneName) {
     //dynamically changes milestone name on TIMELINE
     const milestoneNameElement = newMilestone.querySelector('.milestone-name');
     milestoneNameElement.addEventListener('input', function() {
+        limitInnerTextLength(milestoneNameElement);
         updateTimeline(this);
     });
     milestoneList.appendChild(newMilestone);
@@ -135,8 +147,29 @@ function addMilestone(milestoneName) {
     }
     updateTimelineProgress();
 }
-
-
+ /**
+  * Limits the amount of text to be 20 for any editable name
+  * @param {HTMLElement} text the element innertext that has to be limited
+  */
+function limitInnerTextLength(text) {
+    let tested = text.innerText;
+    if(tested.length > 20) {
+        text.innerText = tested.slice(0,20);
+        setCursorToEnd(text);
+    }
+}
+ /**
+  * Sets the inputs position to end once max limit is reached
+  * @param {HTMLElement} element the contented idable element
+  */
+function setCursorToEnd(element) {
+    const range = document.createRange();
+    const selection = window.getSelection();
+    range.selectNodeContents(element);
+    range.collapse(false); // Move range to the end
+    selection.removeAllRanges();
+    selection.addRange(range);
+}
 /**
  * Updates the timeline if > 3 milestones exist
  * 
@@ -183,11 +216,10 @@ function resizeWidth() {
  */
 
 function updateTimeline(milestoneElement) {
-    let spanWidth = 430;
     const milestoneId = milestoneElement.closest('li').getAttribute('data-id');
     const milestoneName = milestoneElement.textContent;
     let strLen = milestoneName.length;
-    spanWidth = 430 + (strLen - 11)*30;
+    let spanWidth = 460 + (strLen - 11)*41;
     const timelineElement = document.querySelector
         (`#timeline-elements [data-id="${milestoneId}"] span`);
     if (timelineElement) {
@@ -201,14 +233,13 @@ function updateTimeline(milestoneElement) {
  * @overload updates the space of the all elements of timeline
  */
 function updateTimeline() {
-    let spanWidth = 430;
     let milestones = getMilestoneArray();
     for (let i = 0; i < milestones.length; i++) {
         const milestone = milestones[i];
         const nameDiv = milestone.querySelector('.milestone-name');
         const milestoneName = nameDiv.textContent;
         let strLen = milestoneName.length;
-        spanWidth = 430 + (strLen - 11)*30;
+        let spanWidth = 460 + (strLen - 11)*41;
         let milestoneId = milestone.getAttribute('data-id');
         const timelineElement = document.querySelector
         (`#timeline-elements [data-id="${milestoneId}"] span`);
@@ -367,7 +398,7 @@ function renumberMilestones() {
         progressBar.id = `progress${newNumber}`;
         milestone.querySelector('.task-list').id = `task-list${newNumber}`;
         milestone.querySelector('.add-task').
-            setAttribute('onclick', `addTask(this, ${newNumber},'')`);
+            setAttribute('onclick', `addTask(this, ${newNumber},'',false,'')`);
         milestone.setAttribute('data-id', `milestone-${newNumber}`);
         const tasks = milestone.querySelectorAll('.task-list .task-item');
         renumberTasks(tasks, newNumber);
@@ -423,6 +454,7 @@ function getMilestoneHTML(milestoneNumber,milestoneName) {
         <div class="milestone-header" tabindex>
             <div class="milestone-content">
                 <div contenteditable="true" class="milestone-name">${milestoneName}</div>
+                <div class='date'></div>
                 <button class="milestone-trash" onclick="deleteMilestone(this)" tabindex="0"><img class="milestoneX" src="../img/trash.png"></button>
             </div>
             <button class="dropdown-arrow" id="dropdown-arrow-${milestoneNumber}" onclick="toggleTasks(${milestoneNumber});" tabindex="0">▼</button>
@@ -433,7 +465,7 @@ function getMilestoneHTML(milestoneNumber,milestoneName) {
         <ul class="task-list" id="task-list${milestoneNumber}">
             <!-- Tasks will be added here -->
         </ul>
-        <button class="add-task" onclick="addTask(this, ${milestoneNumber}, '')" style="display: none;">Add Task +</button>
+        <button class="add-task" onclick="addTask(this, ${milestoneNumber}, '',false,'')" style="display: none;">Add Task +</button>
     `;
 }
 /**
@@ -516,7 +548,7 @@ function saveMilestoneToStorage () {
         milestoneNames.push(milestoneName);
     }
     let stored = JSON.stringify(milestoneNames);
-    localStorage.setItem('milestones', stored)
+    localStorage.setItem('milestones', stored);
 }
 
 /**
@@ -532,9 +564,11 @@ function saveTasksArrayToStorage () {
             taskList.querySelectorAll('li').forEach(task => {
                 const checkbox = task.querySelector('input[type="checkbox"]');
                 const label = task.querySelector('label');
+                const date = task.querySelector('.date');
                 tasks.push({
                     text: label.textContent,
-                    checked: checkbox.checked
+                    checked: checkbox.checked,
+                    dateCompleted: date.innerText,
                 });
             });
             taskArray.push(tasks);
@@ -577,12 +611,12 @@ document.addEventListener("DOMContentLoaded", function () {
         milestones.forEach(milestone => addMilestone(milestone));
         const milestoneList = getMilestoneArray();
         const taskArray = JSON.parse(localStorage.getItem('tasks')) || [];
-
+       
         milestoneList.forEach((milestone, index) => {
             const taskButton = milestone.querySelector('.add-task');
             const tasks = taskArray[index] || [];
             tasks.forEach(task => {
-                addTaskWithState(taskButton, index + 1, task.text, task.checked);
+                addTask(taskButton, index + 1, task.text, task.checked,task.dateCompleted);
                 updateProgress(index + 1);
             });
         });
@@ -770,11 +804,15 @@ document.addEventListener("DOMContentLoaded", function () {
         if (target && target.dataset.id) {
             const milestoneId = target.dataset.id;
             const milestoneElement = document.querySelector(`#milestone-list [data-id="${milestoneId}"]`);
+            let progress = getProgressPercentage(milestoneId.charAt(milestoneId.length-1)) * 100;
+            progress = progress.toFixed(1);
+            if(milestoneElement.querySelector('.completed')) {
+                progress = 100;
+            }
             if (milestoneElement) {
-                const milestoneName = milestoneElement.querySelector('.milestone-name').textContent;
+                const milestoneName = milestoneElement.querySelector('.milestone-name').textContent + ':\u00A0\u00A0\u00A0\u00A0\u00A0' + progress + '%';
                 const taskElements = milestoneElement.querySelectorAll('.task-item label');
-                const tasks = Array.from(taskElements).map(task => task.textContent);
-                showMilestoneDetailsInIsland(milestoneName, tasks);
+                showMilestoneDetailsInIsland(milestoneName, taskElements);
             }
         }
     });
@@ -784,7 +822,13 @@ document.addEventListener("DOMContentLoaded", function () {
         islandContent.innerHTML = '';
         tasks.forEach(task => {
             const taskItem = document.createElement('p');
-            taskItem.textContent = task;
+            let date = task.parentElement.querySelector('.date').innerText;
+            if(date == '') {
+                taskItem.textContent = `${task.innerText}: In Progress `;
+            }
+            else {
+                taskItem.textContent = `${task.innerText}: Completed On  ${date}`;
+            }
             islandContent.appendChild(taskItem);
         });
         dynamicIsland.style.display = 'block';
