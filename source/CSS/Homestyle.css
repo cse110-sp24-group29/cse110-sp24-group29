@@ -13,7 +13,12 @@ header {
 }
 
 .header-center {
+    position: absolute;
+    left: 50%; 
+    transform: translateX(-50%); 
     text-align: center;
+    width: 100%; 
+    
 }
 
 .main-heading {
@@ -41,12 +46,13 @@ body {
 
 .container {
     display: flex;
-    width: 100%;
+    width: 95%;
     height: calc(100vh - 90px);
     justify-content: space-between;
     align-items: center;
     position: relative;
     overflow: hidden;
+    border-radius: 25px;
     background-color: #ffffff;
 }
 
@@ -101,7 +107,10 @@ body {
     height: 100%;
     border-top-left-radius: 15%;
     border-bottom-left-radius: 15%;
+    height: 100vh; 
 }
+
+
 
 .project-card-container {
     display: flex;
@@ -226,18 +235,31 @@ scroll-button:hover {
 }
 
 .logout-button {
-    background-color: red;
+    background-color: #FF5F56; 
     border: none;
-    border-radius: 5px;
-    color: #0A192F;
+    border-radius: 8px;
+    color: white; 
     font-size: 16px;
-    padding: 10px 20px;
+    padding: 12px 24px; 
     cursor: pointer;
-    transition: background-color 0.3s;
-    display: inline;
+    transition: background-color 0.3s, transform 0.3s; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    display: inline-block; 
+    font-family: 'Arial', sans-serif;
+}
+
+.logout-button:hover {
+    background-color: #E0473A;
+    transform: translateY(-2px);
+}
+
+.logout-button:active {
+    background-color: #C43D30;
+    transform: translateY(0);
 }
 
 .logo {
     height: 100px;
     width: auto;
 }
+
