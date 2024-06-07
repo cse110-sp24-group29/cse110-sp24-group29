@@ -113,9 +113,18 @@ function addMilestone(milestoneName) {
     let length = milestoneName.length;
     newTimelineElement.style.width = 430 + (length-11)*30;
     newTimelineElement.classList.add('uncompleted');
-    newTimelineElement.setAttribute('data-id', `milestone-${milestoneCount}`);
+    newTimelineElement.setAttribute('data-id', `milestone-${milestoneCount}`,);
     timelineList.insertBefore(newTimelineElement, timelineList.children[timelineCount - 1]);
     newMilestone.innerHTML = getMilestoneHTML(milestoneCount,milestoneName);
+
+    newTimelineElement.setAttribute('tabindex', '0');
+
+    newTimelineElement.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            this.click();
+            document.getElementById('closeIsland').focus();
+        }
+    });
 
     //dynamically changes milestone name on TIMELINE
     const milestoneNameElement = newMilestone.querySelector('.milestone-name');
@@ -566,6 +575,9 @@ document.addEventListener("DOMContentLoaded", function () {
     let isEditing = false;
     let editingEntryIndex = null;
 
+    //keyboard access to close island
+    closeIsland.setAttribute('tabindex', '0'); 
+
     // Load entries from localStorage and display them
     function loadEntries() {
         const entries = JSON.parse(localStorage.getItem('entries')) || [];
@@ -621,6 +633,7 @@ document.addEventListener("DOMContentLoaded", function () {
         editIcon.classList.add('edit-icon');
         editIcon.onclick = (event) => {
             event.stopPropagation();
+            document.getElementById('notepad').focus();
             loadEntryToEdit(index);
         };
 
@@ -635,12 +648,38 @@ document.addEventListener("DOMContentLoaded", function () {
 
         entryTile.onclick = () => {
             showDynamicIsland(title, content, type, images);
+            document.getElementById('closeIsland').focus();
         };
 
         entryTile.appendChild(entryTitle);
         entryTile.appendChild(entryContent);
         entryTile.appendChild(editIcon);
         entryTile.appendChild(trashIcon);
+
+        entryTile.setAttribute('tabindex', '0');
+        trashIcon.setAttribute('tabindex', '0');
+        editIcon.setAttribute('tabindex', '0');
+        
+            // Add keydown event listeners for Enter key
+        entryTile.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                this.click();
+            }
+        });
+
+        trashIcon.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.stopPropagation();
+                trashIcon.click();
+            }
+        });
+
+        editIcon.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.stopPropagation();
+                editIcon.click();
+            }
+        });
 
         entriesContainer.appendChild(entryTile);
     }
@@ -719,6 +758,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
         dynamicIsland.style.display = 'block';
     }
+
+    closeIsland.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            this.click();
+        }
+    });   
 
     // Handle the close button for the dynamic island
     closeIsland.onclick = () => {
