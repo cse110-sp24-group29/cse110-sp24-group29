@@ -188,6 +188,11 @@ body {
     height: auto;
 }
 
+:focus{
+    outline: 3.5px solid cadetblue;
+    border-radius: 3px;
+}
+
 /* Style for the buttons container */
 .buttons {
     display: flex;
@@ -414,7 +419,9 @@ input[type="file"] {
     padding-left: 20px;
     margin-top: 5px;
     display: none;
+    overflow: hidden;
 }
+
 
 .task-list li {
     display: flex;
@@ -428,15 +435,23 @@ input[type="file"] {
     align-items: center;
     justify-content: space-between;
     margin-bottom: 5px;
+    margin-top: 5px;
+    margin-right: 17px;
 }
+
+
 
 .task-list input[type="checkbox"] {
     margin-right: 10px;
+    cursor: pointer;
 }
 
 .task-list label {
     font-size: 0.85em;
     color: #555;
+    flex-grow: 1;
+    padding-right: 10px;
+    cursor: text;
 }
 
 .task-list textarea {
@@ -464,10 +479,8 @@ input[type="file"] {
 }
 
 .add-task {
-    margin-left: 150px;
+    margin-left: 80%;
     font-size: 0.6em;
-    background-color: #F0F0F0;
-    color: #0A192F;
 }
 
 .add-task:hover, .add-milestone:hover {
@@ -500,11 +513,44 @@ input[type="file"] {
     cursor: pointer;
 }
 
-.dropdown-arrow {
-    font-size: 1em;
+.dropdown-arrow{
+    font-size: 0.7em;
     cursor: pointer;
+    color: #333;
+    background-color: #F0F0F0;
+    padding: 3;
+    margin: 0;
 }
 
+.dropdown-arrow:hover {
+    font-size: 0.7em;
+    cursor: pointer;
+    color: #333;
+    background-color: #F0F0F0;
+    padding: 3;
+    margin: 0;
+}
+
+.milestone-trash {
+    cursor: pointer;
+    color: #333;
+    background-color: #F0F0F0;
+    align-content: center;
+    display: flex;
+    padding: 0;
+    margin: 0;
+    margin-left: 3px;
+}
+
+.milestone-trash:hover{
+    cursor: pointer;
+    color: #333;
+    background-color: #F0F0F0;
+    align-content: center;
+    display: flex;
+    padding: 0;
+    margin: 0;
+}
 
 #TIHeader {
     color:  #CCFF00;
@@ -688,10 +734,16 @@ input[type="file"] {
 
 
 /* xl */
-@media (max-width: 1280px) {
+@media (min-width: 1280px) {
     .sidebar{
         width: fit-content;
         align-content: center;
+    }
+
+    .add-task {
+        margin-left: 55%;
+        font-size: 10px;
+
     }
 }
 
@@ -706,6 +758,11 @@ input[type="file"] {
 
     .main-content{
         width: 100%;
+    }
+
+    .add-task {
+        margin-left: 77%;
+        font-size: 10PX;
     }
 
     .notes-section{
@@ -807,7 +864,19 @@ input[type="file"] {
     .notes-section{
         max-height: 90%;
         max-width: 90%;
+        width: 80%;
+    }
+
+    .main-content{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         width: 100%;
+    }
+
+    .add-task {
+        margin-left: 70%;
+        font-size: 5 px;
     }
 }
 
@@ -823,6 +892,12 @@ input[type="file"] {
 
     .navbar{
         position: relative;
+    }
+
+    .add-task {
+        margin-left: 57%;
+        font-size: 0.5em;
+
     }
 
     .pen{
@@ -881,6 +956,12 @@ input[type="file"] {
         align-content: center;
     }
 
+    .add-task {
+        margin-left: 40%;
+        font-size: 0.6em;
+
+    }
+
     .navbar{
         position: relative;
     }
@@ -901,7 +982,7 @@ input[type="file"] {
 
     .add-entry-button, .code-snippets-button {
         padding: 7px; /* Smaller padding */
-        font-size: 15px; /* Smaller font size */
+        font-size: 14px; /* Smaller font size */
     }
 
     .notes-left{
@@ -932,7 +1013,7 @@ input[type="file"] {
 
 }
 
-@media (min-height: 1300px) and (min-width: 930px){
+@media (min-height: 1400px) and (min-width: 930px){
 
     .content{
         display: flex;

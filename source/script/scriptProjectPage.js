@@ -44,12 +44,22 @@ function addTask(button, milestoneId, taskName) {
     }
     newTask.innerHTML = `
         <div class="task-item">
-            <input type="checkbox" id="task-${milestoneId}-${taskCount}" onclick="updateProgress(${milestoneId})">
-            <label for="task-${milestoneId}-${taskCount}" contenteditable="true" ondblclick="deleteTask(this, ${milestoneId})">${taskName}</label>
+            <input type="checkbox" id="task-${milestoneId}-${taskCount}" onclick="updateProgress(${milestoneId})" onkeydown="toggleCheckboxOnEnter(event, this)">
+            <label contenteditable="true">${taskName}</label>
+            <button class="milestone-trash" onclick="deleteTask(this, ${milestoneId})" tabindex="0"><img class="milestoneX" src="../img/trash.png"></button>
         </div>
     `;
     taskList.appendChild(newTask);
     updateProgress(milestoneId);
+}
+
+function toggleCheckboxOnEnter(event, checkbox) {
+    if (event.key === 'Enter') {
+        checkbox.checked = !checkbox.checked;
+        event.preventDefault(); // Prevent the default action
+        // Optionally trigger the click event to ensure consistency
+        checkbox.dispatchEvent(new Event('click'));
+    }
 }
 
 /**
@@ -66,8 +76,9 @@ function addTaskWithState(button, milestoneId, taskText, isChecked) {
     const newTask = document.createElement('li');
     newTask.innerHTML = `
        <div class="task-item">
-            <input type="checkbox" id="task-${milestoneId}-${taskCount}" onclick="updateProgress(${milestoneId})" ${isChecked ? 'checked' : ''}>
-            <label for="task-${milestoneId}-${taskCount}" contenteditable="true" ondblclick="deleteTask(this, ${milestoneId})">${taskText}</label>
+            <input type="checkbox" id="task-${milestoneId}-${taskCount}" onclick="updateProgress(${milestoneId})" ${isChecked ? 'checked' : ''} onkeydown="toggleCheckboxOnEnter(event, this)">
+            <label contenteditable="true">${taskText}</label>
+            <button class="milestone-trash" onclick="deleteTask(this, ${milestoneId})" tabindex="0"><img class="milestoneX" src="../img/trash.png"></button>
         </div>
 
     `;
@@ -215,13 +226,16 @@ function updateTimeline() {
  */
 function toggleTasks(milestoneId) {
     const taskList = document.getElementById(`task-list${milestoneId}`);
+    const arrowElement = document.getElementById(`dropdown-arrow-${milestoneId}`);
     const addTaskButton = taskList.nextElementSibling;
     if (taskList.style.display === 'block') {
         taskList.style.display = 'none';
         addTaskButton.style.display = 'none';
+        arrowElement.textContent = '▼';
     } else {
         taskList.style.display = 'block';
         addTaskButton.style.display = 'block';
+        arrowElement.textContent = '▲';
     }
 }
 
@@ -386,7 +400,6 @@ function renumberTasks (tasks,milestoneId) {
         taskCheckbox.setAttribute('onclick', `updateProgress(${milestoneId})`);
         let taskLabel = task.querySelector('label');
         taskLabel.setAttribute('ondblclick', `deleteTask(this, ${milestoneId})`);
-        taskLabel.setAttribute('for',`task-${milestoneId}-${taskIndex + 1}`);
         const placeholder = taskLabel.textContent;
         const currentName = placeholder.replace(/\s*\d+$/, '');
         if(currentName == 'Task') {
@@ -407,12 +420,12 @@ function renumberTasks (tasks,milestoneId) {
  */
 function getMilestoneHTML(milestoneNumber,milestoneName) {
     return `
-        <div class="milestone-header">
+        <div class="milestone-header" tabindex>
             <div class="milestone-content">
                 <div contenteditable="true" class="milestone-name">${milestoneName}</div>
-                <span onclick="deleteMilestone(this)" ><img class="milestoneX" src="../img/trash.png"></span>
+                <button class="milestone-trash" onclick="deleteMilestone(this)" tabindex="0"><img class="milestoneX" src="../img/trash.png"></button>
             </div>
-            <span class="dropdown-arrow" onclick="toggleTasks(${milestoneNumber});">▼</span>
+            <button class="dropdown-arrow" id="dropdown-arrow-${milestoneNumber}" onclick="toggleTasks(${milestoneNumber});" tabindex="0">▼</button>
         </div>
         <div class="progress-bar">
             <div class="progress" id="progress${milestoneNumber}"></div>
@@ -665,6 +678,12 @@ document.addEventListener("DOMContentLoaded", function () {
         });
         dynamicIsland.style.display = 'block';
     }
+});
+
+document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+    checkbox.addEventListener('keydown', function (event) {
+        toggleCheckboxOnEnter(event, checkbox);
+    });
 });
 
 mediaQuery.addEventListener('change', function () {
