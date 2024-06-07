@@ -400,13 +400,15 @@ button:hover, .code-snippets-button:hover {
     background-color: #f5f5f5;
 }
 
-.entry-tile:hover {
+.entry-tile:hover, .entry-tile:focus-within {
     transform: translateY(-5px);
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
 }
 
 .entry-tile:hover .trash-icon,
-.entry-tile:hover .edit-icon {
+.entry-tile:hover .edit-icon,
+.entry-tile:focus-within .trash-icon,
+.entry-tile:focus-within .edit-icon {
     display: block;
 }
 
@@ -467,7 +469,7 @@ button:hover, .code-snippets-button:hover {
     cursor: pointer;
 }
 
-.entry-tile:hover .trash-icon {
+.entry-tile:hover .trash-icon{
     display: block;
 }
 
