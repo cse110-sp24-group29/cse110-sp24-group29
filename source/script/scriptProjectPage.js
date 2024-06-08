@@ -726,6 +726,10 @@ document.addEventListener("DOMContentLoaded", function () {
         entryTitle.textContent = title;
         entryContent.textContent = content.length > 100 ? content.substring(0, 100) + '...' : content;
         entryTile.dataset.type = type;
+        entryTile.onclick = () => {
+            showDynamicIsland(title, content, type, []);
+            document.getElementById('closeIsland').focus();
+        };
     }
 
     function loadEntryToEdit(index) {
@@ -956,6 +960,40 @@ function addEntry(content) {
 
     renumberEntries(); // Renumber after adding
 }
+
+// Adjust the notepad size based on the screen width
+function adjustNotepadSize() {
+    const notepad = document.getElementById('notepad');
+    const markdown = document.getElementById('markdown');
+    const screenWidth = window.innerWidth;
+
+    if (screenWidth <= 475) {
+        notepad.style.fontSize = '12px';
+        markdown.style.fontSize = '12px';
+        notepad.style.padding = '10px 5px 10px 30px';
+        markdown.style.padding = '10px 5px 10px 30px';
+    } else if (screenWidth <= 640) {
+        notepad.style.fontSize = '14px';
+        markdown.style.fontSize = '14px';
+        notepad.style.padding = '15px 5px 15px 40px';
+        markdown.style.padding = '15px 5px 15px 40px';
+    } else if (screenWidth <= 768) {
+        notepad.style.fontSize = '16px';
+        markdown.style.fontSize = '16px';
+        notepad.style.padding = '20px 10px 20px 60px';
+        markdown.style.padding = '20px 10px 20px 60px';
+    } else {
+        notepad.style.fontSize = '16px';
+        markdown.style.fontSize = '16px';
+        notepad.style.padding = '20px 15px 20px 80px';
+        markdown.style.padding = '20px 15px 20px 80px';
+    }
+}
+
+// Adjust the notepad size on page load and when the window is resized
+window.addEventListener('load', adjustNotepadSize);
+window.addEventListener('resize', adjustNotepadSize);
+
 
 
 mediaQuery.addEventListener('change', function () {
