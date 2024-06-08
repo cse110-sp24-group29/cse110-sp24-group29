@@ -58,9 +58,8 @@ header {
     width: 20%;
 }
 .main-heading {
-    
-    font-family: 'Merriweather', serif;
-    font-size: 36px;
+    color: white;
+    font-family:Montserrat;
 }
 
 .logout-button {
