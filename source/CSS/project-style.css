@@ -398,6 +398,7 @@ button:hover, .code-snippets-button:hover {
     width: 150px;
     overflow: hidden;
     background-color: #f5f5f5;
+    position: relative;
 }
 
 .entry-tile:hover, .entry-tile:focus-within {
@@ -416,9 +417,6 @@ button:hover, .code-snippets-button:hover {
     font-size: 1.2em;
     margin-bottom: 10px;
     color: #0A192F;
-}
-
-.entry-tile h3 {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -471,13 +469,27 @@ button:hover, .code-snippets-button:hover {
         padding: 10px;
     }
 
+    .entry-tile {
+        height: 100px;
+        width: 100px;
+    }
+
     .entry-tile h3 {
         display: none;
     }
 
-    .entry-tile {
-        height: 100px;
-        width: 100px;
+    .entry-tile::before {
+        content: attr(data-index);
+        position: absolute;
+        top: 5px;
+        left: 10px;
+        font-size: 1.2em;
+        font-weight: bold;
+        color: #0A192F;
+    }
+
+    .edit-icon, .trash-icon {
+        display: block;
     }
 }
 
@@ -488,15 +500,30 @@ button:hover, .code-snippets-button:hover {
         padding: 10px;
     }
 
-    .entry-tile h3 {
-        display: none;
-    }
-    
     .entry-tile {
         height: 80px;
         width: 80px;
     }
+
+    .entry-tile h3 {
+        display: none;
+    }
+
+    .entry-tile::before {
+        content: attr(data-index);
+        position: absolute;
+        top: 5px;
+        left: 10px;
+        font-size: 1em;
+        font-weight: bold;
+        color: #0A192F;
+    }
+
+    .edit-icon, .trash-icon {
+        display: block;
+    }
 }
+
 
 /* Dynamic Island CSS */
 .dynamic-island {
