@@ -1,25 +1,30 @@
 class StatsGraph extends HTMLElement {
     constructor() {
         super();
+        // Attach a shadow DOM to the custom element
         this.attachShadow({ mode: 'open' });
     }
 
+    // Observe changes to the 'width' and 'height' attributes
     static get observedAttributes() {
         return ['width', 'height'];
     }
 
+    // Handle attribute changes
     attributeChangedCallback(name, oldValue, newValue) {
         if (name === 'width' || name === 'height') {
-            this.render();
-            this.loadChart();
+            this.render(); // Re-render the element
+            this.loadChart(); // Reload the chart with the new dimensions
         }
     }
 
+    // Called when the element is added to the DOM
     connectedCallback() {
-        this.render();
-        this.loadChart();
+        this.render(); // Render the element
+        this.loadChart(); // Load the chart
     }
 
+    // Render the HTML structure for the custom element
     render() {
         const width = this.getAttribute('width') || '100%';
         const height = this.getAttribute('height') || '400px';
@@ -64,6 +69,7 @@ class StatsGraph extends HTMLElement {
         `;
     }
 
+    // Load the radar chart using Chart.js
     loadChart() {
         const ctx = this.shadowRoot.querySelector('#statsChart').getContext('2d');
         this.chart = new Chart(ctx, {
@@ -131,9 +137,10 @@ class StatsGraph extends HTMLElement {
             }
         });
 
-        this.updateChart();
+        this.updateChart(); // Update the chart with initial data
     }
 
+    // Update the chart with the current distribution of project tags
     updateChart() {
         const tagCounts = {
             frontend: 0,
@@ -143,7 +150,9 @@ class StatsGraph extends HTMLElement {
             data: 0
         };
 
+        // Wait until 'project-card' elements are defined
         customElements.whenDefined('project-card').then(() => {
+            // Count the tags in each project card
             document.querySelectorAll('project-card').forEach(card => {
                 const tag = card.shadowRoot.querySelector('#tags').value;
                 if (tagCounts[tag] !== undefined) {
@@ -151,13 +160,16 @@ class StatsGraph extends HTMLElement {
                 }
             });
 
+            // Calculate the percentage of each tag
             const total = Object.values(tagCounts).reduce((acc, count) => acc + count, 0);
             const percentages = total > 0 ? Object.values(tagCounts).map(count => (count / total) * 100) : [0, 0, 0, 0, 0];
 
+            // Update the chart data and redraw the chart
             this.chart.data.datasets[0].data = percentages;
             this.chart.update();
         });
     }
 }
 
+// Define the custom element
 customElements.define('stats-graph', StatsGraph);
