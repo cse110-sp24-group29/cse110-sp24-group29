@@ -105,8 +105,8 @@ body {
 .right-side {
     background: #CCFF00;
     height: 100%;
-    border-top-left-radius: 15%;
-    border-bottom-left-radius: 15%;
+    border-top-left-radius: 45px;
+    border-bottom-left-radius: 45px;
     height: 100vh; 
 }
 
