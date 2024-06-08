@@ -187,9 +187,9 @@ function setCursorToEnd(element) {
 function addWidth() {
     let add = 24.5;
     if(mediaQuery.matches) {    
-        add = 60;
+        add = 100;
     }
-    if(mediaQuery2.matches) {
+    else if(mediaQuery2.matches ) {
         add = 45;
     }
     let timelineContainer = document.
@@ -517,7 +517,7 @@ function deleteMilestone(milestoneElement) {
 function subWidth () {
     let sub = 24;
     if(mediaQuery.matches) {
-        sub = 60;
+        sub = 90;
     }
     if(mediaQuery2.matches) {
         sub = 45;
