@@ -615,7 +615,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Load entries from localStorage and display them
     function loadEntries() {
         const entries = JSON.parse(localStorage.getItem('entries')) || [];
-        entries.forEach((entry, index) => addEntryTile(entry.title, entry.content, entry.type, entry.images, index + 1));
+        entries.forEach((entry, index) => addEntryTile(entry.title, entry.content, entry.type, entry.images, index));
     }
 
     function loadMilestonesAndTasks() {
@@ -645,7 +645,7 @@ document.addEventListener("DOMContentLoaded", function () {
             addEntryButton.textContent = 'Add Entry';
         } else {
             entries.push({ title, content, type, images });
-            addEntryTile(title, content, type, images, entries.length);
+            addEntryTile(title, content, type, images, entries.length - 1);
         }
         localStorage.setItem('entries', JSON.stringify(entries));
     }
@@ -667,7 +667,7 @@ document.addEventListener("DOMContentLoaded", function () {
         editIcon.classList.add('edit-icon');
         editIcon.onclick = (event) => {
             event.stopPropagation();
-            loadEntryToEdit(index - 1);
+            loadEntryToEdit(index);
         };
 
         const trashIcon = document.createElement('img');
@@ -676,7 +676,7 @@ document.addEventListener("DOMContentLoaded", function () {
         trashIcon.classList.add('trash-icon');
         trashIcon.onclick = (event) => {
             event.stopPropagation();
-            deleteEntry(entryTile, index - 1);
+            deleteEntry(entryTile, index);
         };
 
         entryTile.onclick = () => {
@@ -693,7 +693,7 @@ document.addEventListener("DOMContentLoaded", function () {
         trashIcon.setAttribute('tabindex', '0');
         editIcon.setAttribute('tabindex', '0');
         
-            // Add keydown event listeners for Enter key
+        // Add keydown event listeners for Enter key
         entryTile.addEventListener('keydown', function(event) {
             if (event.key === 'Enter') {
                 this.click();
@@ -719,7 +719,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Update an existing entry tile with new content
     function updateEntryTile(index, title, content, type) {
-        const entryTile = entriesContainer.querySelector(`.entry-tile[data-index="${index + 1}"]`);
+        const entryTile = entriesContainer.querySelector(`.entry-tile[data-index="${index}"]`);
         const entryTitle = entryTile.querySelector('h3');
         const entryContent = entryTile.querySelector('p');
 
@@ -754,17 +754,23 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function deleteEntry(entryTile, index) {
-        entriesContainer.removeChild(entryTile);
         const entries = JSON.parse(localStorage.getItem('entries')) || [];
         entries.splice(index, 1);
         localStorage.setItem('entries', JSON.stringify(entries));
+        entriesContainer.removeChild(entryTile);
         renumberEntries();
+    
+        // Close dynamic island if it's open and showing the deleted entry
+        if (dynamicIsland.style.display === 'block' && islandTitle.textContent === entryTile.querySelector('h3').textContent) {
+            dynamicIsland.style.display = 'none';
+        }
     }
+    
 
     function renumberEntries() {
         const entries = document.querySelectorAll('.entry-tile');
         entries.forEach((entry, index) => {
-            entry.dataset.index = index + 1;
+            entry.dataset.index = index;
             const entryTitle = entry.querySelector('h3');
             entryTitle.textContent = `Entry ${index + 1}`;
         });
@@ -827,6 +833,8 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
     });
+
+    
 
     // Handle note-type button clicks
     noteTypeButtons.forEach(button => {
@@ -914,11 +922,16 @@ function renderMarkdown(markdownText) {
 // Function to renumber entries after deletion
 function renumberEntries() {
     const entries = document.querySelectorAll('.entry-tile');
+    const entriesArray = JSON.parse(localStorage.getItem('entries')) || [];
     entries.forEach((entry, index) => {
+        entry.dataset.index = index;
         const entryTitle = entry.querySelector('h3');
         entryTitle.textContent = `Entry ${index + 1}`;
+        entriesArray[index].title = `Entry ${index + 1}`;
     });
+    localStorage.setItem('entries', JSON.stringify(entriesArray));
 }
+
 
 // Function to delete an entry
 function deleteEntry(entryElement) {
