@@ -319,6 +319,7 @@ function updateProgress(milestoneId) {
         milestone.querySelector('.milestone-name').classList.add('completed');
         image.src = '../img/1.png';
         image.alt = 'complete flag';
+
     } 
     else {
         // Not all tasks are completed
@@ -353,12 +354,14 @@ function updateTimelineProgress() {
         maxMilestone++;
     }
     let progressPercentage = getProgressPercentage(maxMilestone);
+    let timelineText = document.querySelector('#TIHeader');
     // check for completion
     if(completedMI == timelineLength - 2) {
         // if completed bar is filled and end is set to complete
         tlProgress = currentWidth;
         timeline[timelineLength - 1].classList.remove('uncompleted');
         timeline[timelineLength - 1].classList.add('completed');
+        timelineText.style.color = '#00FFB0';
     }
     else {
          // if progress bar is dynamically calculated and end is set to uncomplete
@@ -366,6 +369,7 @@ function updateTimelineProgress() {
         tlProgress += progressPercentage * oneDivision;
         timeline[timelineLength - 1 ].classList.remove('completed');
         timeline[timelineLength - 1].classList.add('uncompleted');
+        timelineText.style.color = '#CCFF00';
     }
     let line = document.getElementById('line2');
     line.style.width = tlProgress + '%';
