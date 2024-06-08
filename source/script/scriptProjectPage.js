@@ -628,11 +628,21 @@ document.addEventListener("DOMContentLoaded", function () {
         const entries = JSON.parse(localStorage.getItem('entries')) || [];
         entries.forEach((entry, index) => addEntryTile(entry.title, entry.content, entry.type, entry.images, index));
     }
-    // function loadProjectName() {
-    //     let name = localstorage.getItem('Name');
-    //     let title = document.querySelector('.title');
-    //     title.innerText = name;
-    // }
+    function loadProjectName() {
+        let name = localStorage.getItem('Name');
+        let title = document.querySelector('.title');
+        let mainTitle = document.querySelector('.main-heading');
+        mainTitle.textContent = name;
+        title.textContent = name;
+    }
+
+    document.querySelector('.home-button').addEventListener('click', function() {
+        window.location.href = 'home.html'; // Replace 'home.html' with the actual URL you want to navigate to
+      });
+    
+      document.querySelector('.logout-button').addEventListener('click', function() {
+        window.location.href = 'index.html'; // Replace 'logout.html' with the actual URL you want to navigate to
+      });
     function loadMilestonesAndTasks() {
         const milestones = JSON.parse(localStorage.getItem('milestones')) || [];
         milestones.forEach(milestone => addMilestone(milestone));
@@ -873,7 +883,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     loadEntries();
     loadMilestonesAndTasks();
-    //loadProjectName();
+    loadProjectName();
     resizeWidth();
     updateTimeline();
      // Add event listener to timeline items
@@ -1039,10 +1049,10 @@ mediaQuery2.addEventListener('change', function () {
 window.addEventListener('beforeunload', function () {
     saveMilestoneToStorage();
     saveTasksArrayToStorage();
-    localStorage.setItem('Name', 'Hello');
+    localStorage.setItem('Name', 'Project 1');
 });
 window.addEventListener('unload',function () {
     saveMilestoneToStorage();
     saveTasksArrayToStorage();
-    localStorage.setItem('Name', 'Hello');
+    localStorage.setItem('Name', 'Project 1');
 });

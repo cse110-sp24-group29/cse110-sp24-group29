@@ -6,7 +6,7 @@
 }
 
 
-.title {
+.title, .title1 {
     color: white;
     font-family:Montserrat;
     transform: translateY(-120%);
@@ -48,10 +48,9 @@ header {
     box-sizing: border-box;
 }
 .header-center {
-    position: absolute;
-    left: 50%; 
-    transform: translateX(-50%); 
-    text-align: center;
+    position: fixed;
+    display: flex; 
+    justify-content: center;
     width: 100%; 
     
 }
@@ -59,7 +58,7 @@ header {
 .main-heading {
     font-family: 'Merriweather', serif;
     font-size: 36px;
-    margin: 0;
+    position:fixed;
 }
 
 .logout-button {
