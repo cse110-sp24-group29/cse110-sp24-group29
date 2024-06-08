@@ -619,7 +619,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Load entries from localStorage and display them
     function loadEntries() {
         const entries = JSON.parse(localStorage.getItem('entries')) || [];
-        entries.forEach((entry, index) => addEntryTile(entry.title, entry.content, entry.type, entry.images, index));
+        entries.forEach((entry, index) => addEntryTile(entry.title, entry.content, entry.type, entry.images, index + 1));
     }
 
     function loadMilestonesAndTasks() {
@@ -649,7 +649,7 @@ document.addEventListener("DOMContentLoaded", function () {
             addEntryButton.textContent = 'Add Entry';
         } else {
             entries.push({ title, content, type, images });
-            addEntryTile(title, content, type, images, entries.length - 1);
+            addEntryTile(title, content, type, images, entries.length);
         }
         localStorage.setItem('entries', JSON.stringify(entries));
     }
@@ -671,7 +671,7 @@ document.addEventListener("DOMContentLoaded", function () {
         editIcon.classList.add('edit-icon');
         editIcon.onclick = (event) => {
             event.stopPropagation();
-            loadEntryToEdit(index);
+            loadEntryToEdit(index - 1);
         };
 
         const trashIcon = document.createElement('img');
@@ -680,7 +680,7 @@ document.addEventListener("DOMContentLoaded", function () {
         trashIcon.classList.add('trash-icon');
         trashIcon.onclick = (event) => {
             event.stopPropagation();
-            deleteEntry(entryTile, index);
+            deleteEntry(entryTile, index - 1);
         };
 
         entryTile.onclick = () => {
@@ -723,13 +723,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Update an existing entry tile with new content
     function updateEntryTile(index, title, content, type) {
-        const entryTile = entriesContainer.querySelector(`.entry-tile[data-index="${index}"]`);
+        const entryTile = entriesContainer.querySelector(`.entry-tile[data-index="${index + 1}"]`);
         const entryTitle = entryTile.querySelector('h3');
         const entryContent = entryTile.querySelector('p');
 
         entryTitle.textContent = title;
         entryContent.textContent = content.length > 100 ? content.substring(0, 100) + '...' : content;
         entryTile.dataset.type = type;
+        entryTile.onclick = () => {
+            showDynamicIsland(title, content, type, []);
+            document.getElementById('closeIsland').focus();
+        };
     }
 
     function loadEntryToEdit(index) {
@@ -764,7 +768,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function renumberEntries() {
         const entries = document.querySelectorAll('.entry-tile');
         entries.forEach((entry, index) => {
-            entry.dataset.index = index;
+            entry.dataset.index = index + 1;
             const entryTitle = entry.querySelector('h3');
             entryTitle.textContent = `Entry ${index + 1}`;
         });
@@ -960,6 +964,40 @@ function addEntry(content) {
 
     renumberEntries(); // Renumber after adding
 }
+
+// Adjust the notepad size based on the screen width
+function adjustNotepadSize() {
+    const notepad = document.getElementById('notepad');
+    const markdown = document.getElementById('markdown');
+    const screenWidth = window.innerWidth;
+
+    if (screenWidth <= 475) {
+        notepad.style.fontSize = '12px';
+        markdown.style.fontSize = '12px';
+        notepad.style.padding = '10px 5px 10px 30px';
+        markdown.style.padding = '10px 5px 10px 30px';
+    } else if (screenWidth <= 640) {
+        notepad.style.fontSize = '14px';
+        markdown.style.fontSize = '14px';
+        notepad.style.padding = '15px 5px 15px 40px';
+        markdown.style.padding = '15px 5px 15px 40px';
+    } else if (screenWidth <= 768) {
+        notepad.style.fontSize = '16px';
+        markdown.style.fontSize = '16px';
+        notepad.style.padding = '20px 10px 20px 60px';
+        markdown.style.padding = '20px 10px 20px 60px';
+    } else {
+        notepad.style.fontSize = '16px';
+        markdown.style.fontSize = '16px';
+        notepad.style.padding = '20px 15px 20px 80px';
+        markdown.style.padding = '20px 15px 20px 80px';
+    }
+}
+
+// Adjust the notepad size on page load and when the window is resized
+window.addEventListener('load', adjustNotepadSize);
+window.addEventListener('resize', adjustNotepadSize);
+
 
 
 mediaQuery.addEventListener('change', function () {
