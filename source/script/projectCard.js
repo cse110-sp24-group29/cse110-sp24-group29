@@ -9,13 +9,15 @@ class ProjectCard extends HTMLElement {
     }
 
     render() {
+        const projectName = this.getAttribute('project-name') || 'Project Name';
+        const description = this.getAttribute('description') || 'Max 200 chars...';
         const cardContainer = document.createElement('div');
         cardContainer.setAttribute('class', 'card');
         cardContainer.innerHTML = `
-            <h3>Project Name</h3>
+            <h3>${projectName}</h3>
             <p>Description:</p>
             <div class="description-box">
-                <p>Max 200 chars...</p>
+                <p>${description}</p>
             </div>
             <div class="tags">
                 <label for="tags">Project Tags:</label>
@@ -120,25 +122,39 @@ class AddProjectCard extends HTMLElement {
 
     connectedCallback() {
         this.render();
+        this.shadowRoot.querySelector('#add').addEventListener('click', () => {
+            const projectWidget = document.createElement('project-card');
+            //let id = User.projects.length + 1;
+           let name = "New Project";
+           let description = "Project description..."
+            projectWidget.setAttribute('project-name', name);
+            projectWidget.setAttribute('description', description);
+            //constructor creates project object 
+            //let project = Project.constructor(projID, name, description, tags, tasks, milestones, notes);
+            //add to user project array
+           //User.addProject(project);
+            document.querySelector('.project-cards').appendChild(projectWidget);
+        });
     }
 
     render() {
         const cardContainer = document.createElement('div');
         cardContainer.setAttribute('class', 'card');
         cardContainer.innerHTML = `
-            <h3>+ Add </h3>
+            <button id='add'>+ Add</button>
         `;
         this.shadowRoot.append(cardContainer);
 
         const style = document.createElement('style');
         style.textContent = `
-            .card {
+            .card button{
                 position: relative;
                 border: 1.5px dashed black;
                 border-radius: 10px;
                 padding: 20px;
                 background-color: rgba(75, 192, 192, 0.2);
-                width: auto;
+                width: 100%;
+                color: black;
                 margin: 10px 0;
                 display: flex;
                 justify-content: center;
@@ -147,10 +163,11 @@ class AddProjectCard extends HTMLElement {
                 transition: background-color 0.3s ease;
                 max-width: 350px; /* Ensure all cards have the same width */
             }
-            .card:hover {
+            button:hover {
                 background-color: rgba(75, 192, 192, 0.4);
             }
-            .card h3 {
+            
+            .card button {
                 text-align: center;
                 color: black;
                 margin: 10px 0;
