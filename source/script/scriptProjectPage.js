@@ -4,6 +4,7 @@
 
 let currentWidth;
 let mediaQuery = window.matchMedia("(max-width: 768px)");
+let mediaQuery2 = window.matchMedia("(max-width: 1024px)");
 if(mediaQuery.matches) {
     currentWidth = 300;
 }
@@ -187,6 +188,9 @@ function addWidth() {
     let add = 24.5;
     if(mediaQuery.matches) {    
         add = 60;
+    }
+    if(mediaQuery2.matches) {
+        add = 45;
     }
     let timelineContainer = document.
         getElementsByClassName('timeline-container')[0];
@@ -514,6 +518,9 @@ function subWidth () {
     let sub = 24;
     if(mediaQuery.matches) {
         sub = 60;
+    }
+    if(mediaQuery2.matches) {
+        sub = 45;
     }
      let timelineContainer = document.
         getElementsByClassName('timeline-container')[0];
@@ -1014,6 +1021,9 @@ window.addEventListener('resize', adjustNotepadSize);
 
 
 mediaQuery.addEventListener('change', function () {
+    resizeWidth();
+});
+mediaQuery2.addEventListener('change', function () {
     resizeWidth();
 });
 

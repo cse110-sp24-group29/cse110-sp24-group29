@@ -157,6 +157,7 @@ body {
     height: 20px;
     background-color: #4b4b4b;
     border-radius: 5px 5px 0 0;
+    display:none;
 }
 
 .notes-left:before {
@@ -966,12 +967,12 @@ input[type="file"] {
     .timeline-container #line {
         width: 300%;
         top: 100%; 
-        transform: translateY(-1160%);
+        transform: translateY(-1240%);  
     }
     .timeline-container #line2 {
         width: 0%;
         top: 100%; 
-        transform: translateY(-1160%);
+        transform: translateY(-1240%);
     }
     .timeline-container li {
         overflow: visible; /* Ensure overflow is not hidden */
@@ -1135,9 +1136,19 @@ input[type="file"] {
 }
 
 
-
+@media (max-height: 700px) {
+    .pen {
+        display: none;
+    }
+}
+@media (max-width: 1200px) {
+    .pen {
+        display: none;
+    }
+}
 /* xs */
 @media (max-width: 475px) {
+    
     html, body {
         margin: 0;
         padding: 0;
@@ -1195,7 +1206,8 @@ input[type="file"] {
         max-width: 90%;
     }
     .sidebar{
-        max-height: 350px;
+        max-height: 440px;
     }
+
 
 }
