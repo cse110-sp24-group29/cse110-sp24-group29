@@ -18,8 +18,9 @@ html, body {
     height: 100%;
     overflow-y: auto;
 }
-navbar-component {
+navbar-component, .title {
     position: relative;
+    display: none;
 }
 
 body {
@@ -108,6 +109,7 @@ header {
     height: 100px;
     width: auto;
 }
+
 
 .content {
     display: flex;
@@ -1076,6 +1078,12 @@ input[type="file"] {
 }
 /* sm */
 @media (max-width: 768px) {
+    navbar-component, .title{
+        display: block;
+    }
+    header{
+        display: none;
+    }
     html, body {
         margin: 0;
         padding: 0;
