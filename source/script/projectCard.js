@@ -15,7 +15,7 @@ class ProjectCard extends HTMLElement {
             <h3>Project Name</h3>
             <p>Description:</p>
             <div class="description-box">
-                <p>Max 200 chars...</p>
+                <textarea placeholder="Max 200 chars..."></textarea>
             </div>
             <div class="tags">
                 <label for="tags">Project Tags:</label>
@@ -62,7 +62,19 @@ class ProjectCard extends HTMLElement {
                 border-radius: 5px;
                 padding: 10px;
                 margin-bottom: 10px;
+                height: 30px;
                 background-color: rgba(75, 192, 192, 0.2);
+            }
+            .description-box textarea { /* Added textarea styles */
+                width: 100%;
+                height: 100%;
+                border: none;
+                background: transparent;
+                resize: none;
+                outline: none;
+                color: black;
+                font-family: inherit;
+                font-size: inherit;
             }
             .description-box p {
                 margin: 5px 0;
@@ -94,10 +106,10 @@ class ProjectCard extends HTMLElement {
                 top: 10px;
             }
             #edit {
-                right: 50px;
+                right: 30px;
             }
             #trash {
-                right: 10px;
+                right: 5px;
             }
             button img {
                 width: 15px;
@@ -109,6 +121,14 @@ class ProjectCard extends HTMLElement {
         this.shadowRoot.querySelector('#tags').addEventListener('change', () => {
             document.querySelector('stats-graph').updateChart();
         });
+
+        this.shadowRoot.querySelector('#trash').addEventListener('click', () => {
+            this.remove();
+        });
+
+        this.shadowRoot.querySelector('#edit').addEventListener('click', () => {
+            window.location.href = 'project.html';
+        }); 
     }
 }
 
@@ -138,7 +158,10 @@ class AddProjectCard extends HTMLElement {
                 border-radius: 10px;
                 padding: 20px;
                 background-color: rgba(75, 192, 192, 0.2);
+                min-width: 10rem;
+                min-height: 12rem;
                 width: auto;
+                height: 100%;
                 margin: 10px 0;
                 display: flex;
                 justify-content: center;
@@ -157,6 +180,11 @@ class AddProjectCard extends HTMLElement {
             }
         `;
         this.shadowRoot.append(style);
+
+        cardContainer.addEventListener("click", () => {
+            const newCard = document.createElement('project-card');
+            this.parentElement.appendChild(newCard, this);
+        });
     }
 }
 
