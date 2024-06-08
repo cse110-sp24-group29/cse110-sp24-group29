@@ -1117,9 +1117,6 @@ input[type="file"] {
         max-height: 250px;
         max-width: 100%;
     }   
-    .notes-right {
-        height: 6000px;
-    }
 
     .sidebar {
         width: 95%;
@@ -1172,20 +1169,24 @@ input[type="file"] {
 }
 /* xs */
 @media (max-width: 475px) {
-    
+    .entry-tile:hover .trash-icon,
+.entry-tile:hover .edit-icon,
+.entry-tile:focus-within .trash-icon,
+.entry-tile:focus-within .edit-icon {
+    display: block;
+    transform: scale(.75) translateY(-40%);
+}
     html, body {
         margin: 0;
         padding: 0;
         width: auto;
         height: auto;
     }
-    .content {
-        display: flex;
-        justify-content: space-evenly;
-        flex-direction: column;
-        vertical-align: middle;
-        align-content: center;
-    }
+
+ /* notes left: 250.55 x 250
+    notes-right: 250.44x 340;
+
+ */
 
     .add-task {
         margin-left: 40%;
@@ -1217,17 +1218,23 @@ input[type="file"] {
     }
 
     .notes-left{
-        height: 200px;
+        height: 250px;
         max-width: 360px;
+    }   
+    .notes-right{
+        
+        max-height: 340px;
     }   
     .main-content {
         padding-right: 0%;
         max-width: 100%;
+        width: 374px;
+        height:694px;
     }
 
     .notes-section{
-        max-height: 90%;
-        max-width: 90%;
+        height: 100%;
+        width: 100%;
     }
     .sidebar{
         max-height: 440px;

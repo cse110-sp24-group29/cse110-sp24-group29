@@ -628,7 +628,11 @@ document.addEventListener("DOMContentLoaded", function () {
         const entries = JSON.parse(localStorage.getItem('entries')) || [];
         entries.forEach((entry, index) => addEntryTile(entry.title, entry.content, entry.type, entry.images, index));
     }
-
+    // function loadProjectName() {
+    //     let name = localstorage.getItem('Name');
+    //     let title = document.querySelector('.title');
+    //     title.innerText = name;
+    // }
     function loadMilestonesAndTasks() {
         const milestones = JSON.parse(localStorage.getItem('milestones')) || [];
         milestones.forEach(milestone => addMilestone(milestone));
@@ -678,6 +682,7 @@ document.addEventListener("DOMContentLoaded", function () {
         editIcon.classList.add('edit-icon');
         editIcon.onclick = (event) => {
             event.stopPropagation();
+            index = editIcon.closest('.entry-tile').getAttribute('data-index');
             loadEntryToEdit(index);
         };
 
@@ -687,6 +692,7 @@ document.addEventListener("DOMContentLoaded", function () {
         trashIcon.classList.add('trash-icon');
         trashIcon.onclick = (event) => {
             event.stopPropagation();
+            index = editIcon.closest('.entry-tile').getAttribute('data-index');
             deleteEntry(entryTile, index);
         };
 
@@ -733,7 +739,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const entryTile = entriesContainer.querySelector(`.entry-tile[data-index="${index}"]`);
         const entryTitle = entryTile.querySelector('h3');
         const entryContent = entryTile.querySelector('p');
-
         entryTitle.textContent = title;
         entryContent.textContent = content.length > 100 ? content.substring(0, 100) + '...' : content;
         entryTile.dataset.type = type;
@@ -762,12 +767,7 @@ document.addEventListener("DOMContentLoaded", function () {
         addEntryButton.textContent = 'Save Entry';
         isEditing = true;
         editingEntryIndex = index;
-    }
         
-    function loadProjectName() {
-        constName = localStorage.getItem('Name');
-        let ProjectName = document.querySelector('.title');
-        ProjectName.textContent = constName;
     }
 
     function deleteEntry(entryTile, index) {
@@ -840,7 +840,8 @@ document.addEventListener("DOMContentLoaded", function () {
     addEntryButton.addEventListener('click', function () {
         const content = activeNoteType === 'markdown' ? markdown.value.trim() : notepad.value.trim();
         if (content) {
-            const title = `Entry ${editingEntryIndex !== null ? editingEntryIndex + 1 : entriesContainer.children.length + 1}`;
+            let name = editingEntryIndex !== null ? +editingEntryIndex + 1 : +entriesContainer.children.length + 1;
+            const title = `Entry ${name}`;
             const images = []; // Assuming images are not handled yet
             saveEntry(title, content, activeNoteType, images);
             if (activeNoteType === 'markdown') {
@@ -869,9 +870,10 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
+
     loadEntries();
     loadMilestonesAndTasks();
-    loadProjectName();
+    //loadProjectName();
     resizeWidth();
     updateTimeline();
      // Add event listener to timeline items
