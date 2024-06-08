@@ -856,7 +856,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 progress = 100;
             }
             if (milestoneElement) {
-                const milestoneName = milestoneElement.querySelector('.milestone-name').textContent + ':\u00A0\u00A0\u00A0\u00A0\u00A0' + progress + '%';
+                const milestoneName = milestoneElement.querySelector('.milestone-name').textContent + ': ' + progress + '%';
                 const taskElements = milestoneElement.querySelectorAll('.task-item label');
                 showMilestoneDetailsInIsland(milestoneName, taskElements);
             }
