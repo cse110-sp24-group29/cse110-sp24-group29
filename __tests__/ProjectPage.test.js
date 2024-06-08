@@ -7,7 +7,7 @@ describe('Project Page E2E Tests', () => {
   beforeAll(async () => {
     browser = await puppeteer.launch({ headless: false });
     page = await browser.newPage();
-    await page.goto('http://127.0.0.1:5503/source/Html/Project.html', { waitUntil: 'networkidle2', timeout: 60000 });
+    await page.goto('http://localhost:5503/source/Html/Project.html', { waitUntil: 'networkidle2', timeout: 60000 });
   });
 
   afterAll(async () => {
@@ -27,7 +27,7 @@ describe('Project Page E2E Tests', () => {
 
     // Add a new milestone using the provided JavaScript function
     await page.evaluate(() => {
-        addMilestone('Test Milestone');
+      addMilestone('Test Milestone');
     });
 
     // Wait for the new milestone to be added to the list
@@ -38,7 +38,7 @@ describe('Project Page E2E Tests', () => {
     expect(milestoneText).toBe('Test Milestone');
 
     // Verify the timeline element is also added
-    const timelineText = await page.$eval('#timeline-elements li:last-child span', el => el.textContent);
+    const timelineText = await page.$eval('#timeline-elements li:nth-last-child(2) span', el => el.textContent);
     expect(timelineText).toBe('Test Milestone');
   }, 10000);  // Increased timeout to 60 seconds
 
