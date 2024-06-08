@@ -63,7 +63,7 @@ body {
 
 
 .right-heading {
-    font-family: 'Merriweather', serif;
+    font-family: inherit;
     font-size: 28px;
     margin: 0;
     color: #0A192F;
@@ -75,7 +75,7 @@ body {
 }
 
 .left-heading {
-    font-family: 'Merriweather', serif;
+    font-family: inherit;
     font-size: 28px;
     margin-top: 100px;
     color: #0A192F;

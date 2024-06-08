@@ -10,14 +10,14 @@ class ProjectCard extends HTMLElement {
 
     render() {
         const projectName = this.getAttribute('project-name') || 'Project Name';
-        const description = this.getAttribute('description') || 'Max 200 chars...';
+        const description = this.getAttribute('description') || '';
         const cardContainer = document.createElement('div');
         cardContainer.setAttribute('class', 'card');
         cardContainer.innerHTML = `
             <h3>${projectName}</h3>
             <p>Description:</p>
             <div class="description-box">
-                <textarea placeholder="Max 200 chars..."></textarea>
+                <textarea placeholder="Max 200 chars...">${description}</textarea>
             </div>
             <div class="tags">
                 <label for="tags">Project Tags:</label>
@@ -30,7 +30,7 @@ class ProjectCard extends HTMLElement {
                 </select>
             </div>
             <button id='edit'><img src='/edit.ico' alt='Edit'></button>
-            <button id='trash'><img src='/trash.ico' alt='Trash'></button>
+            <button id='trash'><img src='/trash.png' alt='Trash'></button>
         `;
         this.shadowRoot.append(cardContainer);
 
@@ -109,9 +109,11 @@ class ProjectCard extends HTMLElement {
             }
             #edit {
                 right: 30px;
+                background: none;
             }
             #trash {
                 right: 5px;
+                background: none;
             }
             button img {
                 width: 15px;
@@ -142,32 +144,19 @@ class AddProjectCard extends HTMLElement {
 
     connectedCallback() {
         this.render();
-        this.shadowRoot.querySelector('#add').addEventListener('click', () => {
-            const projectWidget = document.createElement('project-card');
-            //let id = User.projects.length + 1;
-           let name = "New Project";
-           let description = "Project description..."
-            projectWidget.setAttribute('project-name', name);
-            projectWidget.setAttribute('description', description);
-            //constructor creates project object 
-            //let project = Project.constructor(projID, name, description, tags, tasks, milestones, notes);
-            //add to user project array
-           //User.addProject(project);
-            document.querySelector('.project-cards').appendChild(projectWidget);
-        });
     }
 
     render() {
         const cardContainer = document.createElement('div');
         cardContainer.setAttribute('class', 'card');
         cardContainer.innerHTML = `
-            <button id='add'>+ Add</button>
+            <h3 id='add'>+ Add</h3>
         `;
         this.shadowRoot.append(cardContainer);
 
         const style = document.createElement('style');
         style.textContent = `
-            .card button{
+            .card  {
                 position: relative;
                 border: 1.5px dashed black;
                 border-radius: 10px;
@@ -185,11 +174,11 @@ class AddProjectCard extends HTMLElement {
                 transition: background-color 0.3s ease;
                 max-width: 350px; /* Ensure all cards have the same width */
             }
-            button:hover {
+            card:hover {
                 background-color: rgba(75, 192, 192, 0.4);
             }
             
-            .card button {
+            .card h3 {
                 text-align: center;
                 color: black;
                 margin: 10px 0;
@@ -197,9 +186,9 @@ class AddProjectCard extends HTMLElement {
         `;
         this.shadowRoot.append(style);
 
-        cardContainer.addEventListener("click", () => {
+        cardContainer.addEventListener('click', () => {
             const newCard = document.createElement('project-card');
-            this.parentElement.appendChild(newCard, this);
+            this.parentElement.appendChild(newCard); 
         });
     }
 }
@@ -215,9 +204,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const projectCards = document.querySelector('.project-cards');
 
     let currentScrollPosition = 0;
-    const cardHeight = projectCardsWrapper.clientHeight;
+    // const cardHeight = projectCardsWrapper.clientHeight;
     const cardWidth = projectCardsWrapper.clientWidth;
-    const scrollAmount = cardWidth; // Adjust based on the width of one "page" of cards
+    const scrollAmount = cardWidth;
 
     rightArrow.addEventListener('click', () => {
         const maxScroll = -(projectCards.scrollWidth - cardWidth);
@@ -234,3 +223,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
