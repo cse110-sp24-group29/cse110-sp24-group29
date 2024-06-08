@@ -763,6 +763,12 @@ document.addEventListener("DOMContentLoaded", function () {
         isEditing = true;
         editingEntryIndex = index;
     }
+        
+    function loadProjectName() {
+        constName = localStorage.getItem('Name');
+        let ProjectName = document.querySelector('.title');
+        ProjectName.textContent = constName;
+    }
 
     function deleteEntry(entryTile, index) {
         const entries = JSON.parse(localStorage.getItem('entries')) || [];
@@ -865,6 +871,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     loadEntries();
     loadMilestonesAndTasks();
+    loadProjectName();
     resizeWidth();
     updateTimeline();
      // Add event listener to timeline items
@@ -1030,8 +1037,10 @@ mediaQuery2.addEventListener('change', function () {
 window.addEventListener('beforeunload', function () {
     saveMilestoneToStorage();
     saveTasksArrayToStorage();
+    localStorage.setItem('Name', 'Hello');
 });
 window.addEventListener('unload',function () {
     saveMilestoneToStorage();
     saveTasksArrayToStorage();
+    localStorage.setItem('Name', 'Hello');
 });
