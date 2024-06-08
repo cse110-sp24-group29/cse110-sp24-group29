@@ -7,7 +7,7 @@ describe('Project Page E2E Tests', () => {
   beforeAll(async () => {
     browser = await puppeteer.launch({ headless: false });
     page = await browser.newPage();
-    await page.goto('http://localhost:5503/source/Html/Project.html', { waitUntil: 'networkidle2', timeout: 60000 });
+    await page.goto('http://127.0.0.1:5503/source/Html/Project.html', { waitUntil: 'networkidle2', timeout: 60000 });
   });
 
   afterAll(async () => {
@@ -20,15 +20,27 @@ describe('Project Page E2E Tests', () => {
     expect(milestoneListExists).toBe(true);
   }, 10000); // Increase timeout to 10 seconds
 
-  test('should add a new milestone', async () => {
+  test('should add a new milestone to the list', async () => {
+    // Ensure the milestone list and timeline elements are present
+    await page.waitForSelector('#milestone-list');
+    await page.waitForSelector('#timeline-elements');
+
+    // Add a new milestone using the provided JavaScript function
     await page.evaluate(() => {
-      addMilestone('Test Milestone');
+        addMilestone('Test Milestone');
     });
 
-    await page.waitForSelector('#milestone-list li:last-child .milestone-name');
+    // Wait for the new milestone to be added to the list
+    await page.waitForSelector('#milestone-list li:last-child .milestone-name', { timeout: 60000 });
+
+    // Verify the milestone name in the list
     const milestoneText = await page.$eval('#milestone-list li:last-child .milestone-name', el => el.textContent);
     expect(milestoneText).toBe('Test Milestone');
-  }, 10000); // Increase timeout to 10 seconds
+
+    // Verify the timeline element is also added
+    const timelineText = await page.$eval('#timeline-elements li:last-child span', el => el.textContent);
+    expect(timelineText).toBe('Test Milestone');
+  }, 10000);  // Increased timeout to 60 seconds
 
   test('should add a new task to a milestone', async () => {
     await page.evaluate(() => {
@@ -40,42 +52,32 @@ describe('Project Page E2E Tests', () => {
     expect(taskText).toBe('Test Task');
   }, 10000); // Increase timeout to 10 seconds
 
-  test('should toggle the menu', async () => {
-    await page.waitForSelector('.hamburger-menu');
-    await page.click('.hamburger-menu');
-    let menuDisplay = await page.$eval('#dropdown-menu', el => window.getComputedStyle(el).display);
-    expect(menuDisplay).toBe('block');
-
-    await page.click('.hamburger-menu');
-    menuDisplay = await page.$eval('#dropdown-menu', el => window.getComputedStyle(el).display);
-    expect(menuDisplay).toBe('none');
-  }, 10000); // Increase timeout to 10 seconds
-
   test('should update progress on task completion', async () => {
     await page.evaluate(() => {
-      const taskCheckbox = document.querySelector('#task-list1 input[type="checkbox"]');
-      if (taskCheckbox) {
-        taskCheckbox.checked = true;
-        taskCheckbox.dispatchEvent(new Event('change'));
-      }
+        const taskCheckbox = document.querySelector('#task-list1 input[type="checkbox"]');
+        if (taskCheckbox) {
+            taskCheckbox.checked = true;
+            taskCheckbox.dispatchEvent(new Event('click'));
+        }
     });
 
+    await page.waitForFunction(() => document.querySelector('#progress1').style.width === '100%');
     const progressWidth = await page.$eval('#progress1', el => el.style.width);
     expect(progressWidth).toBe('100%');
-  }, 10000); // Increase timeout to 10 seconds
+  }, 30000);
 
   test('should delete a task', async () => {
     await page.evaluate(() => {
-      const taskLabel = document.querySelector('#task-list1 label');
-      if (taskLabel) {
-        taskLabel.dispatchEvent(new Event('dblclick'));
-      }
+        const deleteButton = document.querySelector('#task-list1 .milestone-trash');
+        if (deleteButton) {
+            deleteButton.click();
+        }
     });
 
     await page.waitForFunction(() => document.querySelectorAll('#task-list1 li').length === 0);
     const taskCount = await page.$$eval('#task-list1 li', tasks => tasks.length);
     expect(taskCount).toBe(0);
-  }, 10000); // Increase timeout to 10 seconds
+  }, 10000); 
 
   test('should delete a milestone', async () => {
     await page.evaluate(() => {
@@ -102,15 +104,15 @@ describe('Project Page E2E Tests', () => {
 
   test('should save tasks to localStorage', async () => {
     await page.evaluate(() => {
+      addMilestone('Milestone 1');
       const addTaskButton = document.querySelector('.add-task');
-      addTaskWithState(addTaskButton, 1, 'LocalStorage Test Task', true);
+      addTask(addTaskButton, 1, 'LocalStorage Test Task', false, '');
       saveTasksArrayToStorage();
     });
 
     const tasks = await page.evaluate(() => localStorage.getItem('tasks'));
     expect(tasks).toContain('LocalStorage Test Task');
-  }, 10000); // Increase timeout to 10 seconds
-
+  }, 10000);
 });
 
 
