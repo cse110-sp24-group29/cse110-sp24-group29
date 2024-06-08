@@ -96,7 +96,8 @@ body {
 .main-content {
     width: 75%;
     padding: 20px;
-    height: 100%;}
+    height: 100%;
+}
 
 .notes-section {
     background-color: #F0F0F0;
@@ -104,7 +105,7 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
     position: relative;
-    height:100%;
+    height: 100%;
 }
 
 .notes-section h2 {
@@ -301,7 +302,6 @@ body {
     }
 }
 
-
 #markdown {
     display: none;
 }
@@ -329,7 +329,6 @@ body {
     border-radius: 0;
 }
 
-
 /* Style for the pen image */
 .pen {
     position: absolute;
@@ -340,14 +339,12 @@ body {
     z-index: 1;
 }
 
-:focus{
+:focus {
     outline: 3.5px solid cadetblue;
     border-radius: 3px;
 }
 
 /* Style for the buttons container */
-
-
 .buttons {
     position: absolute;
     bottom: 20px; /* Adjust bottom position */
@@ -376,9 +373,12 @@ button:hover, .code-snippets-button:hover {
 /* Container for the entries */
 .entries-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    gap: 20px;
     padding: 20px;
+    justify-items: center;
+    align-items: center;
 }
 
 /* Each entry tile */
@@ -441,7 +441,6 @@ button:hover, .code-snippets-button:hover {
     right: 10px;
 }
 
-
 .entry-tile p {
     font-size: 1em;
     color: #555555;
@@ -451,81 +450,52 @@ button:hover, .code-snippets-button:hover {
     max-width: 100%;
 }
 
-.entries-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    padding: 5px;
+/* Adjustments for smaller screens */
+@media (max-width: 768px) {
+    .entries-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        padding: 10px;
+    }
+
+    .entry-tile {
+        height: 120px;
+        width: 120px;
+    }
 }
 
-/* Trash icon styles */
-.trash-icon {
-    display: none;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
+@media (max-width: 640px) {
+    .entries-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        padding: 10px;
+    }
+
+    .entry-tile h3 {
+        display: none;
+    }
+
+    .entry-tile {
+        height: 100px;
+        width: 100px;
+    }
 }
 
-.entry-tile:hover .trash-icon{
-    display: block;
-}
+@media (max-width: 475px) {
+    .entries-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        padding: 10px;
+    }
 
-/* Misc styles */
-input[type="file"] {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.scrollable-container {
-    max-height: 500px;
-    overflow-y: auto;
-}
-
-.note-entry {
-    background: url('../img/note.png') no-repeat center center / cover;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 10px;
-    position: relative;
-}
-
-.note-entry img {
-    max-width: 100%;
-    margin-top: 10px;
-}
-
-.note-entry .pen {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 30px;
-    height: auto;
-}
-
-.hidden {
-    display: none;
-}
-
-.markdown-view {
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.markdown-view h1,
-.markdown-view h2,
-.markdown-view h3 {
-    margin-top: 20px;
-    margin-bottom: 10px;
-}
-
-.markdown-view p {
-    margin-bottom: 10px;
+    .entry-tile h3 {
+        display: none;
+    }
+    
+    .entry-tile {
+        height: 80px;
+        width: 80px;
+    }
 }
 
 /* Dynamic Island CSS */
@@ -554,11 +524,6 @@ input[type="file"] {
     padding-right: 10px; /* Adds space for scrollbar */
 }
 
-
-.dynamic-island-content {
-    position: relative;
-}
-
 .close-island {
     position: absolute;
     top: 10px;
@@ -566,8 +531,6 @@ input[type="file"] {
     font-size: 30px;
     cursor: pointer;
 }
-
-
 
 .island-images img {
     max-width: 100%;

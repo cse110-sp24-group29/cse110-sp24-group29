@@ -615,7 +615,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Load entries from localStorage and display them
     function loadEntries() {
         const entries = JSON.parse(localStorage.getItem('entries')) || [];
-        entries.forEach((entry, index) => addEntryTile(entry.title, entry.content, entry.type, entry.images, index));
+        entries.forEach((entry, index) => addEntryTile(entry.title, entry.content, entry.type, entry.images, index + 1));
     }
 
     function loadMilestonesAndTasks() {
@@ -645,7 +645,7 @@ document.addEventListener("DOMContentLoaded", function () {
             addEntryButton.textContent = 'Add Entry';
         } else {
             entries.push({ title, content, type, images });
-            addEntryTile(title, content, type, images, entries.length - 1);
+            addEntryTile(title, content, type, images, entries.length);
         }
         localStorage.setItem('entries', JSON.stringify(entries));
     }
@@ -667,7 +667,7 @@ document.addEventListener("DOMContentLoaded", function () {
         editIcon.classList.add('edit-icon');
         editIcon.onclick = (event) => {
             event.stopPropagation();
-            loadEntryToEdit(index);
+            loadEntryToEdit(index - 1);
         };
 
         const trashIcon = document.createElement('img');
@@ -676,7 +676,7 @@ document.addEventListener("DOMContentLoaded", function () {
         trashIcon.classList.add('trash-icon');
         trashIcon.onclick = (event) => {
             event.stopPropagation();
-            deleteEntry(entryTile, index);
+            deleteEntry(entryTile, index - 1);
         };
 
         entryTile.onclick = () => {
@@ -719,7 +719,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Update an existing entry tile with new content
     function updateEntryTile(index, title, content, type) {
-        const entryTile = entriesContainer.querySelector(`.entry-tile[data-index="${index}"]`);
+        const entryTile = entriesContainer.querySelector(`.entry-tile[data-index="${index + 1}"]`);
         const entryTitle = entryTile.querySelector('h3');
         const entryContent = entryTile.querySelector('p');
 
@@ -764,7 +764,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function renumberEntries() {
         const entries = document.querySelectorAll('.entry-tile');
         entries.forEach((entry, index) => {
-            entry.dataset.index = index;
+            entry.dataset.index = index + 1;
             const entryTitle = entry.querySelector('h3');
             entryTitle.textContent = `Entry ${index + 1}`;
         });
