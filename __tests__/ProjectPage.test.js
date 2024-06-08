@@ -121,7 +121,7 @@ describe('Project Page Notes and Entry functionality', () => {
   beforeAll(async () => {
     browser = await puppeteer.launch({ headless: false });
     page = await browser.newPage();
-    await page.goto('http://127.0.0.1:5503/source/Html/project.html', { waitUntil: 'networkidle2', timeout: 60000 });
+    await page.goto('http://localhost:5503/source/Html/Project.html', { waitUntil: 'networkidle2', timeout: 60000 });
   });
 
   afterAll(async () => {
