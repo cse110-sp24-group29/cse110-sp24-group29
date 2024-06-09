@@ -69,7 +69,7 @@ function toggleCheckboxOnEnter(event, checkbox) {
  * Adds a new task with a specified state (checked or not).
  * 
 ne to which t * @param {HTMLElement} button - The button element that triggered the function.
- * @param {number} milestoneId - The number of the milestohe task is being added.
+ * @param {number} milestoneId - The number of the milestone task is being added.
  * @param {string} taskText - The text content of the task.
  * @param {boolean} isChecked - Whether the task is checked or not.
  * @param {string} dateCompleted date task was checked
@@ -166,30 +166,7 @@ function addMilestone(milestoneName) {
     if (milestoneCount > 3) {
         addWidth();
     }
-    updateTimelineProgress(); //ensures progress is realigned with new width
-}
-/**
- * Limits the amount of text to be 20 for any editable name
- * @param {HTMLElement} text the element innertext that has to be limited
- */
-function limitInnerTextLength(text) {
-    let tested = text.innerText;
-    if (tested.length > 20) {
-        text.innerText = tested.slice(0, 20); //makes sure length < 20
-        setCursorToEnd(text); // ensure that cursor position isnt reset
-    }
-}
-/**
- * Sets the inputs position to end once max limit is reached
- * @param {HTMLElement} element the contented idable element
- */
-function setCursorToEnd(element) {
-    const range = document.createRange();
-    const selection = window.getSelection();
-    range.selectNodeContents(element);
-    range.collapse(false); // Move range to the end
-    selection.removeAllRanges();
-    selection.addRange(range);
+    updateTimelineProgress();
 }
 /**
  * Updates the timeline if > 3 milestones exist
