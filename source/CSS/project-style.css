@@ -770,23 +770,6 @@ input[type="file"] {
 .milestone-header {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Ensures the arrow is on the far right */
-}
-
-.milestone-content {
-    display: flex;
-    align-items: center;
-}
-
-.milestoneX {
-    cursor: text;
-    flex-grow: 1;
-    padding-right: 10px;
-}
-
-.milestone-header {
-    display: flex;
-    align-items: center;
     justify-content: space-between;
 }
 
@@ -801,11 +784,44 @@ input[type="file"] {
     cursor: pointer;
 }
 
-.dropdown-arrow {
-    font-size: 1em;
+.dropdown-arrow{
+    font-size: 0.7em;
     cursor: pointer;
+    color: #333;
+    background-color: #F0F0F0;
+    padding: 3;
+    margin: 0;
 }
 
+.dropdown-arrow:hover {
+    font-size: 0.7em;
+    cursor: pointer;
+    color: #333;
+    background-color: #F0F0F0;
+    padding: 3;
+    margin: 0;
+}
+
+.milestone-trash {
+    cursor: pointer;
+    color: #333;
+    background-color: #F0F0F0;
+    align-content: center;
+    display: flex;
+    padding: 0;
+    margin: 0;
+    margin-left: 3px;
+}
+
+.milestone-trash:hover{
+    cursor: pointer;
+    color: #333;
+    background-color: #F0F0F0;
+    align-content: center;
+    display: flex;
+    padding: 0;
+    margin: 0;
+}
 
 #TIHeader {
     color:  #CCFF00;
@@ -815,6 +831,7 @@ input[type="file"] {
     text-transform: uppercase;
     letter-spacing: 7px;
     line-height: 1.2em;
+    margin-top: 20px;
     transform: translateX(1.5%);
 }
 
@@ -840,7 +857,8 @@ input[type="file"] {
     position: relative;
     height: 140px;
     overflow-x: visible; 
-    padding: 0 20px; 
+    padding: 0px 25px; 
+    overflow-y: visible;
 }
 
 .timeline-container ul {
@@ -896,12 +914,17 @@ input[type="file"] {
 
 .timeline-container li span {
     position: absolute;
-    display: inline-block;
     bottom: -24px; 
-    left: -10%;
-    transform: translateX(-120%);
-    width: 120%; /* Added */
+    width: 460%; /*Every Letter adds 30%*/
+    transform: translateX(-50%);
     white-space: nowrap; 
+    font-family: Montserrat;
+}
+.timeline-container li img {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    transform: translateX(-50%);
 }
 
 .timeline-container li:first-child span {
@@ -962,8 +985,7 @@ input[type="file"] {
         overflow: visible; 
         top: calc(90% + 10px); 
         transform: translateY(-350%);
-        padding: 0; 
-        margin: 0; 
+         
     }
     .timeline-container #line {
         width: 300%;
@@ -977,6 +999,9 @@ input[type="file"] {
     }
     .timeline-container li {
         overflow: visible; /* Ensure overflow is not hidden */
+    }
+    #TIHeader {
+        margin-bottom: 15px;
     }
 }
 
@@ -1194,19 +1219,6 @@ input[type="file"] {
 
     .add-entry-button, .code-snippets-button {
         padding: 7px; /* Smaller padding */
-        font-size: 15px; /* Smaller font size */
-    }
-
-    .notes-left{
-        max-height: 360px;
-        max-width: 360px;
-    }   
-    .buttons{
-        justify-content: space-between;
-    }
-
-    .add-entry-button, .code-snippets-button {
-        padding: 7px; /* Smaller padding */
         font-size: 14px; /* Smaller font size */
     }
 
@@ -1230,25 +1242,8 @@ input[type="file"] {
         width: 100%;
     }
     .sidebar{
-        width: 100%;
-        max-height: 80%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
+        max-height: 440px;
     }
 
-    .milestone-container{
-        max-width: 100%;
-    }
-    
 
-    .navbar{
-        width: 100%
-    }
-
-    .timeline-Wrapper{
-        padding-left: 0;
-        position: fixed;   
-    }
 }

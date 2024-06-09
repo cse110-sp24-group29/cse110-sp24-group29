@@ -1,8 +1,9 @@
+
 /**
  * Toggles the display of the dropdown menu when the hamburger menu is clicked.
  */
 
-let currentWidth = 100;
+let currentWidth;
 let mediaQuery = window.matchMedia("(max-width: 768px)");
 let mediaQuery2 = window.matchMedia("(max-width: 1024px)");
 if (mediaQuery.matches) {
@@ -15,10 +16,6 @@ else {
 /**
  * Function that handels the dropdown menu for mobile screens
  */
-const mediaQuery = window.matchMedia("(max-width: 768px)");
-if(mediaQuery.matches) {
-    currentWidth = 300;
-}
 function toggleMenu() {
     const dropdownMenu = document.getElementById('dropdown-menu');
     dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
@@ -109,7 +106,7 @@ function addTask(button, milestoneId, taskText, isChecked, dateCompleted) {
  * @param {string} milestoneName name of the milestone added
  */
 function addMilestone(milestoneName) {
-
+    //getmilestoneList
     const milestoneList = document.getElementById('milestone-list');
     let milestoneCount;
     //milestone index milestone list based of the length 
@@ -166,10 +163,31 @@ function addMilestone(milestoneName) {
     if (milestoneCount > 3) {
         addWidth();
     }
-    updateTimelineProgress();
+    updateTimelineProgress(); //ensures progress is realigned with new width
 }
-
-
+/**
+ * Limits the amount of text to be 20 for any editable name
+ * @param {HTMLElement} text the element innertext that has to be limited
+ */
+function limitInnerTextLength(text) {
+    let tested = text.innerText;
+    if (tested.length > 20) {
+        text.innerText = tested.slice(0, 20); //makes sure length < 20
+        setCursorToEnd(text); // ensure that cursor position isnt reset
+    }
+}
+/**
+ * Sets the inputs position to end once max limit is reached
+ * @param {HTMLElement} element the contented idable element
+ */
+function setCursorToEnd(element) {
+    const range = document.createRange();
+    const selection = window.getSelection();
+    range.selectNodeContents(element);
+    range.collapse(false); // Move range to the end
+    selection.removeAllRanges();
+    selection.addRange(range);
+}
 /**
  * Updates the timeline if > 3 milestones exist
  * 
@@ -232,7 +250,6 @@ function updateTimeline(milestoneElement) {
     //get the milstone onthe timeline
     const timelineElement = document.querySelector
         (`#timeline-elements [data-id="${milestoneId}"] span`);
-    console.log(spanWidth);
     if (timelineElement) {
         timelineElement.textContent = milestoneName;
         timelineElement.style.width = spanWidth + '%';
@@ -1104,3 +1121,4 @@ window.addEventListener('unload', function () {
     saveMilestoneToStorage();
     saveTasksArrayToStorage();
 });
+
