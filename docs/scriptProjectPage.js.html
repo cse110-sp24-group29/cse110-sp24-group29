@@ -261,7 +261,7 @@ function updateTimelineProgress() {
 function deleteTask(taskElement, milestoneId) {
     taskElement.closest('li').remove();
     updateProgress(milestoneId);
-    
+    renumberMilestones();
 }
 
 /**
@@ -293,15 +293,8 @@ function renumberMilestones() {
             setAttribute('onclick', `addTask(this, ${newNumber})`);
         milestone.setAttribute('data-id', `milestone-${newNumber}`);
         const tasks = milestone.querySelectorAll('.task-list .task-item');
-        tasks.forEach( (task,taskIndex)  => {
-            let taskCheckbox = task.querySelector('input');
-            taskCheckbox.id = `task-${newNumber}-${taskIndex + 1}`;
-            taskCheckbox.setAttribute('onclick', `updateProgress(${newNumber})`);
-            let taskLabel = task.querySelector('label');
-            taskLabel.setAttribute('ondblclick', `updateProgress(${newNumber})`);
-            taskLabel.setAttribute('for',`task-${newNumber}-${taskIndex + 1}`);
-            taskLabel.innerText = `Task ${taskIndex+1}`;
-        });
+        renumberTasks(tasks, newNumber);
+ 
     });
 
     const timelineElements = timelineList.querySelectorAll('li[data-id]');
@@ -317,6 +310,18 @@ function renumberMilestones() {
 
     updateTimelineProgress();
 }
+
+function renumberTasks (tasks,milestoneId) {   
+    tasks.forEach( (task,taskIndex)  => {
+        let taskCheckbox = task.querySelector('input');
+        taskCheckbox.id = `task-${milestoneId}-${taskIndex + 1}`;
+        taskCheckbox.setAttribute('onclick', `updateProgress(${milestoneId})`);
+        let taskLabel = task.querySelector('label');
+        taskLabel.setAttribute('ondblclick', `deleteTask(this, ${milestoneId})`);
+        taskLabel.setAttribute('for',`task-${milestoneId}-${taskIndex + 1}`);
+        taskLabel.innerText = `Task ${taskIndex+1}`;
+    });
+} 
 
 /**
  * Returns the HTML structure for a milestone given its number.
@@ -591,7 +596,7 @@ window.addEventListener('unload',function () {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Note.html">Note</a></li><li><a href="PagesData.html">PagesData</a></li><li><a href="Project.html">Project</a></li><li><a href="User.html">User</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addMilestone">addMilestone</a></li><li><a href="global.html#addTask">addTask</a></li><li><a href="global.html#addTaskWithState">addTaskWithState</a></li><li><a href="global.html#addWidth">addWidth</a></li><li><a href="global.html#boxContainerElement">boxContainerElement</a></li><li><a href="global.html#currentWidth">currentWidth</a></li><li><a href="global.html#deleteMilestone">deleteMilestone</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#getMilestoneHTML">getMilestoneHTML</a></li><li><a href="global.html#handleSignInButtonClick">handleSignInButtonClick</a></li><li><a href="global.html#handleSignUpButtonClick">handleSignUpButtonClick</a></li><li><a href="global.html#loadFromLocalStorage">loadFromLocalStorage</a></li><li><a href="global.html#renumberMilestones">renumberMilestones</a></li><li><a href="global.html#resetWidth">resetWidth</a></li><li><a href="global.html#saveMilestoneToStorage">saveMilestoneToStorage</a></li><li><a href="global.html#saveTasksArrayToStorage">saveTasksArrayToStorage</a></li><li><a href="global.html#saveToLocalStorage">saveToLocalStorage</a></li><li><a href="global.html#signInButtonElement">signInButtonElement</a></li><li><a href="global.html#signUpButtonElement">signUpButtonElement</a></li><li><a href="global.html#subWidth">subWidth</a></li><li><a href="global.html#toggleTasks">toggleTasks</a></li><li><a href="global.html#updateAndSaveCurrUser">updateAndSaveCurrUser</a></li><li><a href="global.html#updateProgress">updateProgress</a></li><li><a href="global.html#updateTimeline">updateTimeline</a></li><li><a href="global.html#updateTimelineProgress">updateTimelineProgress</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Book.html">Book</a></li><li><a href="Project.html">Project</a></li><li><a href="User.html">User</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addMilestone">addMilestone</a></li><li><a href="global.html#addTask">addTask</a></li><li><a href="global.html#addTaskWithState">addTaskWithState</a></li><li><a href="global.html#addUser">addUser</a></li><li><a href="global.html#addWidth">addWidth</a></li><li><a href="global.html#boxContainerElement">boxContainerElement</a></li><li><a href="global.html#currentWidth">currentWidth</a></li><li><a href="global.html#deleteMilestone">deleteMilestone</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#getMilestoneHTML">getMilestoneHTML</a></li><li><a href="global.html#getUser">getUser</a></li><li><a href="global.html#handleSignInButtonClick">handleSignInButtonClick</a></li><li><a href="global.html#handleSignUpButtonClick">handleSignUpButtonClick</a></li><li><a href="global.html#loadFromLocalStorage">loadFromLocalStorage</a></li><li><a href="global.html#renumberMilestones">renumberMilestones</a></li><li><a href="global.html#resetWidth">resetWidth</a></li><li><a href="global.html#saveMilestoneToStorage">saveMilestoneToStorage</a></li><li><a href="global.html#saveTasksArrayToStorage">saveTasksArrayToStorage</a></li><li><a href="global.html#saveToLocalStorage">saveToLocalStorage</a></li><li><a href="global.html#signInButtonElement">signInButtonElement</a></li><li><a href="global.html#signUpButtonElement">signUpButtonElement</a></li><li><a href="global.html#subWidth">subWidth</a></li><li><a href="global.html#toggleTasks">toggleTasks</a></li><li><a href="global.html#updateProgress">updateProgress</a></li><li><a href="global.html#updateTimeline">updateTimeline</a></li><li><a href="global.html#updateTimelineProgress">updateTimelineProgress</a></li></ul>
 </nav>
 
 <br class="clear">
