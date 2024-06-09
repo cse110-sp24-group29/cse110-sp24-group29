@@ -888,14 +888,6 @@ input[type="file"] {
     
 }
 
-.timeline-container li.completed:first-child:before {
-    margin-left: -8px;
-}
-.timeline-container li:last-child:before {
-    margin-right: -6px;
-}
-
-
 .timeline-container li.completed {
     color: #00FFB0;
     z-index: 32;
@@ -914,7 +906,7 @@ input[type="file"] {
 
 .timeline-container li:first-child span {
     width: 220%;
-    transform: translateX(-30%);
+    transform: translateX(-50%);
 }
 
 .timeline-container li:last-child span {
