@@ -413,11 +413,11 @@ function loadPlaceholderData() {
 
     // Dummy projects
     const projects1 = [
-        new Project(101, "Green Energy App", "App to monitor energy consumption.", "Environment", {
+        new Project(1, "Green Energy App", "App to monitor energy consumption.", "Environment", {
             "Design": [{ name: "Create wireframes", checked: false, date: "" }],
             "Development": [{ name: "Initial setup", checked: true, date: "2024-05-20" }]
         }, notes1),
-        new Project(102, "Online Learning Platform", "Platform to provide online courses.", "Education", {
+        new Project(2, "Online Learning Platform", "Platform to provide online courses.", "Education", {
             "Planning": [{ name: "Define curriculum", checked: true, date: "2024-05-15" }],
             "Launch": [{ name: "Prepare launch event", checked: false, date: "" }]
         }, [])
@@ -432,8 +432,8 @@ function loadPlaceholderData() {
 
     // Dummy users
     const users = [
-        new User(1, "Alice Johnson", "password1", projects1),
-        new User(2, "Bob Smith", "password2", projects2)
+        new User(1, "Alice Johnson", "123456", projects1),
+        new User(2, "Bob Smith", "789012", projects2)
     ];
 
     // Instance of PagesData with dummy data
