@@ -135,19 +135,29 @@ body {
 }
 
 @media (max-width: 550px) {
+    .project-card-container {
+        margin: none;
+    }
     .project-card-wrapper {
         display: flex;
         flex-direction: column;
         overflow-y: auto; /* Enable vertical scrolling */
-        height: 280px;
-        width: 100%; /* Make sure it takes full width */
+        height: 320px;
+        width: 60%; /* Make sure it takes full width */
     }
     .project-cards {
         display: flex;
         flex-direction: column;
+        justify-content: center;
+    }
+    add-project-card{
+        height: 320px;
     }
     project-card, add-project-card {
-        max-width: 80%; /* Make sure the cards take full width */
+        max-width: 100%;
+    }
+    project-card {
+        justify-content: center;
     }
 }
 

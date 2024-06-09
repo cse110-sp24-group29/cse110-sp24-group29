@@ -57,7 +57,6 @@ class ProjectCard extends HTMLElement {
                 flex-direction: column;
                 justify-content: space-between;
                 box-sizing: border-box;
-                max-width: 200px;
             }
             .card p {
                 margin: 5px 0;
@@ -273,6 +272,13 @@ class AddProjectCard extends HTMLElement {
                 text-align: center;
                 color: black;
                 margin: 10px 0;
+            }
+
+            @media (max-width: 550px) {
+                .card {
+                    min-width: 0;
+                    width: 80%;
+                }
             }
         `;
         this.shadowRoot.append(style);
