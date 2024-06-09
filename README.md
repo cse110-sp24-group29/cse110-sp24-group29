@@ -29,16 +29,19 @@ To get a local copy up and running, follow these simple steps:
 2. Navigate to the project directory
    ```sh
    cd cse110-sp24-group29
+3. Delete the existing modules
+     ```sh
+   rm -rf package-lock.json node_modules
 
 4. download the node.js module in the directory
    ```sh
    npm install node-modules
 
-6. Run the server.js
+5. Run the server.js
    ```sh
    node server.js
 
-8. To view the application, visit the website in your browser at:
+5. To view the application, visit the website in your browser at:
    ```sh
    http://localhost:3000/
 
