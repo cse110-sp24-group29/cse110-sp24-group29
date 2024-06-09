@@ -395,4 +395,51 @@ function updateAndSaveCurrUser(pagesData, userID) {
     saveToLocalStorage(pagesData);
 }
 
-module.exports = { Note, Project, User, PagesData, saveToLocalStorage, loadFromLocalStorage, updateAndSaveCurrUser};
+/**
+ * Loads placeholder data with dummy users and projects.
+ * @returns {PagesData} An instance of PagesData populated with dummy data.
+ */
+function loadPlaceholderData() {
+    // Dummy notes
+    const notes1 = [
+        new Note("Meeting Notes", "## Meeting on 2024-06-01\nDiscussed project scope and initial requirements."),
+        new Note("Research Summary", "## Research on market trends\nConcluded that the market is moving towards sustainable solutions.")
+    ];
+
+    const notes2 = [
+        new Note("Brainstorming Session", "## Ideas from 2024-05-30\nGreat ideas on potential features for our app."),
+        new Note("User Interviews", "## Feedback Summary\nCollected from user interviews conducted last week.")
+    ];
+
+    // Dummy projects
+    const projects1 = [
+        new Project(101, "Green Energy App", "App to monitor energy consumption.", "Environment", {
+            "Design": [{ name: "Create wireframes", checked: false, date: "" }],
+            "Development": [{ name: "Initial setup", checked: true, date: "2024-05-20" }]
+        }, notes1),
+        new Project(102, "Online Learning Platform", "Platform to provide online courses.", "Education", {
+            "Planning": [{ name: "Define curriculum", checked: true, date: "2024-05-15" }],
+            "Launch": [{ name: "Prepare launch event", checked: false, date: "" }]
+        }, [])
+    ];
+
+    const projects2 = [
+        new Project(201, "Social Media App", "A social media app focused on privacy.", "Social", {
+            "Research": [{ name: "Competitor analysis", checked: true, date: "2024-05-18" }],
+            "Marketing": [{ name: "Social media campaign", checked: false, date: "" }]
+        }, notes2)
+    ];
+
+    // Dummy users
+    const users = [
+        new User(1, "Alice Johnson", "password1", projects1),
+        new User(2, "Bob Smith", "password2", projects2)
+    ];
+
+    // Instance of PagesData with dummy data
+    const pagesData = new PagesData(users);
+
+    return pagesData;
+}
+
+module.exports = { Note, Project, User, PagesData, saveToLocalStorage, loadFromLocalStorage, updateAndSaveCurrUser, loadPlaceholderData};
