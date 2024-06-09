@@ -1,6 +1,7 @@
 class ProjectCard extends HTMLElement {
-    constructor() {
+    constructor(projectData = { name: 'New Project', description: '', tag: 'default'}) {
         super();
+        this.projectData = projectData;
         this.attachShadow({ mode: 'open' });
     }
 
@@ -16,19 +17,20 @@ class ProjectCard extends HTMLElement {
         const cardContainer = document.createElement('div');
         cardContainer.setAttribute('class', 'card');
         cardContainer.innerHTML = `
-            <input type="text" value="${projectName}" class="project-name" maxlength="12" readonly>
+            <input type="text" value="${this.projectData.name}" class="project-name" maxlength="12" readonly>
             <p>Brief Description:</p>
             <div class="description-box">
-                <textarea placeholder="Max 50 chars..." maxlength="50" readonly>${description}</textarea>
+                <textarea placeholder="Max 50 chars..." maxlength="50" readonly>${this.projectData.description}</textarea>
             </div>
             <div class="tags">
                 <label for="tags">Project Tags:</label>
                 <select id="tags" disabled>
-                    <option value="frontend">Frontend Development</option>
-                    <option value="backend">Backend Development</option>
-                    <option value="database">Data Science</option>
-                    <option value="data">Machine Learning and AI</option>
-                    <option value="network">Native Development</option>
+                    <option id="default-op" value="default" disabled="true" ${this.projectData.tag === 'default' ? 'selected' : ''}>Choose a Tag...</option>
+                    <option value="frontend" ${this.projectData.tag === 'frontend' ? 'selected' : ''}>Frontend Engineering</option>
+                    <option value="backend" ${this.projectData.tag === 'backend' ? 'selected' : ''}>Backend Engineering</option>
+                    <option value="database" ${this.projectData.tag === 'database' ? 'selected' : ''}>Database Engineering</option>
+                    <option value="network" ${this.projectData.tag === 'network' ? 'selected' : ''}>Network Engineering</option>
+                    <option value="data" ${this.projectData.tag === 'data' ? 'selected' : ''}>Data Analytics Engineering</option>
                 </select>
             </div>
             <div class="button-container">
@@ -128,14 +130,14 @@ class ProjectCard extends HTMLElement {
             }
             #edit {
                 position: absolute;
-                top: 10px;
-                right: 45px;
+                top: 2px;
+                right: 30px;
                 background: none;
                 padding: 2.5px;
             }
             #trash {
                 position: absolute;
-                top: 10px;
+                top: 2px;
                 right: 5px;
                 background: none;
                 padding: 2.5px;
@@ -207,12 +209,14 @@ class ProjectCard extends HTMLElement {
             };
             localStorage.setItem(`project-${projectNameInput.value}`, JSON.stringify(projectData));
             document.querySelector('stats-graph').updateChart();
+            saveProjectCards();
         });
 
         trashButton.addEventListener('click', () => {
             localStorage.removeItem(`project-${projectNameInput.value}`);
             this.remove();
             document.querySelector('stats-graph').updateChart();
+            saveProjectCards();
         });
 
         projectJournalButton.addEventListener('click', () => {
@@ -274,8 +278,10 @@ class AddProjectCard extends HTMLElement {
         this.shadowRoot.append(style);
 
         cardContainer.addEventListener('click', () => {
-            const newCard = document.createElement('project-card');
+            const newCardData = { name: 'New Project', description: '', tag: 'default' };
+            const newCard = new ProjectCard(newCardData);
             this.parentElement.appendChild(newCard);
+            saveProjectCards();
         });
     }
 }
@@ -285,6 +291,8 @@ customElements.define('add-project-card', AddProjectCard);
 
 // JavaScript for scrolling functionality
 document.addEventListener('DOMContentLoaded', () => {
+    loadProjectCards();
+
     const leftArrow = document.querySelector('.left-arrow');
     const rightArrow = document.querySelector('.right-arrow');
     const projectCardsWrapper = document.querySelector('.project-card-wrapper');
@@ -323,3 +331,26 @@ document.addEventListener('DOMContentLoaded', () => {
     // Update the radar chart with the saved project data
     document.querySelector('stats-graph').updateChart();
 });
+
+function saveProjectCards() {
+    const projectCards = document.querySelectorAll('project-card');
+    const projectDataArray = [];
+    projectCards.forEach(card => {
+        const projectData = {
+            name: card.shadowRoot.querySelector('.project-name').value, // <-- Changed to get value from input field
+            description: card.shadowRoot.querySelector('.description-box textarea').value,
+            tag: card.shadowRoot.querySelector('#tags').value
+        };
+        projectDataArray.push(projectData);
+    });
+    localStorage.setItem('projectCards', JSON.stringify(projectDataArray));
+}
+
+function loadProjectCards() {
+    const projectDataArray = JSON.parse(localStorage.getItem('projectCards')) || [];
+    const projectCardsWrapper = document.querySelector('.project-cards');
+    projectDataArray.forEach(projectData => {
+        const projectCard = new ProjectCard(projectData);
+        projectCardsWrapper.appendChild(projectCard);
+    });
+}
