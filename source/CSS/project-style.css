@@ -84,6 +84,7 @@ header {
     border: none;
     border-radius: 8px;
     color: white; 
+    background-color: #575757;
     padding: 12px 24px; 
     transition: background-color 0.3s, transform 0.3s; 
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
@@ -1084,12 +1085,6 @@ input[type="file"] {
 }
 /* sm */
 @media (max-width: 768px) {
-    navbar-component, .title{
-        display: block;
-    }
-    header{
-        display: none;
-    }
     html, body {
         margin: 0;
         padding: 0;
@@ -1103,6 +1098,14 @@ input[type="file"] {
         vertical-align: middle;
         align-content: center;
     }
+
+    .logout-button, .home-button {
+        font-size: 14px;
+        padding: 4px 8px;
+        top: 10px;
+        right: 10px;
+    }
+
 
     .navbar{
         position: relative;
