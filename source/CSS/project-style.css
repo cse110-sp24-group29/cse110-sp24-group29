@@ -541,7 +541,7 @@ input[type="file"] {
 }
 
 .note-entry {
-    background: url('../img/note.png') no-repeat center center / cover;
+    background: url('/note.png') no-repeat center center / cover;
     padding: 15px;
     border-radius: 10px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
@@ -831,7 +831,6 @@ input[type="file"] {
     text-transform: uppercase;
     letter-spacing: 7px;
     line-height: 1.2em;
-    margin-top: 20px;
     transform: translateX(1.5%);
 }
 
@@ -922,9 +921,11 @@ input[type="file"] {
 }
 .timeline-container li img {
     position: absolute;
-    width: 50px;
-    height: 50px;
-    transform: translateX(-50%);
+    width: 55px;
+    height: 55px;
+    transform: translateX(-12.5%) translateY(-120%);
+    z-index: -1;
+    opacity: 1;
 }
 
 .timeline-container li:first-child span {
@@ -1122,6 +1123,9 @@ input[type="file"] {
         max-height: 250px;
         max-width: 100%;
     }   
+    .notes-right {
+        max-height:300px;
+    }
 
     .sidebar {
         width: 95%;
@@ -1141,7 +1145,7 @@ input[type="file"] {
     .main-content {
         padding-right: 0%;
         max-width: 100%;
-        width: 100%;
+        height: 694px;
     }
     .note
     .notes-section{
