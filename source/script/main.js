@@ -159,6 +159,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (logoutButton) {
         logoutButton.addEventListener('click', function () {
             localStorage.removeItem('username');
+            localStorage.removeItem('userId');
             window.location.href = 'index.html'; // Redirect to login-signup page
         });
     }
