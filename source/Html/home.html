@@ -6,12 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DevJournal - Team 29</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="Homestyle.css"> 
+    <link rel="stylesheet" href="Homestyle.css">
     <link
         href='https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Merriweather:wght@300;400;700&display=swap'
         rel='stylesheet'>
-    <style>
-    </style>
 </head>
 
 <body>
@@ -24,7 +22,7 @@
             <h2 class="sub-heading">by Software Surfers</h2>
         </div>
         <div class="header-right">
-            <p class="greeting">Hi UserId</p> <!-- Show the actual UserID-->
+            <p class="greeting">Hi, <span id="username">UserID</span></p>
             <button class="logout-button">LOG OUT</button>
         </div>
     </header>
@@ -34,14 +32,12 @@
         <div class="left-side">
             <h2 class="section-heading" id="left-heading">Your Projects</h2>
             <div class="project-card-container">
-                <scroll-button direction="left" class="left-arrow">&lt;</scroll-button>
                 <div class="project-card-wrapper">
                     <div class="project-cards">
                         <add-project-card></add-project-card>
                         <!-- Add more project cards as needed -->
                     </div>
                 </div>
-                <scroll-button direction="right" class="right-arrow">&gt;</scroll-button>
             </div>
         </div>
         <div class="right-side">
@@ -52,8 +48,10 @@
 
     <!-- Importing JS Files for the custom components -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script type="module" src="radarChart.js" defer></script>
-    <script type="module" src="projectCard.js"></script>
+    <script src="projectCard.js"></script>
+    <script src="radarChart.js"></script>
+    <script src="main.js"></script>
+
 </body>
 
 </html>

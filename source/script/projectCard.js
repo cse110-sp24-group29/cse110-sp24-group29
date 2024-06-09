@@ -11,24 +11,31 @@ class ProjectCard extends HTMLElement {
     render() {
         const projectName = this.getAttribute('project-name') || 'Project Name';
         const description = this.getAttribute('description') || '';
+        const tags = this.getAttribute('tags') || 'frontend';
+
         const cardContainer = document.createElement('div');
         cardContainer.setAttribute('class', 'card');
         cardContainer.innerHTML = `
-            <h3>${projectName}</h3>
-            <p>Description:</p>
+            <input type="text" value="${projectName}" class="project-name" maxlength="12" readonly>
+            <p>Brief Description:</p>
             <div class="description-box">
-                <textarea placeholder="Max 200 chars...">${description}</textarea>
+                <textarea placeholder="Max 50 chars..." maxlength="50" readonly>${description}</textarea>
             </div>
             <div class="tags">
                 <label for="tags">Project Tags:</label>
-                <select id="tags">
-                    <option value="frontend">Frontend Engineering</option>
-                    <option value="backend">Backend Engineering</option>
-                    <option value="database">Database Engineering</option>
-                    <option value="network">Network Engineering</option>
-                    <option value="data">Data Analytics Engineering</option>
+                <select id="tags" disabled>
+                    <option value="frontend">Frontend Development</option>
+                    <option value="backend">Backend Development</option>
+                    <option value="database">Data Science</option>
+                    <option value="data">Machine Learning and AI</option>
+                    <option value="network">Native Development</option>
                 </select>
             </div>
+            <div class="button-container">
+                <button id='save' style="display:none;">Save</button>
+                <button id='cancel' style="display:none;">Cancel</button>
+            </div>
+            <button id='project-journal' class="journal-button">Project Journal</button>
             <button id='edit'><img src='/edit.ico' alt='Edit'></button>
             <button id='trash'><img src='/trash.png' alt='Trash'></button>
         `;
@@ -44,20 +51,30 @@ class ProjectCard extends HTMLElement {
                 background-color: rgba(54, 162, 235, 0.2);
                 width: 100%;
                 margin: 10px 0;
-                display: flexbox;
-                flex-direction: row;
+                display: flex;
+                flex-direction: column;
                 justify-content: space-between;
                 box-sizing: border-box;
-                max-width: 200px; /* Ensure all cards have the same width */
+                max-width: 200px;
             }
             .card p {
                 margin: 5px 0;
                 color: black;
             }
-            .card h3 {
+            .card input, .card textarea, .card select {
+                border: none;
+                background: transparent;
+                outline: none;
+                resize: none;
+                width: 100%;
+                font-family: inherit;
+                font-size: inherit;
+            }
+            .project-name {
                 text-align: center;
+                font-size: 1.2em;
+                font-weight: bold;
                 color: black;
-                margin: 10px 0;
             }
             .description-box {
                 border: 1px solid white;
@@ -67,20 +84,9 @@ class ProjectCard extends HTMLElement {
                 height: 30px;
                 background-color: rgba(75, 192, 192, 0.2);
             }
-            .description-box textarea { /* Added textarea styles */
-                width: 100%;
+            .description-box textarea {
                 height: 100%;
-                border: none;
-                background: transparent;
-                resize: none;
-                outline: none;
-                color: black;
-                font-family: inherit;
-                font-size: inherit;
-            }
-            .description-box p {
-                margin: 5px 0;
-                color: black;
+                font-size: 12px;
             }
             .tags {
                 display: flex;
@@ -98,22 +104,47 @@ class ProjectCard extends HTMLElement {
                 background-color: rgba(10, 25, 47, 0.8);
                 color: white;
             }
+            .button-container {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 10px;
+            }
+            .journal-button {
+                background-color: rgba(10, 25, 47, 0.8);
+                color: white;
+                border: none;
+                border-radius: 5px;
+                padding: 5px 10px;
+                cursor: pointer;
+                margin-top: 10px;
+                text-align: center;
+            }
             button {
                 background-color: white;
                 border: none;
                 border-radius: 10px;
                 cursor: pointer;
-                padding: 2.5px;
-                position: absolute;
-                top: 10px;
+                padding: 5px 10px;
             }
             #edit {
-                right: 30px;
+                position: absolute;
+                top: 10px;
+                right: 45px;
                 background: none;
+                padding: 2.5px;
             }
             #trash {
+                position: absolute;
+                top: 10px;
                 right: 5px;
                 background: none;
+                padding: 2.5px;
+            }
+            #save, #cancel {
+                background: white;
+                color: black;
+                border-radius: 5px;
+                padding: 5px 10px;
             }
             button img {
                 width: 15px;
@@ -122,17 +153,73 @@ class ProjectCard extends HTMLElement {
         `;
         this.shadowRoot.append(style);
 
-        this.shadowRoot.querySelector('#tags').addEventListener('change', () => {
+        const editButton = this.shadowRoot.querySelector('#edit');
+        const trashButton = this.shadowRoot.querySelector('#trash');
+        const saveButton = this.shadowRoot.querySelector('#save');
+        const cancelButton = this.shadowRoot.querySelector('#cancel');
+        const projectNameInput = this.shadowRoot.querySelector('.project-name');
+        const descriptionTextarea = this.shadowRoot.querySelector('textarea');
+        const tagsSelect = this.shadowRoot.querySelector('#tags');
+        const projectJournalButton = this.shadowRoot.querySelector('#project-journal');
+
+        let originalProjectName = projectName;
+        let originalDescription = description;
+        let originalTags = tags;
+
+        editButton.addEventListener('click', () => {
+            originalProjectName = projectNameInput.value;
+            originalDescription = descriptionTextarea.value;
+            originalTags = tagsSelect.value;
+
+            projectNameInput.removeAttribute('readonly');
+            descriptionTextarea.removeAttribute('readonly');
+            tagsSelect.removeAttribute('disabled');
+            saveButton.style.display = 'inline-block';
+            cancelButton.style.display = 'inline-block';
+            editButton.style.display = 'none';
+        });
+
+        cancelButton.addEventListener('click', () => {
+            projectNameInput.value = originalProjectName;
+            descriptionTextarea.value = originalDescription;
+            tagsSelect.value = originalTags;
+
+            projectNameInput.setAttribute('readonly', true);
+            descriptionTextarea.setAttribute('readonly', true);
+            tagsSelect.setAttribute('disabled', true);
+            saveButton.style.display = 'none';
+            cancelButton.style.display = 'none';
+            editButton.style.display = 'inline-block';
+        });
+
+        saveButton.addEventListener('click', () => {
+            projectNameInput.setAttribute('readonly', true);
+            descriptionTextarea.setAttribute('readonly', true);
+            tagsSelect.setAttribute('disabled', true);
+            saveButton.style.display = 'none';
+            cancelButton.style.display = 'none';
+            editButton.style.display = 'inline-block';
+
+            const projectData = {
+                projectName: projectNameInput.value,
+                description: descriptionTextarea.value,
+                tags: tagsSelect.value
+            };
+            localStorage.setItem(`project-${projectNameInput.value}`, JSON.stringify(projectData));
             document.querySelector('stats-graph').updateChart();
         });
 
-        this.shadowRoot.querySelector('#trash').addEventListener('click', () => {
+        trashButton.addEventListener('click', () => {
+            localStorage.removeItem(`project-${projectNameInput.value}`);
             this.remove();
+            document.querySelector('stats-graph').updateChart();
         });
 
-        this.shadowRoot.querySelector('#edit').addEventListener('click', () => {
+        projectJournalButton.addEventListener('click', () => {
             window.location.href = 'project.html';
-        }); 
+        });
+
+        tagsSelect.value = tags;
     }
 }
 
@@ -172,7 +259,7 @@ class AddProjectCard extends HTMLElement {
                 align-items: center;
                 cursor: pointer;
                 transition: background-color 0.3s ease;
-                max-width: 350px; /* Ensure all cards have the same width */
+                max-width: 350px;
             }
             card:hover {
                 background-color: rgba(75, 192, 192, 0.4);
@@ -188,7 +275,7 @@ class AddProjectCard extends HTMLElement {
 
         cardContainer.addEventListener('click', () => {
             const newCard = document.createElement('project-card');
-            this.parentElement.appendChild(newCard); 
+            this.parentElement.appendChild(newCard);
         });
     }
 }
@@ -204,7 +291,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const projectCards = document.querySelector('.project-cards');
 
     let currentScrollPosition = 0;
-    // const cardHeight = projectCardsWrapper.clientHeight;
     const cardWidth = projectCardsWrapper.clientWidth;
     const scrollAmount = cardWidth;
 
@@ -222,5 +308,18 @@ document.addEventListener('DOMContentLoaded', () => {
             projectCards.style.transform = `translateX(${currentScrollPosition}px)`;
         }
     });
-});
 
+    // Load saved project data from local storage
+    const savedProjects = Object.keys(localStorage).filter(key => key.startsWith('project-'));
+    savedProjects.forEach(key => {
+        const projectData = JSON.parse(localStorage.getItem(key));
+        const newCard = document.createElement('project-card');
+        newCard.setAttribute('project-name', projectData.projectName);
+        newCard.setAttribute('description', projectData.description);
+        newCard.setAttribute('tags', projectData.tags);
+        projectCards.appendChild(newCard);
+    });
+
+    // Update the radar chart with the saved project data
+    document.querySelector('stats-graph').updateChart();
+});

@@ -11,8 +11,6 @@ app.use(express.static(path.join(__dirname, 'source/script')));
 app.use(express.static(path.join(__dirname, 'source/CSS')));
 app.use(express.static(path.join(__dirname, 'source/img')));
 
-
-
 const db = new sqlite3.Database('./devsurf.db', sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
     if (err) {
         console.error('Error opening database ' + err.message);
@@ -30,7 +28,6 @@ const db = new sqlite3.Database('./devsurf.db', sqlite3.OPEN_READWRITE | sqlite3
 app.post('/register', (req, res) => {
     const { name, pin } = req.body;
     if (!name || !pin) {
-        // Checking if the name or pin is missing in the request
         console.error('Missing name or pin in the request');
         return res.status(400).json({ error: 'Missing name or pin' });
     }
@@ -56,7 +53,8 @@ app.post('/login', (req, res) => {
             return;
         }
         if (row) {
-            res.json({ message: 'User Found', redirect: 'home.html' });
+            const firstName = row.name.split(' ')[0]; // Get the first name
+            res.json({ message: 'User Found', redirect: 'home.html', username: firstName });
         } else {
             res.status(404).json({ message: 'User Not Found' });
         }
