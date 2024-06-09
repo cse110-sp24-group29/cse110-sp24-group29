@@ -69,7 +69,7 @@ function toggleCheckboxOnEnter(event, checkbox) {
  * Adds a new task with a specified state (checked or not).
  * 
 ne to which t * @param {HTMLElement} button - The button element that triggered the function.
- * @param {number} milestoneId - The number of the milestohe task is being added.
+ * @param {number} milestoneId - The number of the milestone task is being added.
  * @param {string} taskText - The text content of the task.
  * @param {boolean} isChecked - Whether the task is checked or not.
  * @param {string} dateCompleted date task was checked
@@ -108,7 +108,6 @@ function addTask(button, milestoneId, taskText, isChecked, dateCompleted) {
  * Adds a new milestone to the list.
  * @param {string} milestoneName name of the milestone added
  */
-
 function addMilestone(milestoneName) {
 
     const milestoneList = document.getElementById('milestone-list');
@@ -169,6 +168,8 @@ function addMilestone(milestoneName) {
     }
     updateTimelineProgress();
 }
+
+
 /**
  * Updates the timeline if > 3 milestones exist
  * 
@@ -762,7 +763,6 @@ document.addEventListener("DOMContentLoaded", function () {
         entryTile.dataset.type = type;
         const entryTitle = document.createElement('h3');
         entryTitle.textContent = title;
-
         const entryContent = document.createElement('p');
         entryContent.textContent = content.length > 100 ? content.substring(0, 100) + '...' : content;
         //create icon for edit

@@ -840,8 +840,7 @@ input[type="file"] {
     position: relative;
     height: 140px;
     overflow-x: visible; 
-    padding: 0px 25px; 
-    overflow-y: visible;
+    padding: 0 20px; 
 }
 
 .timeline-container ul {
@@ -890,10 +889,10 @@ input[type="file"] {
 }
 
 .timeline-container li.completed:first-child:before {
-    margin-left: -2px;
+    margin-left: -8px;
 }
 .timeline-container li:last-child:before {
-    margin-right: -2px;
+    margin-right: -6px;
 }
 
 
@@ -905,24 +904,17 @@ input[type="file"] {
 
 .timeline-container li span {
     position: absolute;
+    display: inline-block;
     bottom: -24px; 
-    width: 460%; /*Every Letter adds 30%*/
-    transform: translateX(-50%);
+    left: -10%;
+    transform: translateX(-120%);
+    width: 120%; /* Added */
     white-space: nowrap; 
-    font-family: Montserrat;
-}
-.timeline-container li img {
-    position: absolute;
-    width: 55px;
-    height: 55px;
-    transform: translateX(-12.5%) translateY(-120%);
-    z-index: -1;
-    opacity: 1;
 }
 
 .timeline-container li:first-child span {
     width: 220%;
-    transform: translateX(-50%);
+    transform: translateX(-30%);
 }
 
 .timeline-container li:last-child span {
@@ -981,14 +973,6 @@ input[type="file"] {
         padding: 0; 
         margin: 0; 
     }
-    .timeline-container li span {
-        position: absolute;
-        bottom: -24px; /* Adjust as needed */
-        left: -10%;
-        transform: translateX(10%);
-        width: 120%; /* Added */
-        white-space: nowrap; /* Prevents wrapping to a new line */
-    }
     .timeline-container #line {
         width: 300%;
         top: 100%; 
@@ -1001,10 +985,6 @@ input[type="file"] {
     }
     .timeline-container li {
         overflow: visible; /* Ensure overflow is not hidden */
-    }
-    .timeline-container li span {
-        left: -20%;
-        transform: translateX(-120%);
     }
 }
 
