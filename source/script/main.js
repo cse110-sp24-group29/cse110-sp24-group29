@@ -1,27 +1,27 @@
 // main.js
 
 // Event listeners for sign up and sign in buttons
-const boxContainerElement = document.getElementById('box-container');
-const signUpButtonElement = document.getElementById('register');
-const signInButtonElement = document.getElementById('login');
-
-function handleSignUpButtonClick() {
-    boxContainerElement.classList.add('active');
-}
-
-function handleSignInButtonClick() {
-    boxContainerElement.classList.remove('active');
-}
-
-if (signUpButtonElement) {
-    signUpButtonElement.addEventListener('click', handleSignUpButtonClick);
-}
-if (signInButtonElement) {
-    signInButtonElement.addEventListener('click', handleSignInButtonClick);
-}
-
-// Registration and login logic
 document.addEventListener('DOMContentLoaded', function () {
+    const boxContainerElement = document.getElementById('box-container');
+    const signUpButtonElement = document.getElementById('register');
+    const signInButtonElement = document.getElementById('login');
+
+    function handleSignUpButtonClick() {
+        boxContainerElement.classList.add('active');
+    }
+
+    function handleSignInButtonClick() {
+        boxContainerElement.classList.remove('active');
+    }
+
+    if (signUpButtonElement) {
+        signUpButtonElement.addEventListener('click', handleSignUpButtonClick);
+    }
+    if (signInButtonElement) {
+        signInButtonElement.addEventListener('click', handleSignInButtonClick);
+    }
+
+    // Registration and login logic
     const signUpForm = document.querySelector('#signup-form');
     const signInForm = document.querySelector('#signin-form');
     const messageBox = document.createElement('div');
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (data.message.includes('Registered')) {
                         const firstName = name.split(' ')[0]; // Get the first name
                         localStorage.setItem('username', firstName);
-                        window.location.href = 'home.html';
+                        window.location.href = `home.html?username=${firstName}`;
                     }
                 })
                 .catch(error => {
@@ -162,33 +162,40 @@ document.addEventListener('DOMContentLoaded', function () {
             window.location.href = 'index.html'; // Redirect to login-signup page
         });
     }
-});
 
-// Scroll functionality
-document.addEventListener('DOMContentLoaded', () => {
+    // Prevent back navigation
+    if (window.location.pathname === '/home.html' || window.location.pathname === '/project.html') {
+        window.history.pushState(null, null, window.location.href);
+        window.addEventListener('popstate', function (event) {
+            window.history.pushState(null, null, '/home.html');
+            alert('You cannot go back to the login page, press Logout to go back.');
+        });
+    }
+
+    // Scroll functionality
     const leftArrow = document.querySelector('.left-arrow');
     const rightArrow = document.querySelector('.right-arrow');
     const projectCardsWrapper = document.querySelector('.project-card-wrapper');
     const projectCards = document.querySelector('.project-cards');
 
-    let currentScrollPosition = 0;
-    const cardWidth = projectCardsWrapper.clientWidth;
-    const scrollAmount = cardWidth;
+    if (leftArrow && rightArrow && projectCardsWrapper && projectCards) {
+        let currentScrollPosition = 0;
+        const cardWidth = projectCardsWrapper.clientWidth;
+        const scrollAmount = cardWidth;
 
-    rightArrow.addEventListener('click', () => {
-        const maxScroll = -(projectCards.scrollWidth - cardWidth);
-        if (currentScrollPosition > maxScroll) {
-            currentScrollPosition -= scrollAmount;
-            projectCards.style.transform = `translateX(${currentScrollPosition}px)`;
-        }
-    });
+        rightArrow.addEventListener('click', () => {
+            const maxScroll = -(projectCards.scrollWidth - cardWidth);
+            if (currentScrollPosition > maxScroll) {
+                currentScrollPosition -= scrollAmount;
+                projectCards.style.transform = `translateX(${currentScrollPosition}px)`;
+            }
+        });
 
-    leftArrow.addEventListener('click', () => {
-        if (currentScrollPosition < 0) {
-            currentScrollPosition += scrollAmount;
-            projectCards.style.transform = `translateX(${currentScrollPosition}px)`;
-        }
-    });
-
-
+        leftArrow.addEventListener('click', () => {
+            if (currentScrollPosition < 0) {
+                currentScrollPosition += scrollAmount;
+                projectCards.style.transform = `translateX(${currentScrollPosition}px)`;
+            }
+        });
+    }
 });

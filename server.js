@@ -54,11 +54,29 @@ app.post('/login', (req, res) => {
         }
         if (row) {
             const firstName = row.name.split(' ')[0]; // Get the first name
-            res.json({ message: 'User Found', redirect: 'home.html', username: firstName });
+            res.json({ message: 'User Found', redirect: `home.html?username=${firstName}`, username: firstName });
         } else {
             res.status(404).json({ message: 'User Not Found' });
         }
     });
+});
+
+// Middleware to check if user is authenticated
+function isAuthenticated(req, res, next) {
+    const username = req.query.username || req.body.username;
+    if (!username) {
+        return res.redirect('/');
+    }
+    next();
+}
+
+// Use the authentication middleware for protected routes
+app.get('/home.html', isAuthenticated, (req, res) => {
+    res.sendFile(path.join(__dirname, 'source/Html/home.html'));
+});
+
+app.get('/project.html', isAuthenticated, (req, res) => {
+    res.sendFile(path.join(__dirname, 'source/Html/project.html'));
 });
 
 app.listen(PORT, () => {

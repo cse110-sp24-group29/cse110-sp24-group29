@@ -187,7 +187,7 @@ header {
 }
 
 .notes-right {
-    background: url('../img/note.png') no-repeat center center;
+    background: url('/note.png') no-repeat center center;
     background-size: cover;
     padding: 20px;
     border-radius: 10px;

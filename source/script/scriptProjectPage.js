@@ -5,7 +5,7 @@
 let currentWidth;
 let mediaQuery = window.matchMedia("(max-width: 768px)");
 let mediaQuery2 = window.matchMedia("(max-width: 1024px)");
-if(mediaQuery.matches) {
+if (mediaQuery.matches) {
     currentWidth = 300;
 }
 else {
@@ -26,17 +26,17 @@ function toggleMenu() {
  * 
  * @param {HTMLElement} check- the input checkbox that is checked
  */
-function updateDate (check) {
+function updateDate(check) {
     //Html elements milestone and task dates 
     let now = new Date();
     task = check.parentElement;
     let milestone = task.closest('[data-id^="milestone-"]');
     let currentDate = now.toLocaleDateString('en-GB');
     let dateDiv = task.querySelector('.date');
-    if(check.checked) {
+    if (check.checked) {
         //if a check of the input is checked adds the date
         dateDiv.innerText = currentDate;
-        if(milestone.querySelector('.completed')) {
+        if (milestone.querySelector('.completed')) {
             milestone.querySelector('.date').innerText = currentDate;
         }
     }
@@ -46,7 +46,7 @@ function updateDate (check) {
         dateDiv.innerText = '';
         milestone.querySelector('.date').innerText = '';
     }
-} 
+}
 /**
  * 
  * @param {onclick} event Click event when user clicks on checkmark
@@ -76,7 +76,7 @@ function addTask(button, milestoneId, taskText, isChecked, dateCompleted) {
     const taskCount = taskList.children.length + 1;
     const newTask = document.createElement('li'); //create new task to append
     //check if taskname is empty
-    if(taskText == '') {
+    if (taskText == '') {
         taskText = `Task ${taskCount}`;
     }
     //Required html in order to create a task: check and label
@@ -85,19 +85,19 @@ function addTask(button, milestoneId, taskText, isChecked, dateCompleted) {
             <input type="checkbox" id="task-${milestoneId}-${taskCount}" onclick="updateProgress(${milestoneId}); updateDate(this)" ${isChecked ? 'checked' : ''} onkeydown="toggleCheckboxOnEnter(event, this)">
             <label contenteditable="true">${taskText}</label>
             <div class = date>${dateCompleted}</div> 
-            <button class="milestone-trash" onclick="deleteTask(this, ${milestoneId})" tabindex="0"><img class="milestoneX" src="../img/trash.png"></button>
+            <button class="milestone-trash" onclick="deleteTask(this, ${milestoneId})" tabindex="0"><img class="milestoneX" src="/trash.png"></button>
         </div>
 
     `;
     let taskLabel = newTask.querySelector('label'); //To hold name of task
-    if(taskLabel) {
+    if (taskLabel) {
         //check whether it is clicked or not
         taskLabel.addEventListener('input', function () {
-        limitInnerTextLength(taskLabel);
-    });
+            limitInnerTextLength(taskLabel);
+        });
     }
     taskList.appendChild(newTask); //append to specific millestone tasklist
-    updateProgress(milestoneId);  
+    updateProgress(milestoneId);
 }
 
 /**
@@ -109,37 +109,37 @@ function addMilestone(milestoneName) {
     const milestoneList = document.getElementById('milestone-list');
     let milestoneCount;
     //milestone index milestone list based of the length 
-    if(milestoneList.children.length == 0) {
+    if (milestoneList.children.length == 0) {
         milestoneCount = 1;
     }
     else {
-        milestoneCount = milestoneList.children.length; 
+        milestoneCount = milestoneList.children.length;
     }
     let newMilestone = document.createElement('li'); //create a li = milestone
     let timelineList = document.getElementById('timeline-elements');
-    let newTimelineElement =  document.createElement('li');// timeline milestone
+    let newTimelineElement = document.createElement('li');// timeline milestone
     let timelineCount = timelineList.children.length;
     //Defaul milestone name
     if (milestoneName == '') {
         milestoneName = `Milestone ${milestoneCount}`;
     }
     //html for milestone on the timelien
-    newTimelineElement.innerHTML = 
-    `
+    newTimelineElement.innerHTML =
+        `
     <span>${milestoneName}</span>
-    <img src="../img/2.png" alt="Incomplete Flag" class="milestone-image"/> 
+    <img src="/2.png" alt="Incomplete Flag" class="milestone-image"/> 
     `;
     let length = milestoneName.length;
     //using length of milestone name claculate the width of the span element
-    newTimelineElement.style.width = 430 + (length-11)*30;
+    newTimelineElement.style.width = 430 + (length - 11) * 30;
     newTimelineElement.classList.add('uncompleted');
     newTimelineElement.setAttribute('data-id', `milestone-${milestoneCount}`,);
     timelineList.insertBefore(newTimelineElement, timelineList.children[timelineCount - 1]);
-    newMilestone.innerHTML = getMilestoneHTML(milestoneCount,milestoneName);
+    newMilestone.innerHTML = getMilestoneHTML(milestoneCount, milestoneName);
     //allow timeline to be accessed by tab
     newTimelineElement.setAttribute('tabindex', '0');
     //allows clickable by enter 
-    newTimelineElement.addEventListener('keydown', function(event) {
+    newTimelineElement.addEventListener('keydown', function (event) {
         if (event.key === 'Enter') {
             this.click();
             document.getElementById('closeIsland').focus();
@@ -148,7 +148,7 @@ function addMilestone(milestoneName) {
 
     //dynamically changes milestone name on TIMELINE
     const milestoneNameElement = newMilestone.querySelector('.milestone-name');
-    milestoneNameElement.addEventListener('input', function() {
+    milestoneNameElement.addEventListener('input', function () {
         limitInnerTextLength(milestoneNameElement);
         updateTimeline(this); //change the name of the milestone on timeline
     });
@@ -159,26 +159,26 @@ function addMilestone(milestoneName) {
 
     //dynamically adds to the timeline to make it bigger when certain
     //milestone number is reached
-    if(milestoneCount > 3 ) {
+    if (milestoneCount > 3) {
         addWidth();
     }
     updateTimelineProgress(); //ensures progress is realigned with new width
 }
- /**
-  * Limits the amount of text to be 20 for any editable name
-  * @param {HTMLElement} text the element innertext that has to be limited
-  */
+/**
+ * Limits the amount of text to be 20 for any editable name
+ * @param {HTMLElement} text the element innertext that has to be limited
+ */
 function limitInnerTextLength(text) {
     let tested = text.innerText;
-    if(tested.length > 20) {
-        text.innerText = tested.slice(0,20); //makes sure length < 20
+    if (tested.length > 20) {
+        text.innerText = tested.slice(0, 20); //makes sure length < 20
         setCursorToEnd(text); // ensure that cursor position isnt reset
     }
 }
- /**
-  * Sets the inputs position to end once max limit is reached
-  * @param {HTMLElement} element the contented idable element
-  */
+/**
+ * Sets the inputs position to end once max limit is reached
+ * @param {HTMLElement} element the contented idable element
+ */
 function setCursorToEnd(element) {
     const range = document.createRange();
     const selection = window.getSelection();
@@ -194,10 +194,10 @@ function setCursorToEnd(element) {
 function addWidth() {
     // add : is the width being added to the line
     let add = 24.5;
-    if(mediaQuery.matches) {    
+    if (mediaQuery.matches) {
         add = 100;
     }
-    else if(mediaQuery2.matches ) {
+    else if (mediaQuery2.matches) {
         add = 45;
     }
     //get the timeline 
@@ -206,8 +206,8 @@ function addWidth() {
     let timelineList = document.getElementById('timeline-elements');
     // Calculate the new width (current width + add%)
     currentWidth += add;
-    let newWidth = currentWidth+ '%';
-    timelineList.style.width = newWidth ;
+    let newWidth = currentWidth + '%';
+    timelineList.style.width = newWidth;
     line = document.getElementById('line'); //the line of the timeline
     line.style.width = newWidth;
     timelineContainer.style.overflowX = 'auto';
@@ -217,7 +217,7 @@ function addWidth() {
  */
 function resizeWidth() {
     //checks if screen is < 768
-    if(mediaQuery.matches) {
+    if (mediaQuery.matches) {
         currentWidth = 300;
     }
     else {
@@ -225,8 +225,8 @@ function resizeWidth() {
     }
     let milestones = getMilestoneArray(); //array of the milestones
     let mINumber = milestones.length;
-    if(mINumber > 3) {
-        for ( let i = 0; i < mINumber - 3; i++) {
+    if (mINumber > 3) {
+        for (let i = 0; i < mINumber - 3; i++) {
             //adds width based on mediaQuery
             addWidth();
         }
@@ -242,10 +242,10 @@ function resizeWidth() {
 function updateTimeline(milestoneElement) {
     // get the milestone index within the list
     const milestoneId = milestoneElement.closest('li').getAttribute('data-id');
-    const milestoneName = milestoneElement.textContent; 
+    const milestoneName = milestoneElement.textContent;
     let strLen = milestoneName.length;
     //calcuates the width of span element based on length of milestoneName
-    let spanWidth = 460 + (strLen - 11)*41;
+    let spanWidth = 460 + (strLen - 11) * 41;
     //get the milstone onthe timeline
     const timelineElement = document.querySelector
         (`#timeline-elements [data-id="${milestoneId}"] span`);
@@ -269,10 +269,10 @@ function updateTimeline() {
         const milestoneName = nameDiv.textContent;
         let strLen = milestoneName.length;
         //calculate the spanWidth of the milestoneName
-        let spanWidth = 460 + (strLen - 11)*41;
+        let spanWidth = 460 + (strLen - 11) * 41;
         let milestoneId = milestone.getAttribute('data-id');
         const timelineElement = document.querySelector
-        (`#timeline-elements [data-id="${milestoneId}"] span`);
+            (`#timeline-elements [data-id="${milestoneId}"] span`);
         if (timelineElement) {
             timelineElement.textContent = milestoneName;
             timelineElement.style.width = spanWidth + '%';
@@ -308,17 +308,17 @@ function toggleTasks(milestoneId) {
  * @param {string} milestoneId the id/number of the milestone
  * @returns {number} progress percentage of tasks completed/total
  */
-function getProgressPercentage (milestoneId) {
+function getProgressPercentage(milestoneId) {
     //get the tasklist;
     const taskList = document.getElementById(`task-list${milestoneId}`);
-    if(!taskList) {
+    if (!taskList) {
         //if tasklist doesn't exist return 0;
         return 0;
     }
     const tasks = taskList.querySelectorAll('li'); //get a list of the tasks
     const completedTasks = taskList.querySelectorAll
         ('input[type="checkbox"]:checked').length; //list of all tasks
-    if(tasks.length == 0) {
+    if (tasks.length == 0) {
         //to check for for undefined 
         return 0;
     }
@@ -336,7 +336,7 @@ function updateProgress(milestoneId) {
     //gets the tasklist of the milestone
     const taskList = document.getElementById(`task-list${milestoneId}`);
     const tasks = taskList.querySelectorAll('li'); //total tasks
-    const completedTasks = taskList.querySelectorAll 
+    const completedTasks = taskList.querySelectorAll
         ('input[type="checkbox"]:checked').length; //completed tasks
     //progress bar of the milestone
     const progress = document.getElementById(`progress${milestoneId}`);
@@ -354,22 +354,22 @@ function updateProgress(milestoneId) {
         timelineElement.classList.remove('uncompleted');
         timelineElement.classList.add('completed');
         milestone.querySelector('.milestone-name').classList.add('completed');
-        image.src = '../img/1.png';
+        image.src = '/1.png';
         image.alt = 'complete flag';
 
-    } 
+    }
     else {
         // Not all tasks are completed
         timelineElement.classList.remove('completed');
         timelineElement.classList.add('uncompleted');
         milestone.querySelector('.milestone-name').classList.remove('completed');
-        image.src = '../img/2.png';
+        image.src = '/2.png';
         image.alt = 'incomplete flag';
     }
-    
+
     // Update overall timeline progress
     updateTimelineProgress();
-    
+
 }
 /**
  * Updates the overall progress of the timeline based on completed milestones.
@@ -384,12 +384,12 @@ function updateTimelineProgress() {
     const timeline = timelineList.querySelectorAll('li');
     const timelineLength = timeline.length;
     //one section based on how many milestones
-    let oneDivision = currentWidth/ (timeline.length-1);
+    let oneDivision = currentWidth / (timeline.length - 1);
     // the max milestone with all previous milestones completed
-    let maxMilestone = 1; 
-    for(let i = 0; i < completedMI; i++) {
+    let maxMilestone = 1;
+    for (let i = 0; i < completedMI; i++) {
         let check = milestones[i].querySelector('.completed');
-        if(!check) {
+        if (!check) {
             break;
         }
         maxMilestone++;
@@ -398,7 +398,7 @@ function updateTimelineProgress() {
     let progressPercentage = getProgressPercentage(maxMilestone);
     let timelineText = document.querySelector('#TIHeader');
     // check for completion
-    if(completedMI == timelineLength - 2) {
+    if (completedMI == timelineLength - 2) {
         // if completed bar is filled and end is set to complete
         tlProgress = currentWidth;
         timeline[timelineLength - 1].classList.remove('uncompleted');
@@ -406,10 +406,10 @@ function updateTimelineProgress() {
         timelineText.style.color = '#00FFB0';
     }
     else {
-         // if progress bar is dynamically calculated and end is set to uncomplete
-        tlProgress = (maxMilestone -1)/(timelineLength - 1) * currentWidth;
+        // if progress bar is dynamically calculated and end is set to uncomplete
+        tlProgress = (maxMilestone - 1) / (timelineLength - 1) * currentWidth;
         tlProgress += progressPercentage * oneDivision;
-        timeline[timelineLength - 1 ].classList.remove('completed');
+        timeline[timelineLength - 1].classList.remove('completed');
         timeline[timelineLength - 1].classList.add('uncompleted');
         timelineText.style.color = '#CCFF00';
     }
@@ -465,7 +465,7 @@ function renumberMilestones() {
         const tasks = milestone.querySelectorAll('.task-list .task-item');
         //renumberTasks of the milestone
         renumberTasks(tasks, newNumber);
- 
+
     });
 
     const timelineElements = timelineList.querySelectorAll('li[data-id]');
@@ -487,9 +487,9 @@ function renumberMilestones() {
  * @param {number} milestoneId the milestone number of 
  * the tasklist that is being modified
  */
-function renumberTasks (tasks,milestoneId) {   
+function renumberTasks(tasks, milestoneId) {
     //iterate all tasks of milestoneId
-    tasks.forEach( (task,taskIndex)  => {
+    tasks.forEach((task, taskIndex) => {
         // go through all html attributes of the taskmark
         let taskCheckbox = task.querySelector('input');
         taskCheckbox.id = `task-${milestoneId}-${taskIndex + 1}`;
@@ -499,17 +499,17 @@ function renumberTasks (tasks,milestoneId) {
         const placeholder = taskLabel.textContent; //the previous
         const currentName = placeholder.replace(/\s*\d+$/, ''); //default name
         //checks if name is default name
-        if(currentName == 'Task') {
+        if (currentName == 'Task') {
             //renumbers task
-            taskLabel.innerText = `Task ${taskIndex+1}`;
+            taskLabel.innerText = `Task ${taskIndex + 1}`;
         }
         else {
             //preserves unique name
             taskLabel.innerText = `${placeholder}`
         }
-        
+
     });
-} 
+}
 
 /**
  * Returns the HTML structure for a milestone given its number.
@@ -517,13 +517,13 @@ function renumberTasks (tasks,milestoneId) {
  * @param {number} milestoneNumber - The number of the milestone.
  * @returns {string} The HTML structure for the milestone.
  */
-function getMilestoneHTML(milestoneNumber,milestoneName) {
+function getMilestoneHTML(milestoneNumber, milestoneName) {
     return `
         <div class="milestone-header" tabindex>
             <div class="milestone-content">
                 <div contenteditable="true" class="milestone-name">${milestoneName}</div>
                 <div class='date'></div>
-                <button class="milestone-trash" onclick="deleteMilestone(this)" tabindex="0"><img class="milestoneX" src="../img/trash.png"></button>
+                <button class="milestone-trash" onclick="deleteMilestone(this)" tabindex="0"><img class="milestoneX" src="/trash.png"></button>
             </div>
             <button class="dropdown-arrow" id="dropdown-arrow-${milestoneNumber}" onclick="toggleTasks(${milestoneNumber});" tabindex="0">▼</button>
         </div>
@@ -547,14 +547,14 @@ function deleteMilestone(milestoneElement) {
     const milestoneId = milestoneElement.closest('li').getAttribute('data-id');
     milestoneElement.closest('li').remove(); //removes the milestone from the list
     const milestoneList = document.getElementById('milestone-list'); //list of milestones
-    let  milestoneCount = milestoneList.children.length;
+    let milestoneCount = milestoneList.children.length;
     //get the associated timeline milestone
     const timelineElement = document.querySelector(`#timeline-elements [data-id="${milestoneId}"]`);
     if (timelineElement) {
         timelineElement.remove();
     }
     //checks for >4 milestones
-    if(milestoneCount > 4) {
+    if (milestoneCount > 4) {
         //subtracts width of line 
         subWidth();
     }
@@ -568,23 +568,23 @@ function deleteMilestone(milestoneElement) {
  * Updates the timeline width when a milestone is deleted
  * 
  */
-function subWidth () {
+function subWidth() {
     // desired width to be subtracted depending on screen size
     let sub = 24;
-    if(mediaQuery.matches) {
+    if (mediaQuery.matches) {
         sub = 90;
     }
-    if(mediaQuery2.matches) {
+    if (mediaQuery2.matches) {
         sub = 45;
     }
     //get the timeline Container to get the desired tags
-     let timelineContainer = document.
+    let timelineContainer = document.
         getElementsByClassName('timeline-container')[0];
     let timelineList = document.getElementById('timeline-elements');
     // Calculate the new width (current width - sub%)
     currentWidth -= sub;
-    let newWidth = currentWidth+ '%';
-    timelineList.style.width = newWidth ;
+    let newWidth = currentWidth + '%';
+    timelineList.style.width = newWidth;
     line = document.getElementById('line');
     line.style.width = newWidth;
 }
@@ -598,7 +598,7 @@ function resetWidth() {
     currentWidth = 100;
     let timelineContainer = document.
         getElementsByClassName('timeline-container')[0];
-    if(mediaQuery.matches) {
+    if (mediaQuery.matches) {
         //changes default to match small screen size
         currentWidth = 300;
     }
@@ -618,7 +618,7 @@ function resetWidth() {
  * saves milestones to storage after a milestone is created/deleted
  */
 
-function saveMilestoneToStorage () {
+function saveMilestoneToStorage() {
     //gets a array of milestones
     let milestones = getMilestoneArray();
     let milestoneNames = []; //placeholder array to store milestone names
@@ -637,7 +637,7 @@ function saveMilestoneToStorage () {
 /**
  * saves tasks to storage after a milestone is created/deleted
  */
-function saveTasksArrayToStorage () {
+function saveTasksArrayToStorage() {
     const milestones = getMilestoneArray(); //get array of milestones
     const taskArray = []; //placeholder array for tasks
     //iterate through every milestone
@@ -670,7 +670,7 @@ function saveTasksArrayToStorage () {
  * Returns the milestone list for the page
  * @returns node list of milestones
  */
-function getMilestoneArray () {
+function getMilestoneArray() {
     const milestoneList = document.getElementById('milestone-list');
     let milestones = milestoneList.querySelectorAll('li[data-id]');
     return milestones;
@@ -694,7 +694,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let editingEntryIndex = null;
 
     //keyboard access to close island
-    closeIsland.setAttribute('tabindex', '0'); 
+    closeIsland.setAttribute('tabindex', '0');
 
     // Load entries from localStorage and display them
     function loadEntries() {
@@ -716,11 +716,11 @@ document.addEventListener("DOMContentLoaded", function () {
         title.textContent = name;
     }
     //listens for when the home button on projects page is pushed
-    document.querySelector('.home-button').addEventListener('click', function() {
+    document.querySelector('.home-button').addEventListener('click', function () {
         window.location.href = 'home.html'; // go to home page
-      });
+    });
     //listens for when the logout button is pushed
-    document.querySelector('.logout-button').addEventListener('click', function() {
+    document.querySelector('.logout-button').addEventListener('click', function () {
         window.location.href = 'index.html'; // go to login page
         //localeStorage.clear();
     });
@@ -733,16 +733,16 @@ document.addEventListener("DOMContentLoaded", function () {
         //adds each milestone 
         milestones.forEach(milestone => addMilestone(milestone));
         const milestoneList = getMilestoneArray(); //get the milestone list
-         //parses through the string in local storage for milestone array
+        //parses through the string in local storage for milestone array
         const taskArray = JSON.parse(localStorage.getItem('tasks')) || [];
-       //go through each milestone
+        //go through each milestone
         milestoneList.forEach((milestone, index) => {
             //get the addtask button
             const taskButton = milestone.querySelector('.add-task');
             const tasks = taskArray[index] || [];
             tasks.forEach(task => {
                 //add the task with checkmark
-                addTask(taskButton, index + 1, task.text, task.checked,task.dateCompleted);
+                addTask(taskButton, index + 1, task.text, task.checked, task.dateCompleted);
                 //updates the progress forthe milestone
                 updateProgress(index + 1);
             });
@@ -783,7 +783,7 @@ document.addEventListener("DOMContentLoaded", function () {
         entryContent.textContent = content.length > 100 ? content.substring(0, 100) + '...' : content;
         //create icon for edit
         const editIcon = document.createElement('img');
-        editIcon.src = '../img/edit.png';
+        editIcon.src = '/edit.png';
         editIcon.alt = 'Edit';
         editIcon.classList.add('edit-icon');
         //defines what happens on click of pen
@@ -796,13 +796,13 @@ document.addEventListener("DOMContentLoaded", function () {
         };
         //create icon for  trash
         const trashIcon = document.createElement('img');
-        trashIcon.src = '../img/trash.png';
+        trashIcon.src = '/trash.png';
         trashIcon.alt = 'Delete';
         trashIcon.classList.add('trash-icon');
         //defines what happens on click of trashcan
         trashIcon.onclick = (event) => {
             event.stopPropagation();
-              //gets correct index
+            //gets correct index
             index = editIcon.closest('.entry-tile').getAttribute('data-index');
             //delete entry
             deleteEntry(entryTile, index);
@@ -821,22 +821,22 @@ document.addEventListener("DOMContentLoaded", function () {
         entryTile.setAttribute('tabindex', '0');
         trashIcon.setAttribute('tabindex', '0');
         editIcon.setAttribute('tabindex', '0');
-        
+
         // Add keydown event listeners for Enter key
-        entryTile.addEventListener('keydown', function(event) {
+        entryTile.addEventListener('keydown', function (event) {
             if (event.key === 'Enter') {
                 this.click();
             }
         });
         // Add keydown event listeners for Enter key
-        trashIcon.addEventListener('keydown', function(event) {
+        trashIcon.addEventListener('keydown', function (event) {
             if (event.key === 'Enter') {
                 event.stopPropagation();
                 trashIcon.click();
             }
         });
         // Add keydown event listeners for Enter key
-        editIcon.addEventListener('keydown', function(event) {
+        editIcon.addEventListener('keydown', function (event) {
             if (event.key === 'Enter') {
                 event.stopPropagation();
                 editIcon.click();
@@ -879,32 +879,38 @@ document.addEventListener("DOMContentLoaded", function () {
         addEntryButton.textContent = 'Save Entry';
         isEditing = true;
         editingEntryIndex = index;
-        
+
     }
 
     function deleteEntry(entryTile, index) {
         const entries = JSON.parse(localStorage.getItem('entries')) || [];
         entries.splice(index, 1);
-        localStorage.setItem('entries', JSON.stringify(entries));
         entriesContainer.removeChild(entryTile);
         renumberEntries();
-    
         // Close dynamic island if it's open and showing the deleted entry
         if (dynamicIsland.style.display === 'block' && islandTitle.textContent === entryTile.querySelector('h3').textContent) {
             dynamicIsland.style.display = 'none';
         }
     }
-    
+
     /**
      * renumber the entries when one is deleted
      */
     function renumberEntries() {
         const entries = document.querySelectorAll('.entry-tile');
+        const entriesArray = JSON.parse(localStorage.getItem('entries')) || [];
         entries.forEach((entry, index) => {
             entry.dataset.index = index;
             const entryTitle = entry.querySelector('h3');
             entryTitle.textContent = `Entry ${index + 1}`;
+            let title = `Entry ${index + 1}`;
+            entriesArray[index].title = title
+            let content = entry.querySelector('p').innerText;
+            let type = entry.getAttribute('data-type');
+            updateEntryTile(index, title, content, type);
         });
+        entriesArray.pop();
+        localStorage.setItem('entries', JSON.stringify(entriesArray));
     }
 
     // Show the dynamic island with entry details
@@ -935,19 +941,17 @@ document.addEventListener("DOMContentLoaded", function () {
         dynamicIsland.style.display = 'block';
     }
     //adds enter clickability
-    closeIsland.addEventListener('keydown', function(event) {
+    closeIsland.addEventListener('keydown', function (event) {
         if (event.key === 'Enter') {
             this.click();
         }
-    });   
+    });
 
     // Handle the close button for the dynamic island
     closeIsland.onclick = () => {
         dynamicIsland.classList.add('close');
-        setTimeout(() => {
-            dynamicIsland.style.display = 'none';
-            dynamicIsland.classList.remove('close');
-        }, 300); // Match this duration with the CSS animation duration
+        dynamicIsland.style.display = 'none';
+        dynamicIsland.classList.remove('close');
     };
 
     // Handle the add entry button click
@@ -965,8 +969,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
     });
-
-    
 
     // Handle note-type button clicks
     noteTypeButtons.forEach(button => {
@@ -990,8 +992,8 @@ document.addEventListener("DOMContentLoaded", function () {
     loadProjectName(); //gets name from local storage
     resizeWidth(); // resizes width upon loading of page 
     updateTimeline(); //updates the timeline width based on milestone name
-     // Add event listener to timeline items for when they are clicked
-     document.getElementById('timeline-elements').addEventListener('click', function (event) {
+    // Add event listener to timeline items for when they are clicked
+    document.getElementById('timeline-elements').addEventListener('click', function (event) {
         //get the closest li upon a click
         const target = event.target.closest('li');
         if (target && target.dataset.id) {
@@ -999,10 +1001,10 @@ document.addEventListener("DOMContentLoaded", function () {
             const milestoneId = target.dataset.id;
             const milestoneElement = document.querySelector(`#milestone-list [data-id="${milestoneId}"]`);
             //get the progress of the selected milestone
-            let progress = getProgressPercentage(milestoneId.charAt(milestoneId.length-1)) * 100;
+            let progress = getProgressPercentage(milestoneId.charAt(milestoneId.length - 1)) * 100;
             progress = progress.toFixed(1); // round to first decimal
-             //checks for completed 
-            if(milestoneElement.querySelector('.completed')) {
+            //checks for completed 
+            if (milestoneElement.querySelector('.completed')) {
                 progress = 100;
             }
             //show the milestone if it exists
@@ -1027,7 +1029,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const taskItem = document.createElement('p');
             let date = task.parentElement.querySelector('.date').innerText;
             //check if date has been marked
-            if(date == '') {
+            if (date == '') {
                 taskItem.textContent = `${task.innerText}: In Progress `;
             }
             else {
@@ -1052,72 +1054,18 @@ document.addEventListener("DOMContentLoaded", (event) => {
 function renderMarkdown(markdownText) {
     // Set up marked to use highlight.js
     marked.setOptions({
-        highlight: function(code, language) {
+        highlight: function (code, language) {
             // Use 'plaintext' as fallback language
             const validLanguage = hljs.getLanguage(language) ? language : 'plaintext';
             return hljs.highlight(validLanguage, code).value;
-        }
+        },
+        breaks: true, // This option is important for recognizing line breaks
     });
 
     // Parse Markdown to HTML
     const htmlContent = marked(markdownText);
     // Insert HTML into the dynamic island content area
     document.getElementById('islandContent').innerHTML = htmlContent;
-}
-
-// Function to renumber entries after deletion
-function renumberEntries() {
-    const entries = document.querySelectorAll('.entry-tile');
-    const entriesArray = JSON.parse(localStorage.getItem('entries')) || [];
-    entries.forEach((entry, index) => {
-        entry.dataset.index = index;
-        const entryTitle = entry.querySelector('h3');
-        entryTitle.textContent = `Entry ${index + 1}`;
-        entriesArray[index].title = `Entry ${index + 1}`;
-    });
-    localStorage.setItem('entries', JSON.stringify(entriesArray));
-}
-
-
-// Function to delete an entry
-function deleteEntry(entryElement) {
-    entryElement.remove();
-    renumberEntries();
-}
-
-// Add event listeners to delete buttons
-document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.trash-icon').forEach(icon => {
-        icon.addEventListener('click', (e) => {
-            const entryElement = e.target.closest('.entry-tile');
-            deleteEntry(entryElement);
-        });
-    });
-});
-
-// Function to add new entry
-function addEntry(content) {
-    const entryContainer = document.querySelector('.entries-container');
-
-    // Create a new entry tile
-    const newEntry = document.createElement('div');
-    newEntry.className = 'entry-tile';
-    const entryNumber = entryContainer.childElementCount + 1;
-
-    newEntry.innerHTML = `
-        <h3>Entry ${entryNumber}</h3>
-        <p>${content}</p>
-        <img src="../img/trash-icon.png" class="trash-icon" alt="Delete">
-    `;
-
-    entryContainer.appendChild(newEntry);
-
-    // Add event listener to the delete button
-    newEntry.querySelector('.trash-icon').addEventListener('click', (e) => {
-        deleteEntry(newEntry);
-    });
-
-    renumberEntries(); // Renumber after adding
 }
 
 // Adjust the notepad size based on the screen width
@@ -1168,7 +1116,7 @@ window.addEventListener('beforeunload', function () {
     saveMilestoneToStorage();
     saveTasksArrayToStorage();
 });
-window.addEventListener('unload',function () {
+window.addEventListener('unload', function () {
     saveMilestoneToStorage();
     saveTasksArrayToStorage();
 });
