@@ -235,17 +235,30 @@ test('notepad textbox changes when markdown button is clicked', async () => {
 }, 10000);
 
 
-  test('should render markdown note with clickable link', async () => {
-    await page.click('.note-type-button[data-type="markdown"]');
-    const markdownContent = '[Youtube](https://www.youtube.com)';
-    await page.type('#markdown', markdownContent);
-    await page.click('#addEntryButton');
-    await page.waitForSelector('.entry-tile:last-child');
-    await page.click('.entry-tile:last-child');
-    await page.waitForSelector('#dynamicIsland .markdown-view a');
-    const linkHref = await page.$eval('#dynamicIsland .markdown-view a', el => el.href);
-    expect(linkHref).toBe('https://www.youtube.com/');
-    const linkText = await page.$eval('#dynamicIsland .markdown-view a', el => el.textContent);
-    expect(linkText).toBe('Youtube');
-  }, 15000);
+test('log out button goes to sign-in page', async () => {
+  await page.waitForSelector('.logout-button');
+  await page.hover('.logout-button');
+  await page.click('.logout-button');
+  
+  const url = page.url();
+  expect(url).toContain('index.html');
 });
+
+test('should render markdown note with clickable link', async () => {
+  await page.goto('http://localhost:3000/project.html');
+  await page.click('.note-type-button[data-type="markdown"]');
+  const markdownContent = '[Youtube](https://www.youtube.com)';
+  await page.type('#markdown', markdownContent);
+  await page.click('#addEntryButton');
+  await page.waitForSelector('.entry-tile:last-child');
+  await page.click('.entry-tile:last-child');
+  await page.waitForSelector('#dynamicIsland .markdown-view a');
+  const linkHref = await page.$eval('#dynamicIsland .markdown-view a', el => el.href);
+  expect(linkHref).toBe('https://www.youtube.com/');
+  const linkText = await page.$eval('#dynamicIsland .markdown-view a', el => el.textContent);
+  expect(linkText).toBe('Youtube');
+}, 15000);
+
+
+});
+

@@ -151,7 +151,6 @@ describe('Homepage Tests', () => {
         await page.waitForSelector('.logout-button');
         await page.hover('.logout-button');
         await page.click('.logout-button');
-        await page.waitForNavigation({ waitUntil: 'networkidle2' });
         
         const url = await page.url();
         expect(url).toContain('index.html');
