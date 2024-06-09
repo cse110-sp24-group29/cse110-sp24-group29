@@ -51,8 +51,8 @@ class StatsGraph extends HTMLElement {
                 position: relative;
                 width: 100%;
                 height: 100%;
-                max-width: 600px; /* Set max-width for the chart container */
-                max-height: 600px; /* Set max-height for the chart container */
+                max-width: 600px;
+                max-height: 600px;
             }
 
             #statsChart {
@@ -76,22 +76,22 @@ class StatsGraph extends HTMLElement {
             type: 'radar',
             data: {
                 labels: [
-                    'Frontend\nEngineering',
-                    'Backend\nEngineering',
-                    'Databases\nEngineering',
-                    'Network\nEngineering',
-                    'Data Analytics\nEngineering'
+                    'Frontend\nDevelopment',
+                    'Backend\nDevelopment',
+                    'Data\nScience',
+                    'Native\n Development',
+                    'Machine Learning\n and AI'
                 ],
                 datasets: [{
                     label: 'Stats',
                     data: [0, 0, 0, 0, 0],
                     fill: true,
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)', // all chart grid colors changed to teal and grey
-                    borderColor: 'rgb(54, 162, 235)', 
-                    pointBackgroundColor: 'rgb(54, 162, 235)', 
-                    pointBorderColor: 'rgb(75, 75, 75)', 
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgb(54, 162, 235)',
+                    pointBackgroundColor: 'rgb(54, 162, 235)',
+                    pointBorderColor: 'rgb(75, 75, 75)',
                     pointHoverBackgroundColor: 'rgb(75, 75, 75)',
-                    pointHoverBorderColor: 'rgb(54, 162, 235)', 
+                    pointHoverBorderColor: 'rgb(54, 162, 235)',
                     pointRadius: 0
                 }]
             },
@@ -101,8 +101,8 @@ class StatsGraph extends HTMLElement {
                         borderWidth: 3
                     }
                 },
-                responsive: true, // Enable responsiveness
-                maintainAspectRatio: false, // Disable maintaining aspect ratio to use width and height 100%
+                responsive: true,
+                maintainAspectRatio: false,
                 plugins: {
                     legend: {
                         display: false
@@ -113,18 +113,17 @@ class StatsGraph extends HTMLElement {
                         min: 0,
                         max: 100,
                         grid: {
-                            color: 'rgba(54, 54, 54, 0.5)' // Light gray for the grid lines
+                            color: 'rgba(54, 54, 54, 0.5)'
                         },
                         angleLines: {
-                            color: 'rgba(54, 54, 54, 0.5)' // Light gray for the angle lines
+                            color: 'rgba(54, 54, 54, 0.5)'
                         },
                         pointLabels: {
                             font: {
                                 size: 14
                             },
-                            color: 'rgb(0, 0, 0)', // Teal color for the labels
-                            callback: function(value) {
-                                // Split the label into multiple lines
+                            color: 'rgb(0, 0, 0)',
+                            callback: function (value) {
                                 return value.split('\n');
                             }
                         },

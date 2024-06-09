@@ -11,13 +11,13 @@ header {
     color: white;
     box-sizing: border-box;
 }
+
 .header-center {
     position: absolute;
-    left: 50%; 
-    transform: translateX(-50%); 
+    left: 50%;
+    transform: translateX(-50%);
     text-align: center;
-    width: 100%; 
-    
+    width: 100%;
 }
 
 .main-heading {
@@ -52,7 +52,7 @@ body {
     overflow: hidden;
     border-radius: 25px;
     background-color: #ffffff;
-    margin-top:20px;
+    margin-top: 20px;
     margin-bottom: 10rem;
 }
 
@@ -60,7 +60,6 @@ body {
     text-align: center;
     margin-bottom: 20px;
 }
-
 
 .right-heading {
     font-family: inherit;
@@ -107,7 +106,7 @@ body {
     height: 100%;
     border-top-left-radius: 45px;
     border-bottom-left-radius: 45px;
-    height: 100vh; 
+    height: 100vh;
 }
 
 .project-card-container {
@@ -123,7 +122,6 @@ body {
 .project-card-wrapper {
     overflow-x: auto;
     overflow-y: auto;
-    /* overflow-y: hidden; */
     white-space: nowrap;
     scroll-behavior: smooth;
     width: 500px;
@@ -147,13 +145,12 @@ body {
 }
 
 .project-cards {
-    display: inline-grid; /* Use inline-grid to keep grid layout in a row */
+    display: inline-grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
-    gap: 23px;
-    transition: transform 0.3s ease; /* Smooth transition for scrolling */
+    gap: 20px;
+    transition: transform 0.3s ease;
 }
-
 
 project-card,
 add-project-card {
@@ -226,7 +223,7 @@ add-project-card button img {
     height: 20px;
 }
 
-/*scroll-button {
+.scroll-button {
     cursor: pointer;
     user-select: none;
     padding: 10px;
@@ -240,7 +237,7 @@ add-project-card button img {
     margin: 0 10px;
 }
 
-scroll-button:hover {
+.scroll-button:hover {
     background-color: #494949;
 }*/
 
@@ -252,16 +249,16 @@ scroll-button:hover {
 }
 
 .logout-button {
-    background-color: #FF5F56; 
+    background-color: #FF5F56;
     border: none;
     border-radius: 8px;
-    color: white; 
+    color: white;
     font-size: 16px;
-    padding: 12px 24px; 
+    padding: 12px 24px;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s; 
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-    display: inline-block; 
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: inline-block;
     font-family: 'Arial', sans-serif;
 }
 
@@ -279,22 +276,23 @@ scroll-button:hover {
     height: 100px;
     width: auto;
 }
+
 @media (max-width: 1024px) {
     body {
-        height: auto; 
+        height: auto;
     }
 
     .container {
         margin-bottom: 50px;
         flex-direction: column;
-        height: auto; 
+        height: auto;
     }
 
     .left-side,
     .right-side {
         width: 100%;
         max-width: none;
-        height: auto; 
+        height: auto;
     }
 
     .right-side {
@@ -306,38 +304,37 @@ scroll-button:hover {
     }
 
     .logout-button {
-        font-size: 14px; 
-        padding: 4px 8px; 
-        right:0px;
+        font-size: 14px;
+        padding: 4px 8px;
+        right: 0px;
     }
+
     .header-center {
         text-align: center;
-        
     }
+
     .right-heading {
         margin-top: 20px;
     }
-
 }
-
 
 @media (max-width: 768px) {
     body {
-        height: auto; 
+        height: auto;
     }
 
     .container {
         margin-top: 20px;
         margin-bottom: 50px;
         flex-direction: column;
-        height: auto; 
+        height: auto;
     }
 
     .left-side,
     .right-side {
         width: 100%;
         max-width: none;
-        height: auto; 
+        height: auto;
     }
 
     .right-side {
@@ -349,24 +346,28 @@ scroll-button:hover {
     }
 
     .logout-button {
-        font-size: 14px; 
-        padding: 4px 8px; 
-        top: 10px; 
-        right: 10px; 
+        font-size: 14px;
+        padding: 4px 8px;
+        top: 10px;
+        right: 10px;
     }
+
     .header-center {
         text-align: center;
-        
     }
+
     .main-heading {
-        display: none; 
+        display: none;
     }
-    .sub-heading{
-        display:none;
+
+    .sub-heading {
+        display: none;
     }
+
     .right-heading {
         margin-top: 20px;
     }
+
     .greeting {
         margin-right: 20px;
         font-size: 12px;
