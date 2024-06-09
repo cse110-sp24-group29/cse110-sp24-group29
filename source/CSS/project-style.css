@@ -801,6 +801,11 @@ input[type="file"] {
     cursor: pointer;
 }
 
+.dropdown-arrow {
+    font-size: 1em;
+    cursor: pointer;
+}
+
 
 #TIHeader {
     color:  #CCFF00;
@@ -885,10 +890,10 @@ input[type="file"] {
 }
 
 .timeline-container li.completed:first-child:before {
-    margin-left: -8px;
+    margin-left: -2px;
 }
 .timeline-container li:last-child:before {
-    margin-right: -6px;
+    margin-right: -2px;
 }
 
 
@@ -900,7 +905,6 @@ input[type="file"] {
 
 .timeline-container li span {
     position: absolute;
-    display: inline-block;
     bottom: -24px; 
     width: 460%; /*Every Letter adds 30%*/
     transform: translateX(-50%);
@@ -977,6 +981,14 @@ input[type="file"] {
         padding: 0; 
         margin: 0; 
     }
+    .timeline-container li span {
+        position: absolute;
+        bottom: -24px; /* Adjust as needed */
+        left: -10%;
+        transform: translateX(10%);
+        width: 120%; /* Added */
+        white-space: nowrap; /* Prevents wrapping to a new line */
+    }
     .timeline-container #line {
         width: 300%;
         top: 100%; 
@@ -989,6 +1001,10 @@ input[type="file"] {
     }
     .timeline-container li {
         overflow: visible; /* Ensure overflow is not hidden */
+    }
+    .timeline-container li span {
+        left: -20%;
+        transform: translateX(-120%);
     }
 }
 
