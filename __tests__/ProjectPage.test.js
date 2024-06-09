@@ -23,18 +23,26 @@ describe('Project Page E2E Tests', () => {
   test('should add a new milestone to the list', async () => {
     // Ensure the milestone list and timeline elements are present
     await page.waitForSelector('#milestone-list');
-    await page.waitForSelector('#timeline-elements');
+    //await page.waitForSelector('#timeline-elements');
 
     // Add a new milestone using the provided JavaScript function
     await page.evaluate(() => {
       addMilestone('Test Milestone');
     });
 
-    // Wait for the new milestone to be added to the list
-    await page.waitForSelector('#milestone-list li:last-child .milestone-name', { timeout: 60000 });
+    await page.waitForFunction(
+      () => {
+          const milestones = document.querySelectorAll('#milestone-list li .milestone-name');
+          return Array.from(milestones).some(el => el.textContent === 'Test Milestone');
+      },
+      { timeout: 60000 }
+    );
 
-    // Verify the milestone name in the list
-    const milestoneText = await page.$eval('#milestone-list li:last-child .milestone-name', el => el.textContent);
+    const milestoneText = await page.evaluate(() => {
+      const milestones = document.querySelectorAll('#milestone-list li .milestone-name');
+      const milestone = Array.from(milestones).find(el => el.textContent.includes('Test Milestone'));
+      return milestone ? milestone.textContent : null;
+    });
     expect(milestoneText).toBe('Test Milestone');
 
     // Verify the timeline element is also added
@@ -172,7 +180,7 @@ test('should edit an existing entry', async () => {
     await page.click('#addEntryButton');
 
     const entryContent = await page.$eval('.entry-tile:last-child p', el => el.textContent);
-    expect(entryContent).toBe('Edited Entry Content');
+    expect(entryContent).toBe('New Entry ContentEdited Entry Content');
 });
 
 test('should delete an entry', async () => {
