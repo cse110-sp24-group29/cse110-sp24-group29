@@ -22,6 +22,8 @@ class StatsGraph extends HTMLElement {
     connectedCallback() {
         this.render(); // Render the element
         this.loadChart(); // Load the chart
+        this.updateChart();
+        window.addEventListener('resize', this.resizeChart.bind(this));
     }
 
     // Render the HTML structure for the custom element
@@ -32,11 +34,15 @@ class StatsGraph extends HTMLElement {
         this.shadowRoot.innerHTML = `
         <style>
             :host {
-                display: block;
-                width: ${width};
-                height: ${height};
-                max-width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                height: 100%;
+                max-width: ${width};
+                max-height: ${height};
                 margin: 0 auto;
+                padding-top: 50px;
             }
 
             .container {
@@ -120,7 +126,7 @@ class StatsGraph extends HTMLElement {
                         },
                         pointLabels: {
                             font: {
-                                size: 14
+                                size: this.getFontSize()
                             },
                             color: 'rgb(0, 0, 0)',
                             callback: function (value) {
@@ -137,6 +143,23 @@ class StatsGraph extends HTMLElement {
         });
 
         this.updateChart(); // Update the chart with initial data
+    }
+
+    resizeChart() {
+        const newFontSize = this.getFontSize();
+        this.chart.options.scales.r.pointLabels.font.size = newFontSize;
+        this.chart.update();
+    }
+
+    getFontSize() {
+        const width = window.innerWidth;
+        if (width < 600) {
+            return 10; // Smaller font size for small screens
+        } else if (width < 900) {
+            return 12; // Medium font size for mid-sized screens
+        } else {
+            return 14; // Default font size for larger screens
+        }
     }
 
     // Update the chart with the current distribution of project tags
