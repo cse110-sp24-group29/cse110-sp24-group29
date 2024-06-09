@@ -7,7 +7,7 @@ describe('Project Page E2E Tests', () => {
   beforeAll(async () => {
     browser = await puppeteer.launch({ headless: false });
     page = await browser.newPage();
-    await page.goto('http://localhost:5503/source/Html/Project.html', { waitUntil: 'networkidle2', timeout: 60000 });
+    await page.goto('http://localhost:3000/project.html', { waitUntil: 'networkidle2', timeout: 60000 });
   });
 
   afterAll(async () => {
@@ -123,7 +123,7 @@ describe('Project Page Notes and Entry functionality', () => {
   beforeAll(async () => {
     browser = await puppeteer.launch({ headless: false });
     page = await browser.newPage();
-    await page.goto('http://localhost:5503/source/Html/Project.html', { waitUntil: 'networkidle2', timeout: 60000 });
+    await page.goto('http://localhost:3000/project.html', { waitUntil: 'networkidle2', timeout: 60000 });
   });
 
   afterAll(async () => {
