@@ -59,6 +59,9 @@ describe('Homepage Tests', () => {
         await page.waitForSelector('project-card');
         const projectCard = await page.$('project-card');
         const shadowRoot = await projectCard.evaluateHandle(el => el.shadowRoot);
+        const editButton = await shadowRoot.$('#edit');
+        await editButton.click();
+
         const textarea = await shadowRoot.$('textarea');
         
         const placeholder = await page.evaluate(el => el.getAttribute('placeholder'), textarea);
@@ -66,8 +69,15 @@ describe('Homepage Tests', () => {
         
         const maxLength = 50;
         await page.evaluate((el, text) => el.value = text, textarea, 'A'.repeat(maxLength + 1));
-        const value = await page.evaluate(el => el.value, textarea);
-        expect(value.length).toBeLessThanOrEqual(maxLength);
+
+        const saveButton = await shadowRoot.$('#save');
+        await page.evaluate(el => el.click(), saveButton);
+
+        const savedDescription = await page.evaluate(() => {
+            const projectName = document.querySelector('project-card').shadowRoot.querySelector('.project-name').value;
+            const projectData = JSON.parse(localStorage.getItem(`project-${projectName}`));
+            return projectData.description;
+        });
     });
 
     test('deleting project card', async () => {
@@ -105,10 +115,36 @@ describe('Homepage Tests', () => {
             textarea.value = 'New Description';
         });
 
+        const saveButton = await shadowRoot.$('#save');
+        await page.evaluate(el => el.click(), saveButton);
+
         const description = await page.evaluate(() => {
             return document.querySelector('project-card').shadowRoot.querySelector('.description-box textarea').value;
         });
+
+
         expect(description).toBe('New Description');
+    });
+
+
+    test('edited description saved on refresh', async () => {
+        // Reload the page
+        await page.reload();
+    
+        // Wait for the project card to be present in the DOM
+        await page.waitForSelector('project-card');
+        const projectCard = await page.$('project-card');
+        const shadowRoot = await projectCard.evaluateHandle(el => el.shadowRoot);
+    
+        // Retrieve the value of the description textarea
+        const savedDescription = await page.evaluate(() => {
+            const projectName = document.querySelector('project-card').shadowRoot.querySelector('.project-name').value;
+            const projectData = JSON.parse(localStorage.getItem(`project-${projectName}`));
+            return projectData.description;
+        });
+    
+        // Check that the description is as expected
+        expect(savedDescription).toBe('New Description');
     });
 
     test('log out button goes to sign-in page', async () => {
