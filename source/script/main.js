@@ -4,6 +4,7 @@
 const boxContainerElement = document.getElementById('box-container');
 const signUpButtonElement = document.getElementById('register');
 const signInButtonElement = document.getElementById('login');
+const logoutButton = document.querySelector('.logout-button');
 
 function handleSignUpButtonClick() {
     boxContainerElement.classList.add('active');
@@ -154,15 +155,20 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Handle logout button click
-    const logoutButton = document.querySelector('.logout-button');
-    if (logoutButton) {
-        logoutButton.addEventListener('click', function () {
-            localStorage.removeItem('username');
-            localStorage.removeItem('userId');
-            window.location.href = 'index.html'; // Redirect to login-signup page
-        });
-    }
+      // Handle logout button click
+      const logoutButton = document.querySelector('.logout-button');
+      if (logoutButton) {
+          logoutButton.addEventListener('click', function (event) {
+              event.preventDefault();
+              logout();
+          });
+      }
+  
+      function logout() {
+          localStorage.removeItem('username');
+          localStorage.removeItem('userId');
+          window.location.href = 'index.html'; // Redirect to login-signup page
+      }
 });
 
 // Scroll functionality

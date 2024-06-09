@@ -277,10 +277,6 @@ add-project-card button img {
     transform: translateY(-2px);
 }
 
-.logout-button:active {
-    background-color: #C43D30;
-    transform: translateY(0);
-}
 
 .logo {
     height: 100px;
