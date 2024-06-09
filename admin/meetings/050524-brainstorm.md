@@ -1,9 +1,24 @@
 # Meeting Notes - Software Team Brainstorming/Design Meeting
 
-**Date:** 05/05/2024  
-**Time:** 2:00pm  
+## Meeting Details
+**Type of Meeting:** Brainstorm and Design Meeting  
+**Date:** May 5, 2024  
 **Location:** Geisel Library  
-**Attendees:**  Evan Kauh, Sakscham Rai, Shrey Kumar, Tianshi Gong, Ryan Chon, Jason Tang, Ojasvi Tewari, Ricky Li, Aniruddh Krovvidi, Brandon Chung, Aditya, Saini  
+**Time:** 2:00pm  
+
+**Attendance:** 
+- [x] Saksham Rai (Team Lead)
+- [x] Shrey Kumar (Team Lead)
+- [x] Aditya Saini (Developer)
+- [x] Aniruddh Krovvidi (Developer)
+- [x] Jason Tang (Developer)
+- [x] Brandon Chung (Developer)
+- [x] Ricky Li (Developer)
+- [x] Ojasvi Tewari (Planner)
+- [x] Christopher Lerum (Developer)
+- [x] Ryan K Chon (Developer)
+- [x] Tianshi Gong (Developer)
+- [x] Evan Kauh (Developer) 
 
 ## Agenda:
 1. Discussion of Suggested Elements
