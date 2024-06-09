@@ -180,7 +180,7 @@ test('should edit an existing entry', async () => {
     await page.click('#addEntryButton');
 
     const entryContent = await page.$eval('.entry-tile:last-child p', el => el.textContent);
-    expect(entryContent).toBe('New Entry ContentEdited Entry Content');
+    expect(entryContent).toBe('Edited Entry Content');
 });
 
 test('should delete an entry', async () => {
