@@ -18,7 +18,7 @@ Welcome to our developer journal for our software engineering project in CSE 110
 * The projects page also allows users to add a list of milestones to mark progression in the project and add a list of tasks that need to be completed for the project.
 * The milestones and tasks that are marked complete will then be displayed on a timeline on the projects page that displays progress.
 
-## Setuo
+## Setup
 
 To get a local copy up and running, follow these simple steps:
 
