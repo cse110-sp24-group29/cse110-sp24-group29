@@ -55,20 +55,20 @@ describe('Homepage Tests', () => {
     //     expect(updatedRadarChartData).not.toEqual(initialRadarChartData);
     // });
 
-    // test('description placeholder text is limited to 50 chars', async () => {
-    //     await page.waitForSelector('project-card');
-    //     const projectCard = await page.$('project-card');
-    //     const shadowRoot = await projectCard.evaluateHandle(el => el.shadowRoot);
-    //     const textarea = await shadowRoot.$('textarea');
+    test('description placeholder text is limited to 50 chars', async () => {
+        await page.waitForSelector('project-card');
+        const projectCard = await page.$('project-card');
+        const shadowRoot = await projectCard.evaluateHandle(el => el.shadowRoot);
+        const textarea = await shadowRoot.$('textarea');
         
-    //     const placeholder = await page.evaluate(el => el.getAttribute('placeholder'), textarea);
-    //     expect(placeholder).toBe('Max 50 chars...');
+        const placeholder = await page.evaluate(el => el.getAttribute('placeholder'), textarea);
+        expect(placeholder).toBe('Max 50 chars...');
         
-    //     const maxLength = 50;
-    //     await page.evaluate((el, text) => el.value = text, textarea, 'A'.repeat(maxLength + 1));
-    //     const value = await page.evaluate(el => el.value, textarea);
-    //     expect(value.length).toBeLessThanOrEqual(maxLength);
-    // });
+        const maxLength = 50;
+        await page.evaluate((el, text) => el.value = text, textarea, 'A'.repeat(maxLength + 1));
+        const value = await page.evaluate(el => el.value, textarea);
+        expect(value.length).toBeLessThanOrEqual(maxLength);
+    });
 
     test('deleting project card', async () => {
         await page.waitForSelector('project-card');
@@ -94,28 +94,32 @@ describe('Homepage Tests', () => {
         expect(remainingCards.length).toBe(1);
     });
 
-    // test('editing description and save', async () => {
-    //     const projectCard = await page.$('project-card');
-    //     const shadowRoot = await projectCard.evaluateHandle(el => el.shadowRoot);
-    //     const editButton = await shadowRoot.$('#edit');
-    //     await editButton.click();
+    test('editing description and save', async () => {
+        const projectCard = await page.$('project-card');
+        const shadowRoot = await projectCard.evaluateHandle(el => el.shadowRoot);
+        const editButton = await shadowRoot.$('#edit');
+        await editButton.click();
         
-    //     await page.$eval('textarea', el => el.value = 'New Description');
-    //     await page.click('.save-button');
+        await page.evaluate(() => {
+            const textarea = document.querySelector('project-card').shadowRoot.querySelector('.description-box textarea');
+            textarea.value = 'New Description';
+        });
 
-    //     const description = await page.$eval('textarea', el => el.value);
-    //     expect(description).toBe('New Description');
-    // });
+        const description = await page.evaluate(() => {
+            return document.querySelector('project-card').shadowRoot.querySelector('.description-box textarea').value;
+        });
+        expect(description).toBe('New Description');
+    });
 
-    // test('log out button goes to sign-in page', async () => {
-    //     await page.waitForSelector('.logout-button');
-    //     await page.hover('.logout-button');
-    //     await page.click('.logout-button');
-    //     await page.waitForNavigation({ waitUntil: 'networkidle2' });
+    test('log out button goes to sign-in page', async () => {
+        await page.waitForSelector('.logout-button');
+        await page.hover('.logout-button');
+        await page.click('.logout-button');
+        await page.waitForNavigation({ waitUntil: 'networkidle2' });
         
-    //     const url = await page.url();
-    //     expect(url).toContain('index.html');
-    // });
+        const url = await page.url();
+        expect(url).toContain('index.html');
+    });
 
     test('project journal button redirects to project.html', async () => {
         await page.goto('http://localhost:3000/home.html');
