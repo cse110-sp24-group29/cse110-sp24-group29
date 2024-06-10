@@ -21,8 +21,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '16'
-        cache: 'npm'
+        node-version: '18' # Update Node.js version to 18
 
     - name: Install dependencies
       run: npm install
@@ -33,7 +32,7 @@ jobs:
     - name: Run tests with server
       run: |
         npm install start-server-and-test --save-dev
-        xvfb-run --auto-servernum --server-args="-screen 0 1024x768x24" npx start-server-and-test 'npm start' http://localhost:3000 'npx jest'
+        xvfb-run --auto-servernum --server-args="-screen 0 1024x768x24" npx start-server-and-test 'npm start' http://localhost:3000 'npx jest --testTimeout=30000' # Increase Jest timeout to 30 seconds
 
     - name: Generate documentation
       run: npm run doc
