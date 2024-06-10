@@ -111,6 +111,39 @@ header {
     width: auto;
 }
 
+.hamburger-menu {
+    font-size: 3em;
+    cursor: pointer;
+    color: white;
+    display: none;
+    align-items: center;
+    background-color: transparent;
+
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    right: 20px;
+    top: 60px;
+    background-color: #333;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.dropdown-menu a {
+    display: block;
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+}
+
+.dropdown-menu a:hover {
+    background-color: #575757;
+}
+
 
 .content {
     display: flex;
@@ -277,6 +310,14 @@ header {
     #notepad, #markdown {
         font-size: 16px; /* Increase font size */
         padding: 20px 10px 20px 60px; /* Adjust padding */
+    }
+
+    .hamburger-menu {
+        display: flex;
+    }
+
+    .home-button, .logout-button{
+        display: none;
     }
 
     .note-type-buttons {
