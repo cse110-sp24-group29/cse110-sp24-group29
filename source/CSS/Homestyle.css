@@ -246,6 +246,7 @@ add-project-card button img {
     font-size: 16px;
     font-weight: bold;
     display: inline;
+    text-align: center;
 }
 
 .logout-button {
