@@ -1,9 +1,9 @@
-# Check in Meeting
+# Weekly Meeting
 
 ## Meeting Details
-**Type of Meeting:** Short Check in meeting
+**Type of Meeting:** Short Weekly Meeting  
 **Date:** May 15, 2024  
-**Location:** Zoom
+**Location:** Zoom  
 **Start-Time:** 7:15 pm  
 
 **Attendance:**    
