@@ -1,7 +1,7 @@
-# Check In Meeting
+# Weekly Meeting
 
 ## Meeting Details
-**Type of Meeting:** Long Check In Meeting  
+**Type of Meeting:** Long Weekly Meeting  
 **Date:** June 5, 2024  
 **Location:** Geisel Library  
 **Start-Time:** 7:00 pm  
