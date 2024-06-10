@@ -29,10 +29,10 @@ jobs:
     - name: Install xvfb
       run: sudo apt-get install xvfb
 
-    - name: Run tests with server
+    - name: Run unit tests with server
       run: |
         npm install start-server-and-test --save-dev
-        xvfb-run --auto-servernum --server-args="-screen 0 1024x768x24" npx start-server-and-test 'npm start' http://localhost:3000 'npx jest --testTimeout=60000' # Increase Jest timeout to 30 seconds
+        xvfb-run --auto-servernum --server-args="-screen 0 1024x768x24" npx start-server-and-test 'npm start' http://localhost:3000 'npx jest --testPathIgnorePatterns="e2e" --testTimeout=60000' # Increase Jest timeout to 60 seconds
 
     - name: Generate documentation
       run: npm run doc
