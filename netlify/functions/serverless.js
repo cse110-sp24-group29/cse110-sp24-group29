@@ -7,12 +7,14 @@ const app = express();
 const router = express.Router();
 
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, '../../source/Html')));
-app.use(express.static(path.join(__dirname, '../../source/script')));
-app.use(express.static(path.join(__dirname, '../../source/CSS')));
-app.use(express.static(path.join(__dirname, '../../source/img')));
 
-const db = new sqlite3.Database(path.join(__dirname, '../../devsurf.db'), sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
+// Serve static files from the appropriate directories
+app.use('/Html', express.static(path.join(__dirname, '../../source/Html')));
+app.use('/script', express.static(path.join(__dirname, '../../source/script')));
+app.use('/CSS', express.static(path.join(__dirname, '../../source/CSS')));
+app.use('/img', express.static(path.join(__dirname, '../../source/img')));
+
+const db = new sqlite3.Database('./devsurf.db', sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
     if (err) {
         console.error('Error opening database ' + err.message);
     } else {
