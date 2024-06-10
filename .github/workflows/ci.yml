@@ -3,10 +3,10 @@ name: WebDev Journal
 on:
   push:
     branches:
-      - '**'  
+      - '**'
   pull_request:
     branches:
-      - '**' 
+      - '**'
 
 permissions:
   contents: write
@@ -30,9 +30,10 @@ jobs:
     - name: Install xvfb
       run: sudo apt-get install xvfb
 
-    - name: Run tests with xvfb
+    - name: Run tests with server
       run: |
-        xvfb-run --auto-servernum --server-args="-screen 0 1024x768x24" npx jest
+        npm install start-server-and-test --save-dev
+        xvfb-run --auto-servernum --server-args="-screen 0 1024x768x24" npx start-server-and-test 'npm start' http://localhost:3000 'npx jest'
 
     - name: Generate documentation
       run: npm run doc
