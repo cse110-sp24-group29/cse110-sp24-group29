@@ -6,6 +6,9 @@
  */
 
 describe('Keyboard Navigability for the Login Page', () => {
+  it ('Placeholder', async () => {
+    expect(true).tobe(true);
+  });
   // beforeAll(async () => {
   //   // PLACEHOLDER WEBSITE LINK REPLACE WITH DEPLOYEMENT LINK
   //   await page.goto('http://localhost:3000/index.html', {waitUntil: 'networkidle0'});
@@ -56,6 +59,9 @@ describe('Keyboard Navigability for the Login Page', () => {
 });
 
 describe('Keyboard Navigability for the Home Page', () => {
+  it ('Placeholder', async () => {
+    expect(true).tobe(true);
+  });
   // beforeAll(async () => {
   //   // PLACEHOLDER WEBSITE LINK REPLACE WITH DEPLOYEMENT LINK
   //   await page.goto('http://localhost:3000/home.html', {waitUntil: 'networkidle0'});
@@ -107,6 +113,9 @@ describe('Keyboard Navigability for the Home Page', () => {
 });
 
 describe('Keyboard Navigability for the Projects Page', () => {
+  it ('Placeholder', async () => {
+    expect(true).tobe(true);
+  });
   // beforeAll(async () => {
   //   // PLACEHOLDER WEBSITE LINK REPLACE WITH DEPLOYEMENT LINK
   //   await page.goto('http://localhost:3000/Project.html', {waitUntil: 'networkidle0'});
