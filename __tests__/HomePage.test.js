@@ -147,14 +147,14 @@ describe('Homepage Tests', () => {
         expect(savedDescription).toBe('New Description');
     });
 
-    // test('log out button goes to sign-in page', async () => {
-    //     await page.waitForSelector('.logout-button');
-    //     await page.hover('.logout-button');
-    //     await page.click('.logout-button');
+    test('log out button goes to sign-in page', async () => {
+        await page.waitForSelector('.logout-button');
+        await page.hover('.logout-button');
+        await page.click('.logout-button');
         
-    //     const url = await page.url();
-    //     expect(url).toContain('index.html');
-    // });
+        const url = await page.url();
+        expect(url).toContain('index.html');
+    });
 
     test('project journal button redirects to project.html', async () => {
         await page.goto('http://localhost:3000/home.html');
