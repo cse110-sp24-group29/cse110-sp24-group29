@@ -7,7 +7,7 @@
 
 describe('Keyboard Navigability for the Login Page', () => {
   it ('Placeholder', async () => {
-    expect(true).tobe(true);
+    expect(true).toBe(true);
   });
   // beforeAll(async () => {
   //   // PLACEHOLDER WEBSITE LINK REPLACE WITH DEPLOYEMENT LINK
@@ -60,7 +60,7 @@ describe('Keyboard Navigability for the Login Page', () => {
 
 describe('Keyboard Navigability for the Home Page', () => {
   it ('Placeholder', async () => {
-    expect(true).tobe(true);
+    expect(true).toBe(true);
   });
   // beforeAll(async () => {
   //   // PLACEHOLDER WEBSITE LINK REPLACE WITH DEPLOYEMENT LINK
@@ -114,7 +114,7 @@ describe('Keyboard Navigability for the Home Page', () => {
 
 describe('Keyboard Navigability for the Projects Page', () => {
   it ('Placeholder', async () => {
-    expect(true).tobe(true);
+    expect(true).toBe(true);
   });
   // beforeAll(async () => {
   //   // PLACEHOLDER WEBSITE LINK REPLACE WITH DEPLOYEMENT LINK
