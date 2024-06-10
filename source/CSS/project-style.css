@@ -54,12 +54,16 @@ header {
     
     color: white;
 }
-.header-right {
-    width: 20%;
-}
+
 .main-heading {
     color: white;
     font-family:Montserrat;
+}
+
+.home-button, .logout-button {
+    z-index: 1;
+    pointer-events: auto;
+    position: relative; /* Add this to ensure z-index works */
 }
 
 .logout-button {
@@ -80,7 +84,7 @@ header {
     margin-right: 20px;
     font-size: 16px;
     font-weight: bold;
-    display: inline;
+    display: inline-block;
     border: none;
     border-radius: 8px;
     color: white; 
