@@ -1,9 +1,9 @@
-# Check in Meeting
+# Weekly Meeting
 
 ## Meeting Details
-**Type of Meeting:** Short Check in meeting
+**Type of Meeting:** Short Weekly Meeting  
 **Date:** May 22, 2024  
-**Location:** Geisel Library
+**Location:** Geisel Library  
 **Start-Time:** 7:00 pm  
 
 **Attendance:**    
