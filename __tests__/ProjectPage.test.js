@@ -172,17 +172,17 @@ test('should add a new entry', async () => {
 });
 
 test('should edit an existing entry', async () => {
-    await page.hover('.entry-tile:last-child');
-    await page.click('.entry-tile:last-child .edit-icon');
-    await page.click('#notepad');
-    await page.keyboard.down('Control');
-    await page.keyboard.press('A');
-    await page.keyboard.up('Control');
-    await page.type('#notepad', 'Edited Entry Content');
-    await page.click('#addEntryButton');
+  await page.hover('.entry-tile:last-child');
+  await page.click('.entry-tile:last-child .edit-icon');
+  await page.click('#notepad');
+  await page.keyboard.down('Control');
+  await page.keyboard.press('A');
+  await page.keyboard.up('Control');
+  await page.type('#notepad', 'Edited Entry Content');
+  await page.click('#addEntryButton');
 
-    const entryContent = await page.$eval('.entry-tile:last-child p', el => el.textContent);
-    expect(entryContent).toBe('Edited Entry Content');
+  const entryContent = await page.$eval('.entry-tile:last-child p', el => el.textContent);
+  expect(entryContent).toBe('Edited Entry Content');
 });
 
 test('should delete an entry', async () => {
