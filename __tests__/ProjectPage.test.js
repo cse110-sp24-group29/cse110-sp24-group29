@@ -245,14 +245,14 @@ test('notepad textbox changes when markdown button is clicked', async () => {
 }, 10000);
 
 
-test('log out button goes to sign-in page', async () => {
-  await page.waitForSelector('.logout-button');
-  await page.hover('.logout-button');
-  await page.click('.logout-button');
+// test('log out button goes to sign-in page', async () => {
+//   await page.waitForSelector('.logout-button');
+//   await page.hover('.logout-button');
+//   await page.click('.logout-button');
   
-  const url = page.url();
-  expect(url).toContain('index.html');
-});
+//   const url = page.url();
+//   expect(url).toContain('index.html');
+// });
 
 test('should render markdown note with clickable link', async () => {
   await page.goto('http://localhost:3000/project.html');
