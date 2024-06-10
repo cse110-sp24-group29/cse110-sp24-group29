@@ -12,7 +12,7 @@ class ProjectCard extends HTMLElement {
     render() {
         const projectName = this.getAttribute('project-name') || 'Project Name';
         const description = this.getAttribute('description') || '';
-        const tags = this.getAttribute('tags') || 'frontend';
+        const tags = this.getAttribute('tags') || 'default';
 
         const cardContainer = document.createElement('div');
         cardContainer.setAttribute('class', 'card');
@@ -76,6 +76,10 @@ class ProjectCard extends HTMLElement {
                 font-size: 1.2em;
                 font-weight: bold;
                 color: black;
+            }
+            .project-name.bottom-border {
+                text-align: center;
+                border-bottom: 1px solid black;
             }
             .description-box {
                 border: 1px solid white;
@@ -178,6 +182,10 @@ class ProjectCard extends HTMLElement {
             saveButton.style.display = 'inline-block';
             cancelButton.style.display = 'inline-block';
             editButton.style.display = 'none';
+
+            projectNameInput.classList.add('bottom-border');
+            projectNameInput.focus();
+            projectNameInput.select();
         });
 
         cancelButton.addEventListener('click', () => {
@@ -191,6 +199,7 @@ class ProjectCard extends HTMLElement {
             saveButton.style.display = 'none';
             cancelButton.style.display = 'none';
             editButton.style.display = 'inline-block';
+            projectNameInput.classList.remove('bottom-border');
         });
 
         saveButton.addEventListener('click', () => {
@@ -206,6 +215,7 @@ class ProjectCard extends HTMLElement {
                 description: descriptionTextarea.value,
                 tags: tagsSelect.value
             };
+            projectNameInput.classList.remove('bottom-border');
             localStorage.setItem(`project-${projectNameInput.value}`, JSON.stringify(projectData));
             document.querySelector('stats-graph').updateChart();
             saveProjectCards();
