@@ -1,10 +1,10 @@
 # Warmup Exercise Brainstorming Meeting Minutes
 
-## Meeting Details
+## Meeting Details  
 **Type of Meeting:** Warmup Exercise Design and Control Flow Choices for Sentiment - Widget.  
 **Date:** April 24, 2024  
-**Location:** Zoom
-**Start-Time:** 7:00 pm
+**Location:** Zoom  
+**Start-Time:** 7:00 pm  
 
 **Attendance:**    
 - [x] Saksham Rai (Team Lead)
