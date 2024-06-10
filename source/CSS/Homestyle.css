@@ -248,6 +248,11 @@ add-project-card button img {
     display: inline;
     text-align: center;
 }
+.logout-button {
+    z-index: 1;
+    pointer-events: auto;
+    position: relative; 
+}
 
 .logout-button {
     background-color: #FF5F56;
