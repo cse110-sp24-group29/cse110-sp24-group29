@@ -1,4 +1,5 @@
 name: WebDev Journal
+
 on:
   push:
     branches:
@@ -6,7 +7,7 @@ on:
   pull_request:
     branches:
       - '**' 
-    
+
 permissions:
   contents: write
 
@@ -26,11 +27,12 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Check code style for HTML, CSS, and JS
-      run: npx prettier --check "**/*.{html,css,js}" || echo "No HTML, CSS, or JS files to format."
+    - name: Install xvfb
+      run: sudo apt-get install xvfb
 
-    - name: Run unit tests with Jest
-      run: npx jest
+    - name: Run tests with xvfb
+      run: |
+        xvfb-run --auto-servernum --server-args="-screen 0 1024x768x24" npx jest
 
     - name: Generate documentation
       run: npm run doc
