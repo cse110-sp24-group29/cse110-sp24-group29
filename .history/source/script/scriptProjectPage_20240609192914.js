@@ -1,7 +1,10 @@
 
-//global Variables
-let projectName = ''; //name of the project showcasing
-let projectIndex = 0; //Place of the Project
+/**
+ * Toggles the display of the dropdown menu when the hamburger menu is clicked.
+ */
+let name = '';
+let projectIndex = 0;
+let projectId = 1;
 let currentWidth;
 let mediaQuery = window.matchMedia("(max-width: 768px)");
 let mediaQuery2 = window.matchMedia("(max-width: 1024px)");
@@ -697,9 +700,23 @@ document.addEventListener("DOMContentLoaded", function () {
     //keyboard access to close island
     closeIsland.setAttribute('tabindex', '0');
     //Project name and index of Project
+    function getQueryVariable(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split('&');
+        for (var i = 0; i < vars.length; i++) {
+          var pair = vars[i].split('=');
+          if (decodeURIComponent(pair[0]) == variable) {
+            return decodeURIComponent(pair[1]);
+          }
+        }
+        console.log('Query variable %s not found', variable);
+      }
     const urlParams = new URLSearchParams(window.location.search);
     projectIndex = urlParams.get('index'); 
-    projectName = urlParams.get('name');
+
+
+
+
 
     // Load entries from localStorage and display them
     function loadEntries() {
@@ -713,7 +730,9 @@ document.addEventListener("DOMContentLoaded", function () {
      */
     function loadProjectName() {
         //get the name from local storage
-        let name = localStorage.getItem('projectName');
+        //let name = localStorage.getItem('projectName');
+        // 
+        //get the title tags
         let title = document.querySelector('.title');
         let mainTitle = document.querySelector('.main-heading');
         mainTitle.textContent = name;
@@ -992,20 +1011,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function loadAllData(projectId) {
         const rawData = localStorage.getItem(`project_${projectId}`);
-           
+    
         const allData = JSON.parse(rawData);
         console.log("Parsed data:", allData);
-        if(!allData) {
-            return;
-        }
+    
         localStorage.setItem('milestones', JSON.stringify(allData.milestones));
         localStorage.setItem('tasks', JSON.stringify(allData.tasks));
         localStorage.setItem('entries', JSON.stringify(allData.entries));
         localStorage.setItem('projectName', allData.projectName);
     }
-    
+    localStorage.setItem('projectName', name);
     loadAllData(projectIndex); // Load all data from local storage
-    localStorage.setItem('projectName', projectName);
     loadMilestonesAndTasks(); //propagates milestone list from local storage
     loadEntries();
     loadProjectName(); //gets name from local storage

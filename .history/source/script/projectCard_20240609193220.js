@@ -233,7 +233,7 @@ class ProjectCard extends HTMLElement {
                 index++;
             }
             let name = projectNameInput.value;
-            window.location.href = `project.html?index=${index}&name=${encodeURIComponent(name)}`;
+            const url = `project.html?index=${index}&name=${encodeURIComponent(name)}`;
             
             //window.location.href = 'project.html';
         });
