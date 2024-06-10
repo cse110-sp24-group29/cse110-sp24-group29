@@ -7,12 +7,12 @@ const app = express();
 const router = express.Router();
 
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, '../source/Html')));
-app.use(express.static(path.join(__dirname, '../source/script')));
-app.use(express.static(path.join(__dirname, '../source/CSS')));
-app.use(express.static(path.join(__dirname, '../source/img')));
+app.use(express.static(path.join(__dirname, '../../source/Html')));
+app.use(express.static(path.join(__dirname, '../../source/script')));
+app.use(express.static(path.join(__dirname, '../../source/CSS')));
+app.use(express.static(path.join(__dirname, '../../source/img')));
 
-const db = new sqlite3.Database('./devsurf.db', sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
+const db = new sqlite3.Database(path.join(__dirname, '../../devsurf.db'), sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
     if (err) {
         console.error('Error opening database ' + err.message);
     } else {
@@ -73,11 +73,11 @@ function isAuthenticated(req, res, next) {
 
 // Use the authentication middleware for protected routes
 router.get('/home.html', isAuthenticated, (req, res) => {
-    res.sendFile(path.join(__dirname, '../source/Html/home.html'));
+    res.sendFile(path.join(__dirname, '../../source/Html/home.html'));
 });
 
 router.get('/project.html', isAuthenticated, (req, res) => {
-    res.sendFile(path.join(__dirname, '../source/Html/project.html'));
+    res.sendFile(path.join(__dirname, '../../source/Html/project.html'));
 });
 
 app.use('/.netlify/functions/serverless', router);
