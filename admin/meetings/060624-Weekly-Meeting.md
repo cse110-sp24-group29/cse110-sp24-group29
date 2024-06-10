@@ -1,7 +1,7 @@
-# Check In Meeting
+# Weekly Meeting
 
 ## Meeting Details
-**Type of Meeting:** Followup Check In Meeting  
+**Type of Meeting:** Followup Weekly Meeting  
 **Date:** June 6, 2024  
 **Location:** Geisel Library  
 **Start-Time:** 6:30 pm  
