@@ -46,7 +46,7 @@
         <article><p><a href="admin/team.md">Link to Team File</a></p>
 <div align="center">
   <h1> DevSurf </h1>
-  Team 29 Software Surfers developer journal
+  Team 29: Software Surfers Developer Journal
 </div>
 <h3>About the project</h3>
 <p>Welcome to our developer journal for our software engineering project in CSE 110, Spring 2024 term. Our developer journal allows users to safely save their notes and information for multiple projects as well as keep a list of tasks and milestones for each project.</p>
@@ -71,6 +71,11 @@
 <li>
 <p>Navigate to the project directory</p>
 <pre class="prettyprint source lang-sh"><code>cd cse110-sp24-group29
+</code></pre>
+</li>
+<li>
+<p>Delete the existing modules</p>
+<pre class="prettyprint source lang-sh"><code>rm -rf package-lock.json node_modules
 
 </code></pre>
 </li>
@@ -108,8 +113,6 @@
 <li>Tianshi Gong (Developer)</li>
 <li>Evan Kauh (Developer)</li>
 </ul>
-<h2>Objective</h2>
-<p>Building a small-scale full-stack web application, utilising agile software development methodology.</p>
 <h2>Tools and Technologies</h2>
 <ul>
 <li>HTML</li>
@@ -128,13 +131,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Book.html">Book</a></li><li><a href="Project.html">Project</a></li><li><a href="User.html">User</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addMilestone">addMilestone</a></li><li><a href="global.html#addTask">addTask</a></li><li><a href="global.html#addTaskWithState">addTaskWithState</a></li><li><a href="global.html#addUser">addUser</a></li><li><a href="global.html#addWidth">addWidth</a></li><li><a href="global.html#boxContainerElement">boxContainerElement</a></li><li><a href="global.html#currentWidth">currentWidth</a></li><li><a href="global.html#deleteMilestone">deleteMilestone</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#getMilestoneHTML">getMilestoneHTML</a></li><li><a href="global.html#getUser">getUser</a></li><li><a href="global.html#handleSignInButtonClick">handleSignInButtonClick</a></li><li><a href="global.html#handleSignUpButtonClick">handleSignUpButtonClick</a></li><li><a href="global.html#loadFromLocalStorage">loadFromLocalStorage</a></li><li><a href="global.html#renumberMilestones">renumberMilestones</a></li><li><a href="global.html#renumberTasks">renumberTasks</a></li><li><a href="global.html#resetWidth">resetWidth</a></li><li><a href="global.html#saveMilestoneToStorage">saveMilestoneToStorage</a></li><li><a href="global.html#saveTasksArrayToStorage">saveTasksArrayToStorage</a></li><li><a href="global.html#saveToLocalStorage">saveToLocalStorage</a></li><li><a href="global.html#signInButtonElement">signInButtonElement</a></li><li><a href="global.html#signUpButtonElement">signUpButtonElement</a></li><li><a href="global.html#subWidth">subWidth</a></li><li><a href="global.html#toggleTasks">toggleTasks</a></li><li><a href="global.html#updateProgress">updateProgress</a></li><li><a href="global.html#updateTimeline">updateTimeline</a></li><li><a href="global.html#updateTimelineProgress">updateTimelineProgress</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Note.html">Note</a></li><li><a href="PagesData.html">PagesData</a></li><li><a href="Project.html">Project</a></li><li><a href="User.html">User</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addMilestone">addMilestone</a></li><li><a href="global.html#addTask">addTask</a></li><li><a href="global.html#addWidth">addWidth</a></li><li><a href="global.html#deleteMilestone">deleteMilestone</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#getMilestoneArray">getMilestoneArray</a></li><li><a href="global.html#getMilestoneHTML">getMilestoneHTML</a></li><li><a href="global.html#getProgressPercentage">getProgressPercentage</a></li><li><a href="global.html#limitInnerTextLength">limitInnerTextLength</a></li><li><a href="global.html#loadFromLocalStorage">loadFromLocalStorage</a></li><li><a href="global.html#loadPlaceholderData">loadPlaceholderData</a></li><li><a href="global.html#renumberMilestones">renumberMilestones</a></li><li><a href="global.html#renumberTasks">renumberTasks</a></li><li><a href="global.html#resetWidth">resetWidth</a></li><li><a href="global.html#resizeWidth">resizeWidth</a></li><li><a href="global.html#saveMilestoneToStorage">saveMilestoneToStorage</a></li><li><a href="global.html#saveTasksArrayToStorage">saveTasksArrayToStorage</a></li><li><a href="global.html#saveToLocalStorage">saveToLocalStorage</a></li><li><a href="global.html#setCursorToEnd">setCursorToEnd</a></li><li><a href="global.html#subWidth">subWidth</a></li><li><a href="global.html#toggleCheckboxOnEnter">toggleCheckboxOnEnter</a></li><li><a href="global.html#toggleMenu">toggleMenu</a></li><li><a href="global.html#toggleTasks">toggleTasks</a></li><li><a href="global.html#updateAndSaveCurrUser">updateAndSaveCurrUser</a></li><li><a href="global.html#updateDate">updateDate</a></li><li><a href="global.html#updateProgress">updateProgress</a></li><li><a href="global.html#updateTimeline">updateTimeline</a></li><li><a href="global.html#updateTimelineProgress">updateTimelineProgress</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.11</a> on Thu Jun 06 2024 08:08:29 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.11</a> on Mon Jun 10 2024 06:54:52 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>

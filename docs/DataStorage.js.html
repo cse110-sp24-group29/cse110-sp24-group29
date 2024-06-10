@@ -26,10 +26,7 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>// OVERWRITE THIS WHEN MERGING
-// THIS IS IN THE WRONG PALCE BUT I LEFT IT SINCE IT SHOULD BE ERASED IN THE MERGE
-
-/**
+            <pre class="prettyprint source linenums"><code>/**
  * Class representing a note.
  * @class
  */
@@ -255,7 +252,7 @@ class User {
      * @returns {boolean} True if the update was successful, false otherwise.
      */
     editProject(projectID, updatedProject) {
-        let index = this.projects.findIndex(p => p.id === projectID);
+        let index = this.projects.findIndex(p => p.projID === projectID);
         if (index !== -1) {
             this.projects[index] = updatedProject;
             return true;
@@ -275,6 +272,15 @@ class User {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Retrieve a project by its ID.
+     * @param {number} projID - The ID of the project.
+     * @returns {Project|null} The project if found, null otherwise.
+     */
+    getProjectById(projID) {
+        return this.projects.find(project => project.projID === projID) || null;
     }
 }
 
@@ -300,7 +306,7 @@ class PagesData {
      * @param {number} userID - The ID of the user to set as current.
      */
     setCurrentUser(userID) {
-        const user = getUser(userID);
+        const user = this.getUser(userID);
         if (user) {
             this.currUser = user;
         } else {
@@ -351,7 +357,7 @@ class PagesData {
  */
 function saveToLocalStorage(pagesDat) {
     const data = {
-        users: pagesData.users.map(user => ({
+        users: pagesDat.users.map(user => ({
             userID: user.userID,
             name: user.name,
             password: user.password,
@@ -367,8 +373,8 @@ function saveToLocalStorage(pagesDat) {
                 }))
             }))
         })),
-        currUserID: pagesData.currUser ? pagesData.currUser.userID : null,
-        currProjID: pagesData.currProj ? pagesData.currProj.projID : null
+        currUserID: pagesDat.currUser ? pagesData.currUser.userID : null,
+        currProjID: pagesDat.currProj ? pagesData.currProj.projID : null
     };
     localStorage.setItem('softwareSurferesDevJournalPagesData', JSON.stringify(data));
 }
@@ -416,7 +422,55 @@ function updateAndSaveCurrUser(pagesData, userID) {
     pagesData.currUser = user;
     saveToLocalStorage(pagesData);
 }
-</code></pre>
+
+/**
+ * Loads placeholder data with dummy users and projects.
+ * @returns {PagesData} An instance of PagesData populated with dummy data.
+ */
+function loadPlaceholderData() {
+    // Dummy notes
+    const notes1 = [
+        new Note("Meeting Notes", "## Meeting on 2024-06-01\nDiscussed project scope and initial requirements."),
+        new Note("Research Summary", "## Research on market trends\nConcluded that the market is moving towards sustainable solutions.")
+    ];
+
+    const notes2 = [
+        new Note("Brainstorming Session", "## Ideas from 2024-05-30\nGreat ideas on potential features for our app."),
+        new Note("User Interviews", "## Feedback Summary\nCollected from user interviews conducted last week.")
+    ];
+
+    // Dummy projects
+    const projects1 = [
+        new Project(0, "Green Energy App", "App to monitor energy consumption.", "Data Science", {
+            "Design": [{ name: "Create wireframes", checked: false, date: "" }],
+            "Development": [{ name: "Initial setup", checked: true, date: "2024-05-20" }]
+        }, notes1),
+        new Project(1, "Online Learning Platform", "Platform to provide online courses.", "Frontend Developement", {
+            "Planning": [{ name: "Define curriculum", checked: true, date: "2024-05-15" }],
+            "Launch": [{ name: "Prepare launch event", checked: false, date: "" }]
+        }, [])
+    ];
+
+    const projects2 = [
+        new Project(0, "Social Media App", "A social media app focused on privacy.", "Backend Developement", {
+            "Research": [{ name: "Competitor analysis", checked: true, date: "2024-05-18" }],
+            "Marketing": [{ name: "Social media campaign", checked: false, date: "" }]
+        }, notes2)
+    ];
+
+    // Dummy users
+    const users = [
+        new User(1, "Alice Johnson", "123456", projects1),
+        new User(2, "Bob Smith", "789012", projects2)
+    ];
+
+    // Instance of PagesData with dummy data
+    const pagesData = new PagesData(users);
+
+    return pagesData;
+}
+
+module.exports = { Note, Project, User, PagesData, saveToLocalStorage, loadFromLocalStorage, updateAndSaveCurrUser, loadPlaceholderData};</code></pre>
         </article>
     </section>
 
@@ -426,13 +480,13 @@ function updateAndSaveCurrUser(pagesData, userID) {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Note.html">Note</a></li><li><a href="PagesData.html">PagesData</a></li><li><a href="Project.html">Project</a></li><li><a href="User.html">User</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addMilestone">addMilestone</a></li><li><a href="global.html#addTask">addTask</a></li><li><a href="global.html#addTaskWithState">addTaskWithState</a></li><li><a href="global.html#addWidth">addWidth</a></li><li><a href="global.html#boxContainerElement">boxContainerElement</a></li><li><a href="global.html#currentWidth">currentWidth</a></li><li><a href="global.html#deleteMilestone">deleteMilestone</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#getMilestoneHTML">getMilestoneHTML</a></li><li><a href="global.html#handleSignInButtonClick">handleSignInButtonClick</a></li><li><a href="global.html#handleSignUpButtonClick">handleSignUpButtonClick</a></li><li><a href="global.html#loadFromLocalStorage">loadFromLocalStorage</a></li><li><a href="global.html#renumberMilestones">renumberMilestones</a></li><li><a href="global.html#resetWidth">resetWidth</a></li><li><a href="global.html#saveMilestoneToStorage">saveMilestoneToStorage</a></li><li><a href="global.html#saveTasksArrayToStorage">saveTasksArrayToStorage</a></li><li><a href="global.html#saveToLocalStorage">saveToLocalStorage</a></li><li><a href="global.html#signInButtonElement">signInButtonElement</a></li><li><a href="global.html#signUpButtonElement">signUpButtonElement</a></li><li><a href="global.html#subWidth">subWidth</a></li><li><a href="global.html#toggleTasks">toggleTasks</a></li><li><a href="global.html#updateAndSaveCurrUser">updateAndSaveCurrUser</a></li><li><a href="global.html#updateProgress">updateProgress</a></li><li><a href="global.html#updateTimeline">updateTimeline</a></li><li><a href="global.html#updateTimelineProgress">updateTimelineProgress</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Note.html">Note</a></li><li><a href="PagesData.html">PagesData</a></li><li><a href="Project.html">Project</a></li><li><a href="User.html">User</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addMilestone">addMilestone</a></li><li><a href="global.html#addTask">addTask</a></li><li><a href="global.html#addWidth">addWidth</a></li><li><a href="global.html#deleteMilestone">deleteMilestone</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#getMilestoneArray">getMilestoneArray</a></li><li><a href="global.html#getMilestoneHTML">getMilestoneHTML</a></li><li><a href="global.html#getProgressPercentage">getProgressPercentage</a></li><li><a href="global.html#limitInnerTextLength">limitInnerTextLength</a></li><li><a href="global.html#loadFromLocalStorage">loadFromLocalStorage</a></li><li><a href="global.html#loadPlaceholderData">loadPlaceholderData</a></li><li><a href="global.html#renumberMilestones">renumberMilestones</a></li><li><a href="global.html#renumberTasks">renumberTasks</a></li><li><a href="global.html#resetWidth">resetWidth</a></li><li><a href="global.html#resizeWidth">resizeWidth</a></li><li><a href="global.html#saveMilestoneToStorage">saveMilestoneToStorage</a></li><li><a href="global.html#saveTasksArrayToStorage">saveTasksArrayToStorage</a></li><li><a href="global.html#saveToLocalStorage">saveToLocalStorage</a></li><li><a href="global.html#setCursorToEnd">setCursorToEnd</a></li><li><a href="global.html#subWidth">subWidth</a></li><li><a href="global.html#toggleCheckboxOnEnter">toggleCheckboxOnEnter</a></li><li><a href="global.html#toggleMenu">toggleMenu</a></li><li><a href="global.html#toggleTasks">toggleTasks</a></li><li><a href="global.html#updateAndSaveCurrUser">updateAndSaveCurrUser</a></li><li><a href="global.html#updateDate">updateDate</a></li><li><a href="global.html#updateProgress">updateProgress</a></li><li><a href="global.html#updateTimeline">updateTimeline</a></li><li><a href="global.html#updateTimelineProgress">updateTimelineProgress</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.11</a> on Sun Jun 09 2024 08:36:00 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.11</a> on Mon Jun 10 2024 06:54:52 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>

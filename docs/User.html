@@ -79,6 +79,8 @@
         
 
         
+        <th>Default</th>
+        
 
         <th class="last">Description</th>
     </tr>
@@ -104,6 +106,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last"><p>The unique identifier for the user.</p></td>
         </tr>
@@ -126,6 +132,12 @@
 
             
 
+            
+                <td class="default">
+                
+                    Default
+                
+                </td>
             
 
             <td class="description last"><p>The name of the user.</p></td>
@@ -150,6 +162,10 @@
             
 
             
+                <td class="default">
+                
+                </td>
+            
 
             <td class="description last"><p>The password for the user.</p></td>
         </tr>
@@ -172,6 +188,10 @@
 
             
 
+            
+                <td class="default">
+                
+                </td>
             
 
             <td class="description last"><p>The projects associated with the user.</p></td>
@@ -215,7 +235,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataStoreage.js.html">DataStoreage.js</a>, <a href="DataStoreage.js.html#line31">line 31</a>
+        <a href="DataStorage.js.html">DataStorage.js</a>, <a href="DataStorage.js.html#line194">line 194</a>
     </li></ul></dd>
     
 
@@ -372,7 +392,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataStoreage.js.html">DataStoreage.js</a>, <a href="DataStoreage.js.html#line50">line 50</a>
+        <a href="DataStorage.js.html">DataStorage.js</a>, <a href="DataStorage.js.html#line213">line 213</a>
     </li></ul></dd>
     
 
@@ -509,7 +529,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataStoreage.js.html">DataStoreage.js</a>, <a href="DataStoreage.js.html#line74">line 74</a>
+        <a href="DataStorage.js.html">DataStorage.js</a>, <a href="DataStorage.js.html#line240">line 240</a>
     </li></ul></dd>
     
 
@@ -691,7 +711,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="DataStoreage.js.html">DataStoreage.js</a>, <a href="DataStoreage.js.html#line60">line 60</a>
+        <a href="DataStorage.js.html">DataStorage.js</a>, <a href="DataStorage.js.html#line226">line 226</a>
     </li></ul></dd>
     
 
@@ -744,6 +764,168 @@
 
 
         
+            
+
+    
+
+    
+    <h4 class="name" id="getProjectById"><span class="type-signature"></span>getProjectById<span class="signature">(projID)</span><span class="type-signature"> &rarr; {<a href="Project.html">Project</a>|null}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Retrieve a project by its ID.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>projID</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The ID of the project.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="DataStorage.js.html">DataStorage.js</a>, <a href="DataStorage.js.html#line254">line 254</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>The project if found, null otherwise.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Project.html">Project</a></span>
+|
+
+<span class="param-type">null</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
     
 
     
@@ -759,13 +941,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Book.html">Book</a></li><li><a href="Project.html">Project</a></li><li><a href="User.html">User</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addMilestone">addMilestone</a></li><li><a href="global.html#addTask">addTask</a></li><li><a href="global.html#addTaskWithState">addTaskWithState</a></li><li><a href="global.html#addUser">addUser</a></li><li><a href="global.html#addWidth">addWidth</a></li><li><a href="global.html#boxContainerElement">boxContainerElement</a></li><li><a href="global.html#currentWidth">currentWidth</a></li><li><a href="global.html#deleteMilestone">deleteMilestone</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#getMilestoneHTML">getMilestoneHTML</a></li><li><a href="global.html#getUser">getUser</a></li><li><a href="global.html#handleSignInButtonClick">handleSignInButtonClick</a></li><li><a href="global.html#handleSignUpButtonClick">handleSignUpButtonClick</a></li><li><a href="global.html#loadFromLocalStorage">loadFromLocalStorage</a></li><li><a href="global.html#renumberMilestones">renumberMilestones</a></li><li><a href="global.html#renumberTasks">renumberTasks</a></li><li><a href="global.html#resetWidth">resetWidth</a></li><li><a href="global.html#saveMilestoneToStorage">saveMilestoneToStorage</a></li><li><a href="global.html#saveTasksArrayToStorage">saveTasksArrayToStorage</a></li><li><a href="global.html#saveToLocalStorage">saveToLocalStorage</a></li><li><a href="global.html#signInButtonElement">signInButtonElement</a></li><li><a href="global.html#signUpButtonElement">signUpButtonElement</a></li><li><a href="global.html#subWidth">subWidth</a></li><li><a href="global.html#toggleTasks">toggleTasks</a></li><li><a href="global.html#updateProgress">updateProgress</a></li><li><a href="global.html#updateTimeline">updateTimeline</a></li><li><a href="global.html#updateTimelineProgress">updateTimelineProgress</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Note.html">Note</a></li><li><a href="PagesData.html">PagesData</a></li><li><a href="Project.html">Project</a></li><li><a href="User.html">User</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addMilestone">addMilestone</a></li><li><a href="global.html#addTask">addTask</a></li><li><a href="global.html#addWidth">addWidth</a></li><li><a href="global.html#deleteMilestone">deleteMilestone</a></li><li><a href="global.html#deleteTask">deleteTask</a></li><li><a href="global.html#getMilestoneArray">getMilestoneArray</a></li><li><a href="global.html#getMilestoneHTML">getMilestoneHTML</a></li><li><a href="global.html#getProgressPercentage">getProgressPercentage</a></li><li><a href="global.html#limitInnerTextLength">limitInnerTextLength</a></li><li><a href="global.html#loadFromLocalStorage">loadFromLocalStorage</a></li><li><a href="global.html#loadPlaceholderData">loadPlaceholderData</a></li><li><a href="global.html#renumberMilestones">renumberMilestones</a></li><li><a href="global.html#renumberTasks">renumberTasks</a></li><li><a href="global.html#resetWidth">resetWidth</a></li><li><a href="global.html#resizeWidth">resizeWidth</a></li><li><a href="global.html#saveMilestoneToStorage">saveMilestoneToStorage</a></li><li><a href="global.html#saveTasksArrayToStorage">saveTasksArrayToStorage</a></li><li><a href="global.html#saveToLocalStorage">saveToLocalStorage</a></li><li><a href="global.html#setCursorToEnd">setCursorToEnd</a></li><li><a href="global.html#subWidth">subWidth</a></li><li><a href="global.html#toggleCheckboxOnEnter">toggleCheckboxOnEnter</a></li><li><a href="global.html#toggleMenu">toggleMenu</a></li><li><a href="global.html#toggleTasks">toggleTasks</a></li><li><a href="global.html#updateAndSaveCurrUser">updateAndSaveCurrUser</a></li><li><a href="global.html#updateDate">updateDate</a></li><li><a href="global.html#updateProgress">updateProgress</a></li><li><a href="global.html#updateTimeline">updateTimeline</a></li><li><a href="global.html#updateTimelineProgress">updateTimelineProgress</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.11</a> on Thu Jun 06 2024 08:08:29 GMT+0000 (Coordinated Universal Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.11</a> on Mon Jun 10 2024 06:54:52 GMT+0000 (Coordinated Universal Time)
 </footer>
 
 <script> prettyPrint(); </script>
