@@ -26,11 +26,11 @@ class ProjectCard extends HTMLElement {
                 <label for="tags">Project Tags:</label>
                 <select id="tags" disabled>
                     <option id="default-op" value="default" disabled="true" ${this.projectData.tag === 'default' ? 'selected' : ''}>Choose a Tag...</option>
-                    <option value="frontend" ${this.projectData.tag === 'frontend' ? 'selected' : ''}>Frontend Engineering</option>
-                    <option value="backend" ${this.projectData.tag === 'backend' ? 'selected' : ''}>Backend Engineering</option>
-                    <option value="database" ${this.projectData.tag === 'database' ? 'selected' : ''}>Database Engineering</option>
-                    <option value="network" ${this.projectData.tag === 'network' ? 'selected' : ''}>Network Engineering</option>
-                    <option value="data" ${this.projectData.tag === 'data' ? 'selected' : ''}>Data Analytics Engineering</option>
+                    <option value="frontend" ${this.projectData.tag === 'frontend' ? 'selected' : ''}>Frontend Development</option>
+                    <option value="backend" ${this.projectData.tag === 'backend' ? 'selected' : ''}>Backend Development</option>
+                    <option value="database" ${this.projectData.tag === 'database' ? 'selected' : ''}>Data Science</option>
+                    <option value="network" ${this.projectData.tag === 'network' ? 'selected' : ''}>Native Development</option>
+                    <option value="data" ${this.projectData.tag === 'data' ? 'selected' : ''}>Machine Learning and AI</option>
                 </select>
             </div>
             <div class="button-container">
