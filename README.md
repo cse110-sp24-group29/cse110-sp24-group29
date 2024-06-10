@@ -4,7 +4,7 @@
 
 <div align="center">
   <h1> DevSurf </h1>
-  Team 29 Software Surfers developer journal
+  Team 29 Software Surfers Developer Journal
 </div>
 
 ### About the project
