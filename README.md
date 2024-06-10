@@ -59,9 +59,6 @@ To get a local copy up and running, follow these simple steps:
 - Tianshi Gong (Developer)
 - Evan Kauh (Developer) 
 
-## Objective
-Building a small-scale full-stack web application, utilising agile software development methodology. 
-
 ## Tools and Technologies
 - HTML
 - CSS
