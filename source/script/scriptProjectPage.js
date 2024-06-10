@@ -256,30 +256,7 @@ function updateTimeline(milestoneElement) {
     // ensure the width is correct for screen size
     resizeWidth();
 }
-/**
- * Updates the milestone name on the timeline based on the input.
- * @overload updates the space of the all elements of timeline 
- */
-function updateTimeline() {
-    let milestones = getMilestoneArray(); //get array of milestone 
-    //iterate through every milestone
-    for (let i = 0; i < milestones.length; i++) {
-        const milestone = milestones[i];
-        const nameDiv = milestone.querySelector('.milestone-name');
-        const milestoneName = nameDiv.textContent;
-        let strLen = milestoneName.length;
-        //calculate the spanWidth of the milestoneName
-        let spanWidth = 460 + (strLen - 11) * 41;
-        let milestoneId = milestone.getAttribute('data-id');
-        const timelineElement = document.querySelector
-            (`#timeline-elements [data-id="${milestoneId}"] span`);
-        if (timelineElement) {
-            timelineElement.textContent = milestoneName;
-            timelineElement.style.width = spanWidth + '%';
-        }
-    }
-    resizeWidth();
-}
+
 /**
  * Toggles the visibility of the tasks and the "Add Task" button for the specified milestone.
  * 
