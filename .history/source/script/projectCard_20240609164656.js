@@ -1,5 +1,5 @@
 class ProjectCard extends HTMLElement {
-    constructor(projectData = { name: 'New Project', description: '', tag: 'default' }) {
+    constructor(projectData = { id: null, name: 'New Project', description: '', tag: 'default' }) {
         super();
         this.projectData = projectData;
         this.attachShadow({ mode: 'open' });
@@ -10,6 +10,7 @@ class ProjectCard extends HTMLElement {
     }
 
     render() {
+        const projectId = this.getAttribute('project-id') || this.projectData.id || 0;
         const projectName = this.getAttribute('project-name') || 'Project Name';
         const description = this.getAttribute('description') || '';
         const tags = this.getAttribute('tags') || 'frontend';
@@ -153,7 +154,6 @@ class ProjectCard extends HTMLElement {
             }
         `;
         this.shadowRoot.append(style);
-
         const editButton = this.shadowRoot.querySelector('#edit');
         const trashButton = this.shadowRoot.querySelector('#trash');
         const saveButton = this.shadowRoot.querySelector('#save');
@@ -184,6 +184,7 @@ class ProjectCard extends HTMLElement {
             projectNameInput.value = originalProjectName;
             descriptionTextarea.value = originalDescription;
             tagsSelect.value = originalTags;
+
             projectNameInput.setAttribute('readonly', true);
             descriptionTextarea.setAttribute('readonly', true);
             tagsSelect.setAttribute('disabled', true);
@@ -201,59 +202,30 @@ class ProjectCard extends HTMLElement {
             editButton.style.display = 'inline-block';
 
             const projectData = {
+                id: projectId,
                 projectName: projectNameInput.value,
                 description: descriptionTextarea.value,
                 tags: tagsSelect.value
             };
-            localStorage.setItem(`project-${projectNameInput.value}`, JSON.stringify(projectData));
+            localStorage.setItem(`project-${projectId}`, JSON.stringify(projectData)); localStorage.setItem(`project-${projectId}`, JSON.stringify(projectData));
             document.querySelector('stats-graph').updateChart();
             saveProjectCards();
         });
 
         trashButton.addEventListener('click', () => {
-            let projectsList = this.parentElement.querySelectorAll('project-card');
-            console.log(this);
-            let index = 0;
-            while(this != projectsList[index]) {
-                index++;
-            }
             localStorage.removeItem(`project-${projectNameInput.value}`);
-            console.log(index);
-            localStorage.removeItem(`project_${index}`);
-            renumberProjects(index);
             this.remove();
             document.querySelector('stats-graph').updateChart();
             saveProjectCards();
         });
 
         projectJournalButton.addEventListener('click', () => {
-            let projectsList = this.parentElement.querySelectorAll('project-card');
-            let index = 0;
-            while(this != projectsList[index]) {
-                index++;
-            }
-            window.location.href = 'project.html?index=' + index;
-            //window.location.href = 'project.html';
+            window.location.href = 'project.html';
         });
 
         tagsSelect.value = tags;
     }
 }
-
-function renumberProjects(startIndex) {
-    let index = startIndex;
-    let currentProject = localStorage.getItem(`project_${index + 1}`);
-
-    while (currentProject) {
-        localStorage.setItem(`project_${index}`, currentProject);
-        index++;
-        currentProject = localStorage.getItem(`project_${index + 1}`);
-    }
-
-    // Remove the last item which is now duplicated
-    localStorage.removeItem(`project_${index}`);
-}
-
 
 class AddProjectCard extends HTMLElement {
     constructor() {
@@ -332,7 +304,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const rightArrow = document.querySelector('.right-arrow');
     const projectCardsWrapper = document.querySelector('.project-card-wrapper');
     const projectCards = document.querySelector('.project-cards');
-
     let currentScrollPosition = 0;
     const cardWidth = projectCardsWrapper.clientWidth;
     const scrollAmount = cardWidth;

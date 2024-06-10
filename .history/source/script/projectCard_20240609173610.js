@@ -1,5 +1,5 @@
 class ProjectCard extends HTMLElement {
-    constructor(projectData = { name: 'New Project', description: '', tag: 'default' }) {
+    constructor(projectData = {index: 0, name: 'New Project', description: '', tag: 'default' }) {
         super();
         this.projectData = projectData;
         this.attachShadow({ mode: 'open' });
@@ -10,13 +10,10 @@ class ProjectCard extends HTMLElement {
     }
 
     render() {
-        const projectName = this.getAttribute('project-name') || 'Project Name';
-        const description = this.getAttribute('description') || '';
-        const tags = this.getAttribute('tags') || 'frontend';
-
         const cardContainer = document.createElement('div');
         cardContainer.setAttribute('class', 'card');
         cardContainer.innerHTML = `
+            <h4 style='display:none'>Project #${this.projectData.index}</h4>
             <input type="text" value="${this.projectData.name}" class="project-name" maxlength="12" readonly>
             <p>Brief Description:</p>
             <div class="description-box">
@@ -42,7 +39,11 @@ class ProjectCard extends HTMLElement {
             <button id='trash'><img src='/trash.png' alt='Trash'></button>
         `;
         this.shadowRoot.append(cardContainer);
+        this.addStyles();
+        this.addEventListeners();
+    }
 
+    addStyles() {
         const style = document.createElement('style');
         style.textContent = `
             .card {
@@ -58,7 +59,7 @@ class ProjectCard extends HTMLElement {
                 justify-content: space-between;
                 box-sizing: border-box;
             }
-            .card p {
+            .card h4, .card p {
                 margin: 5px 0;
                 color: black;
             }
@@ -110,36 +111,26 @@ class ProjectCard extends HTMLElement {
                 justify-content: space-between;
                 margin-top: 10px;
             }
-            .journal-button {
-                background-color: rgba(10, 25, 47, 0.8);
-                color: white;
-                border: none;
-                border-radius: 5px;
-                padding: 5px 10px;
-                cursor: pointer;
-                margin-top: 10px;
-                text-align: center;
-            }
-            button {
+            .journal-button, button {
                 background-color: white;
                 border: none;
                 border-radius: 10px;
                 cursor: pointer;
                 padding: 5px 10px;
             }
-            #edit {
-                position: absolute;
-                top: 2px;
-                right: 30px;
-                background: none;
-                padding: 2.5px;
-            }
-            #trash {
+            #edit, #trash {
                 position: absolute;
                 top: 2px;
                 right: 5px;
                 background: none;
                 padding: 2.5px;
+            }
+            #edit {
+                right: 30px;
+            }
+            button img {
+                width: 15px;
+                height: 15px;
             }
             #save, #cancel {
                 background: white;
@@ -147,13 +138,11 @@ class ProjectCard extends HTMLElement {
                 border-radius: 5px;
                 padding: 5px 10px;
             }
-            button img {
-                width: 15px;
-                height: 15px;
-            }
         `;
         this.shadowRoot.append(style);
+    }
 
+    addEventListeners() {
         const editButton = this.shadowRoot.querySelector('#edit');
         const trashButton = this.shadowRoot.querySelector('#trash');
         const saveButton = this.shadowRoot.querySelector('#save');
@@ -163,97 +152,56 @@ class ProjectCard extends HTMLElement {
         const tagsSelect = this.shadowRoot.querySelector('#tags');
         const projectJournalButton = this.shadowRoot.querySelector('#project-journal');
 
-        let originalProjectName = projectName;
-        let originalDescription = description;
-        let originalTags = tags;
-
         editButton.addEventListener('click', () => {
-            originalProjectName = projectNameInput.value;
-            originalDescription = descriptionTextarea.value;
-            originalTags = tagsSelect.value;
-
             projectNameInput.removeAttribute('readonly');
             descriptionTextarea.removeAttribute('readonly');
             tagsSelect.removeAttribute('disabled');
-            saveButton.style.display = 'inline-block';
-            cancelButton.style.display = 'inline-block';
+            saveButton.style.display = 'block';
+            cancelButton.style.display = 'block';
             editButton.style.display = 'none';
         });
 
         cancelButton.addEventListener('click', () => {
-            projectNameInput.value = originalProjectName;
-            descriptionTextarea.value = originalDescription;
-            tagsSelect.value = originalTags;
+            projectNameInput.value = this.projectData.name;
+            descriptionTextarea.value = this.projectData.description;
+            tagsSelect.value = this.projectData.tag;
+
             projectNameInput.setAttribute('readonly', true);
             descriptionTextarea.setAttribute('readonly', true);
             tagsSelect.setAttribute('disabled', true);
             saveButton.style.display = 'none';
             cancelButton.style.display = 'none';
-            editButton.style.display = 'inline-block';
+            editButton.style.display = 'block';
         });
 
         saveButton.addEventListener('click', () => {
+            this.projectData.name = projectNameInput.value;
+            this.projectData.description = descriptionTextarea.value;
+            this.projectData.tag = tagsSelect.value;
+
             projectNameInput.setAttribute('readonly', true);
             descriptionTextarea.setAttribute('readonly', true);
             tagsSelect.setAttribute('disabled', true);
             saveButton.style.display = 'none';
             cancelButton.style.display = 'none';
-            editButton.style.display = 'inline-block';
+            editButton.style.display = 'block';
 
-            const projectData = {
-                projectName: projectNameInput.value,
-                description: descriptionTextarea.value,
-                tags: tagsSelect.value
-            };
-            localStorage.setItem(`project-${projectNameInput.value}`, JSON.stringify(projectData));
+            localStorage.setItem(`project-${this.projectData.index}`, JSON.stringify(this.projectData));
             document.querySelector('stats-graph').updateChart();
-            saveProjectCards();
         });
 
         trashButton.addEventListener('click', () => {
-            let projectsList = this.parentElement.querySelectorAll('project-card');
-            console.log(this);
-            let index = 0;
-            while(this != projectsList[index]) {
-                index++;
-            }
-            localStorage.removeItem(`project-${projectNameInput.value}`);
-            console.log(index);
-            localStorage.removeItem(`project_${index}`);
-            renumberProjects(index);
+            localStorage.removeItem(`project-${this.projectData.index}`);
             this.remove();
             document.querySelector('stats-graph').updateChart();
-            saveProjectCards();
+            renumberProjectCards();
         });
 
         projectJournalButton.addEventListener('click', () => {
-            let projectsList = this.parentElement.querySelectorAll('project-card');
-            let index = 0;
-            while(this != projectsList[index]) {
-                index++;
-            }
-            window.location.href = 'project.html?index=' + index;
-            //window.location.href = 'project.html';
+            window.location.href = 'project.html';
         });
-
-        tagsSelect.value = tags;
     }
 }
-
-function renumberProjects(startIndex) {
-    let index = startIndex;
-    let currentProject = localStorage.getItem(`project_${index + 1}`);
-
-    while (currentProject) {
-        localStorage.setItem(`project_${index}`, currentProject);
-        index++;
-        currentProject = localStorage.getItem(`project_${index + 1}`);
-    }
-
-    // Remove the last item which is now duplicated
-    localStorage.removeItem(`project_${index}`);
-}
-
 
 class AddProjectCard extends HTMLElement {
     constructor() {
@@ -269,13 +217,17 @@ class AddProjectCard extends HTMLElement {
         const cardContainer = document.createElement('div');
         cardContainer.setAttribute('class', 'card');
         cardContainer.innerHTML = `
-            <h3 id='add'>+ Add</h3>
+            <h3 id='add'>+ Add Project</h3>
         `;
         this.shadowRoot.append(cardContainer);
+        this.addStyles();
+        this.addEventListeners();
+    }
 
+    addStyles() {
         const style = document.createElement('style');
         style.textContent = `
-            .card  {
+            .card {
                 position: relative;
                 border: 1.5px dashed black;
                 border-radius: 10px;
@@ -293,16 +245,14 @@ class AddProjectCard extends HTMLElement {
                 transition: background-color 0.3s ease;
                 max-width: 350px;
             }
-            card:hover {
+            .card:hover {
                 background-color: rgba(75, 192, 192, 0.4);
             }
-            
             .card h3 {
                 text-align: center;
                 color: black;
                 margin: 10px 0;
             }
-
             @media (max-width: 550px) {
                 .card {
                     min-width: 0;
@@ -311,9 +261,11 @@ class AddProjectCard extends HTMLElement {
             }
         `;
         this.shadowRoot.append(style);
+    }
 
-        cardContainer.addEventListener('click', () => {
-            const newCardData = { name: 'New Project', description: '', tag: 'default' };
+    addEventListeners() {
+        this.shadowRoot.querySelector('.card').addEventListener('click', () => {
+            const newCardData = { index: 0, name: 'New Project', description: '', tag: 'default' };
             const newCard = new ProjectCard(newCardData);
             this.parentElement.appendChild(newCard);
             saveProjectCards();
@@ -324,68 +276,35 @@ class AddProjectCard extends HTMLElement {
 customElements.define('project-card', ProjectCard);
 customElements.define('add-project-card', AddProjectCard);
 
-// JavaScript for scrolling functionality
 document.addEventListener('DOMContentLoaded', () => {
     loadProjectCards();
-
-    const leftArrow = document.querySelector('.left-arrow');
-    const rightArrow = document.querySelector('.right-arrow');
-    const projectCardsWrapper = document.querySelector('.project-card-wrapper');
-    const projectCards = document.querySelector('.project-cards');
-
-    let currentScrollPosition = 0;
-    const cardWidth = projectCardsWrapper.clientWidth;
-    const scrollAmount = cardWidth;
-
-    // rightArrow.addEventListener('click', () => {
-    //     const maxScroll = -(projectCards.scrollWidth - cardWidth);
-    //     if (currentScrollPosition > maxScroll) {
-    //         currentScrollPosition -= scrollAmount;
-    //         projectCards.style.transform = `translateX(${currentScrollPosition}px)`;
-    //     }
-    // });
-
-    // leftArrow.addEventListener('click', () => {
-    //     if (currentScrollPosition < 0) {
-    //         currentScrollPosition += scrollAmount;
-    //         projectCards.style.transform = `translateX(${currentScrollPosition}px)`;
-    //     }
-    // });
-
-    // Load saved project data from local storage
-    const savedProjects = Object.keys(localStorage).filter(key => key.startsWith('project-'));
-    savedProjects.forEach(key => {
-        const projectData = JSON.parse(localStorage.getItem(key));
-        const newCard = document.createElement('project-card');
-        newCard.setAttribute('project-name', projectData.projectName);
-        newCard.setAttribute('description', projectData.description);
-        newCard.setAttribute('tags', projectData.tags);
-        projectCards.appendChild(newCard);
-    });
-
-    // Update the radar chart with the saved project data
     document.querySelector('stats-graph').updateChart();
 });
 
 function saveProjectCards() {
+    localStorage.clear();
     const projectCards = document.querySelectorAll('project-card');
-    const projectDataArray = [];
-    projectCards.forEach(card => {
-        const projectData = {
-            name: card.shadowRoot.querySelector('.project-name').value, // <-- Changed to get value from input field
-            description: card.shadowRoot.querySelector('.description-box textarea').value,
-            tag: card.shadowRoot.querySelector('#tags').value
-        };
-        projectDataArray.push(projectData);
+    projectCards.forEach((card, index) => {
+        card.projectData.index = index;
+        localStorage.setItem(`project-${index}`, JSON.stringify(card.projectData));
     });
-    localStorage.setItem('projectCards', JSON.stringify(projectDataArray));
 }
 
 function loadProjectCards() {
-    const projectDataArray = JSON.parse(localStorage.getItem('projectCards')) || [];
+    const savedProjects = Object.keys(localStorage).filter(key => key.startsWith('project-'));
     const projectCardsWrapper = document.querySelector('.project-cards');
-    projectDataArray.forEach(projectData => {
-        const projectCard = new ProjectCard(projectData);
-        projectCardsWrapper.appendChild(projectCard);
+    savedProjects.forEach(key => {
+        const projectData = JSON.parse(localStorage.getItem(key));
+        const newCard = new ProjectCard(projectData);
+        projectCardsWrapper.appendChild(newCard);
     });
+}
+
+function renumberProjectCards() {
+    const projectCards = document.querySelectorAll('project-card');
+    projectCards.forEach((card, index) => {
+        card.projectData.index = index;
+        card.render();
+    });
+    saveProjectCards(); // Save the renumbered projects
 }

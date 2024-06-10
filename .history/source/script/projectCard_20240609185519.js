@@ -241,7 +241,7 @@ class ProjectCard extends HTMLElement {
 }
 
 function renumberProjects(startIndex) {
-    let index = startIndex;
+    let index = startIndex + 1;
     let currentProject = localStorage.getItem(`project_${index + 1}`);
 
     while (currentProject) {

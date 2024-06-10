@@ -1,5 +1,5 @@
 class ProjectCard extends HTMLElement {
-    constructor(projectData = { name: 'New Project', description: '', tag: 'default' }) {
+    constructor(projectData = { id: null, name: 'New Project', description: '', tag: 'default' }) {
         super();
         this.projectData = projectData;
         this.attachShadow({ mode: 'open' });
@@ -10,27 +10,28 @@ class ProjectCard extends HTMLElement {
     }
 
     render() {
-        const projectName = this.getAttribute('project-name') || 'Project Name';
-        const description = this.getAttribute('description') || '';
-        const tags = this.getAttribute('tags') || 'frontend';
+        const projectId = this.getAttribute('project-id') || this.projectData.id || 0;
+        const projectName = this.projectData.name || 'Project Name';
+        const description = this.projectData.description || '';
+        const tags = this.projectData.tag || 'frontend';
 
         const cardContainer = document.createElement('div');
         cardContainer.setAttribute('class', 'card');
         cardContainer.innerHTML = `
-            <input type="text" value="${this.projectData.name}" class="project-name" maxlength="12" readonly>
+            <input type="text" value="${projectName}" class="project-name" maxlength="12" readonly>
             <p>Brief Description:</p>
             <div class="description-box">
-                <textarea placeholder="Max 50 chars..." maxlength="50" readonly>${this.projectData.description}</textarea>
+                <textarea placeholder="Max 50 chars..." maxlength="50" readonly>${description}</textarea>
             </div>
             <div class="tags">
                 <label for="tags">Project Tags:</label>
                 <select id="tags" disabled>
-                    <option id="default-op" value="default" disabled="true" ${this.projectData.tag === 'default' ? 'selected' : ''}>Choose a Tag...</option>
-                    <option value="frontend" ${this.projectData.tag === 'frontend' ? 'selected' : ''}>Frontend Engineering</option>
-                    <option value="backend" ${this.projectData.tag === 'backend' ? 'selected' : ''}>Backend Engineering</option>
-                    <option value="database" ${this.projectData.tag === 'database' ? 'selected' : ''}>Database Engineering</option>
-                    <option value="network" ${this.projectData.tag === 'network' ? 'selected' : ''}>Network Engineering</option>
-                    <option value="data" ${this.projectData.tag === 'data' ? 'selected' : ''}>Data Analytics Engineering</option>
+                    <option id="default-op" value="default" disabled="true" ${tags === 'default' ? 'selected' : ''}>Choose a Tag...</option>
+                    <option value="frontend" ${tags === 'frontend' ? 'selected' : ''}>Frontend Engineering</option>
+                    <option value="backend" ${tags === 'backend' ? 'selected' : ''}>Backend Engineering</option>
+                    <option value="database" ${tags === 'database' ? 'selected' : ''}>Database Engineering</option>
+                    <option value="network" ${tags === 'network' ? 'selected' : ''}>Network Engineering</option>
+                    <option value="data" ${tags === 'data' ? 'selected' : ''}>Data Analytics Engineering</option>
                 </select>
             </div>
             <div class="button-container">
@@ -153,7 +154,6 @@ class ProjectCard extends HTMLElement {
             }
         `;
         this.shadowRoot.append(style);
-
         const editButton = this.shadowRoot.querySelector('#edit');
         const trashButton = this.shadowRoot.querySelector('#trash');
         const saveButton = this.shadowRoot.querySelector('#save');
@@ -184,6 +184,7 @@ class ProjectCard extends HTMLElement {
             projectNameInput.value = originalProjectName;
             descriptionTextarea.value = originalDescription;
             tagsSelect.value = originalTags;
+
             projectNameInput.setAttribute('readonly', true);
             descriptionTextarea.setAttribute('readonly', true);
             tagsSelect.setAttribute('disabled', true);
@@ -201,59 +202,32 @@ class ProjectCard extends HTMLElement {
             editButton.style.display = 'inline-block';
 
             const projectData = {
-                projectName: projectNameInput.value,
+                id: projectId,
+                name: projectNameInput.value,
                 description: descriptionTextarea.value,
-                tags: tagsSelect.value
+                tag: tagsSelect.value
             };
-            localStorage.setItem(`project-${projectNameInput.value}`, JSON.stringify(projectData));
+            localStorage.setItem(`project-${projectId}`, JSON.stringify(projectData));
             document.querySelector('stats-graph').updateChart();
             saveProjectCards();
         });
 
         trashButton.addEventListener('click', () => {
-            let projectsList = this.parentElement.querySelectorAll('project-card');
-            console.log(this);
-            let index = 0;
-            while(this != projectsList[index]) {
-                index++;
-            }
-            localStorage.removeItem(`project-${projectNameInput.value}`);
-            console.log(index);
-            localStorage.removeItem(`project_${index}`);
-            renumberProjects(index);
+            localStorage.removeItem(`project-${projectId}`);
             this.remove();
             document.querySelector('stats-graph').updateChart();
             saveProjectCards();
         });
 
         projectJournalButton.addEventListener('click', () => {
-            let projectsList = this.parentElement.querySelectorAll('project-card');
-            let index = 0;
-            while(this != projectsList[index]) {
-                index++;
-            }
-            window.location.href = 'project.html?index=' + index;
-            //window.location.href = 'project.html';
+            window.location.href = 'project.html';
         });
 
         tagsSelect.value = tags;
     }
 }
 
-function renumberProjects(startIndex) {
-    let index = startIndex;
-    let currentProject = localStorage.getItem(`project_${index + 1}`);
-
-    while (currentProject) {
-        localStorage.setItem(`project_${index}`, currentProject);
-        index++;
-        currentProject = localStorage.getItem(`project_${index + 1}`);
-    }
-
-    // Remove the last item which is now duplicated
-    localStorage.removeItem(`project_${index}`);
-}
-
+customElements.define('project-card', ProjectCard);
 
 class AddProjectCard extends HTMLElement {
     constructor() {
@@ -313,9 +287,12 @@ class AddProjectCard extends HTMLElement {
         this.shadowRoot.append(style);
 
         cardContainer.addEventListener('click', () => {
-            const newCardData = { name: 'New Project', description: '', tag: 'default' };
+            const projectCards = document.querySelectorAll('project-card');
+            const newProjectId = projectCards.length + 1;
+            const newCardData = { id: newProjectId, name: 'New Project', description: '', tag: 'default' };
             const newCard = new ProjectCard(newCardData);
-            this.parentElement.appendChild(newCard);
+            newCard.setAttribute('project-id', newProjectId);
+            this.parentElement.insertBefore(newCard, this);
             saveProjectCards();
         });
     }
@@ -337,20 +314,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const cardWidth = projectCardsWrapper.clientWidth;
     const scrollAmount = cardWidth;
 
-    // rightArrow.addEventListener('click', () => {
-    //     const maxScroll = -(projectCards.scrollWidth - cardWidth);
-    //     if (currentScrollPosition > maxScroll) {
-    //         currentScrollPosition -= scrollAmount;
-    //         projectCards.style.transform = `translateX(${currentScrollPosition}px)`;
-    //     }
-    // });
+    rightArrow.addEventListener('click', () => {
+        const maxScroll = -(projectCards.scrollWidth - cardWidth);
+        if (currentScrollPosition > maxScroll) {
+            currentScrollPosition -= scrollAmount;
+            projectCards.style.transform = `translateX(${currentScrollPosition}px)`;
+        }
+    });
 
-    // leftArrow.addEventListener('click', () => {
-    //     if (currentScrollPosition < 0) {
-    //         currentScrollPosition += scrollAmount;
-    //         projectCards.style.transform = `translateX(${currentScrollPosition}px)`;
-    //     }
-    // });
+    leftArrow.addEventListener('click', () => {
+        if (currentScrollPosition < 0) {
+            currentScrollPosition += scrollAmount;
+            projectCards.style.transform = `translateX(${currentScrollPosition}px)`;
+        }
+    });
 
     // Load saved project data from local storage
     const savedProjects = Object.keys(localStorage).filter(key => key.startsWith('project-'));

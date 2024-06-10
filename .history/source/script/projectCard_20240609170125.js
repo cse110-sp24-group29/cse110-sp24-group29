@@ -1,8 +1,9 @@
 class ProjectCard extends HTMLElement {
-    constructor(projectData = { name: 'New Project', description: '', tag: 'default' }) {
+    constructor(projectData = { name: 'New Project', description: '', tag: 'default' }, index = 0) {
         super();
         this.projectData = projectData;
         this.attachShadow({ mode: 'open' });
+        this.index = index;
     }
 
     connectedCallback() {
@@ -13,7 +14,7 @@ class ProjectCard extends HTMLElement {
         const projectName = this.getAttribute('project-name') || 'Project Name';
         const description = this.getAttribute('description') || '';
         const tags = this.getAttribute('tags') || 'frontend';
-
+        let index = this.index;
         const cardContainer = document.createElement('div');
         cardContainer.setAttribute('class', 'card');
         cardContainer.innerHTML = `
@@ -184,6 +185,7 @@ class ProjectCard extends HTMLElement {
             projectNameInput.value = originalProjectName;
             descriptionTextarea.value = originalDescription;
             tagsSelect.value = originalTags;
+
             projectNameInput.setAttribute('readonly', true);
             descriptionTextarea.setAttribute('readonly', true);
             tagsSelect.setAttribute('disabled', true);
@@ -199,61 +201,30 @@ class ProjectCard extends HTMLElement {
             saveButton.style.display = 'none';
             cancelButton.style.display = 'none';
             editButton.style.display = 'inline-block';
-
             const projectData = {
                 projectName: projectNameInput.value,
                 description: descriptionTextarea.value,
                 tags: tagsSelect.value
             };
-            localStorage.setItem(`project-${projectNameInput.value}`, JSON.stringify(projectData));
+            localStorage.setItem(`project-${index}`, JSON.stringify(projectData));
             document.querySelector('stats-graph').updateChart();
             saveProjectCards();
         });
 
         trashButton.addEventListener('click', () => {
-            let projectsList = this.parentElement.querySelectorAll('project-card');
-            console.log(this);
-            let index = 0;
-            while(this != projectsList[index]) {
-                index++;
-            }
-            localStorage.removeItem(`project-${projectNameInput.value}`);
-            console.log(index);
-            localStorage.removeItem(`project_${index}`);
-            renumberProjects(index);
+            localStorage.removeItem(`project-${index}`);
             this.remove();
             document.querySelector('stats-graph').updateChart();
             saveProjectCards();
         });
 
         projectJournalButton.addEventListener('click', () => {
-            let projectsList = this.parentElement.querySelectorAll('project-card');
-            let index = 0;
-            while(this != projectsList[index]) {
-                index++;
-            }
-            window.location.href = 'project.html?index=' + index;
-            //window.location.href = 'project.html';
+            window.location.href = 'project.html';
         });
 
         tagsSelect.value = tags;
     }
 }
-
-function renumberProjects(startIndex) {
-    let index = startIndex;
-    let currentProject = localStorage.getItem(`project_${index + 1}`);
-
-    while (currentProject) {
-        localStorage.setItem(`project_${index}`, currentProject);
-        index++;
-        currentProject = localStorage.getItem(`project_${index + 1}`);
-    }
-
-    // Remove the last item which is now duplicated
-    localStorage.removeItem(`project_${index}`);
-}
-
 
 class AddProjectCard extends HTMLElement {
     constructor() {
@@ -337,20 +308,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const cardWidth = projectCardsWrapper.clientWidth;
     const scrollAmount = cardWidth;
 
-    // rightArrow.addEventListener('click', () => {
-    //     const maxScroll = -(projectCards.scrollWidth - cardWidth);
-    //     if (currentScrollPosition > maxScroll) {
-    //         currentScrollPosition -= scrollAmount;
-    //         projectCards.style.transform = `translateX(${currentScrollPosition}px)`;
-    //     }
-    // });
+    rightArrow.addEventListener('click', () => {
+        const maxScroll = -(projectCards.scrollWidth - cardWidth);
+        if (currentScrollPosition > maxScroll) {
+            currentScrollPosition -= scrollAmount;
+            projectCards.style.transform = `translateX(${currentScrollPosition}px)`;
+        }
+    });
 
-    // leftArrow.addEventListener('click', () => {
-    //     if (currentScrollPosition < 0) {
-    //         currentScrollPosition += scrollAmount;
-    //         projectCards.style.transform = `translateX(${currentScrollPosition}px)`;
-    //     }
-    // });
+    leftArrow.addEventListener('click', () => {
+        if (currentScrollPosition < 0) {
+            currentScrollPosition += scrollAmount;
+            projectCards.style.transform = `translateX(${currentScrollPosition}px)`;
+        }
+    });
 
     // Load saved project data from local storage
     const savedProjects = Object.keys(localStorage).filter(key => key.startsWith('project-'));

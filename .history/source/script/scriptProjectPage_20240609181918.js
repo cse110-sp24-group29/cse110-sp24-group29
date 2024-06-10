@@ -680,7 +680,6 @@ function getMilestoneArray() {
 //listens for when the dom is loaded
 document.addEventListener("DOMContentLoaded", function () {
     //variables for usage in the notepad section
-    clearOldData();
     const notepad = document.getElementById('notepad');
     const markdown = document.getElementById('markdown');
     const addEntryButton = document.getElementById('addEntryButton');
@@ -992,7 +991,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     function loadAllData(projectId) {
+        console.log(`Loading data for project: ${projectId}`);
         const rawData = localStorage.getItem(`project_${projectId}`);
+        console.log(`Raw data from localStorage:`, rawData);
+    
+        if (!rawData) {
+            console.log("No data found in localStorage for this project.");
+            return; // Exit the function if no data is found
+        }
     
         const allData = JSON.parse(rawData);
         console.log("Parsed data:", allData);
@@ -1001,11 +1007,9 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.setItem('tasks', JSON.stringify(allData.tasks));
         localStorage.setItem('entries', JSON.stringify(allData.entries));
         localStorage.setItem('projectName', allData.projectName);
-    }
-    console.log(projectIndex);
+    }sole.log(projectIndex);
     loadAllData(projectIndex); // Load all data from local storage
     loadMilestonesAndTasks(); //propagates milestone list from local storage
-    loadEntries();
     loadProjectName(); //gets name from local storage
     resizeWidth(); // resizes width upon loading of page 
     updateTimeline(); //updates the timeline width based on milestone name
@@ -1146,24 +1150,12 @@ function clearOldData() {
     localStorage.removeItem('entries');
     localStorage.removeItem('projectName');
 }
-async function saveAllDataAndClear(projectIndex) {
-    try {
-        await saveMilestoneToStorage();
-        await saveTasksArrayToStorage();
-        await saveAllData(projectIndex);
-        await clearOldData();
-        console.log('All data operations completed successfully.');
-    } catch (error) {
-        console.error('An error occurred:', error);
-    }
-}
 //saves the milestoneList into local storage
 window.addEventListener('beforeunload', function () {
     saveMilestoneToStorage();
     saveTasksArrayToStorage();
     saveAllData(projectIndex);
 });
-
 window.addEventListener('unload', function () {
     saveMilestoneToStorage();
     saveTasksArrayToStorage();

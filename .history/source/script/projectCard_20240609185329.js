@@ -220,7 +220,6 @@ class ProjectCard extends HTMLElement {
             localStorage.removeItem(`project-${projectNameInput.value}`);
             console.log(index);
             localStorage.removeItem(`project_${index}`);
-            renumberProjects(index);
             this.remove();
             document.querySelector('stats-graph').updateChart();
             saveProjectCards();

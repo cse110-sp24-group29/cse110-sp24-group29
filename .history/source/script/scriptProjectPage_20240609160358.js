@@ -2,8 +2,7 @@
 /**
  * Toggles the display of the dropdown menu when the hamburger menu is clicked.
  */
-let projectIndex = 0;
-let projectId = 1;
+
 let currentWidth;
 let mediaQuery = window.matchMedia("(max-width: 768px)");
 let mediaQuery2 = window.matchMedia("(max-width: 1024px)");
@@ -680,7 +679,6 @@ function getMilestoneArray() {
 //listens for when the dom is loaded
 document.addEventListener("DOMContentLoaded", function () {
     //variables for usage in the notepad section
-    clearOldData();
     const notepad = document.getElementById('notepad');
     const markdown = document.getElementById('markdown');
     const addEntryButton = document.getElementById('addEntryButton');
@@ -698,8 +696,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //keyboard access to close island
     closeIsland.setAttribute('tabindex', '0');
-    const urlParams = new URLSearchParams(window.location.search);
-    projectIndex = urlParams.get('index'); 
+
     // Load entries from localStorage and display them
     function loadEntries() {
         //parse through the stringin local storage
@@ -991,21 +988,9 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    function loadAllData(projectId) {
-        const rawData = localStorage.getItem(`project_${projectId}`);
-    
-        const allData = JSON.parse(rawData);
-        console.log("Parsed data:", allData);
-    
-        localStorage.setItem('milestones', JSON.stringify(allData.milestones));
-        localStorage.setItem('tasks', JSON.stringify(allData.tasks));
-        localStorage.setItem('entries', JSON.stringify(allData.entries));
-        localStorage.setItem('projectName', allData.projectName);
-    }
-    console.log(projectIndex);
-    loadAllData(projectIndex); // Load all data from local storage
+
+    loadEntries(); //loads the entries from local storage
     loadMilestonesAndTasks(); //propagates milestone list from local storage
-    loadEntries();
     loadProjectName(); //gets name from local storage
     resizeWidth(); // resizes width upon loading of page 
     updateTimeline(); //updates the timeline width based on milestone name
@@ -1114,7 +1099,6 @@ function adjustNotepadSize() {
     }
 }
 
-
 // Adjust the notepad size on page load and when the window is resized
 window.addEventListener('load', adjustNotepadSize);
 window.addEventListener('resize', adjustNotepadSize);
@@ -1129,44 +1113,14 @@ mediaQuery2.addEventListener('change', function () {
     resizeWidth();
 });
 
-function saveAllData(projectId) {
-    const allData = {
-        milestones: JSON.parse(localStorage.getItem('milestones')) || [],
-        tasks: JSON.parse(localStorage.getItem('tasks')) || [],
-        entries: JSON.parse(localStorage.getItem('entries')) || [],
-        projectName: localStorage.getItem('projectName') || ''
-    };
-
-    localStorage.setItem(`project_${projectId}`, JSON.stringify(allData));
-}
-
-function clearOldData() {
-    localStorage.removeItem('milestones');
-    localStorage.removeItem('tasks');
-    localStorage.removeItem('entries');
-    localStorage.removeItem('projectName');
-}
-async function saveAllDataAndClear(projectIndex) {
-    try {
-        await saveMilestoneToStorage();
-        await saveTasksArrayToStorage();
-        await saveAllData(projectIndex);
-        await clearOldData();
-        console.log('All data operations completed successfully.');
-    } catch (error) {
-        console.error('An error occurred:', error);
-    }
-}
 //saves the milestoneList into local storage
 window.addEventListener('beforeunload', function () {
+    Project Hello = new Project();
     saveMilestoneToStorage();
     saveTasksArrayToStorage();
-    saveAllData(projectIndex);
 });
-
 window.addEventListener('unload', function () {
     saveMilestoneToStorage();
     saveTasksArrayToStorage();
-    saveAllData(projectIndex);
 });
 

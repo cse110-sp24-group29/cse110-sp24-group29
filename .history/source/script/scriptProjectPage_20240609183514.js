@@ -680,7 +680,6 @@ function getMilestoneArray() {
 //listens for when the dom is loaded
 document.addEventListener("DOMContentLoaded", function () {
     //variables for usage in the notepad section
-    clearOldData();
     const notepad = document.getElementById('notepad');
     const markdown = document.getElementById('markdown');
     const addEntryButton = document.getElementById('addEntryButton');
@@ -994,6 +993,11 @@ document.addEventListener("DOMContentLoaded", function () {
     function loadAllData(projectId) {
         const rawData = localStorage.getItem(`project_${projectId}`);
     
+        if (!rawData) {
+            console.log("No data found in localStorage for this project.");
+            return; // Exit the function if no data is found
+        }
+    
         const allData = JSON.parse(rawData);
         console.log("Parsed data:", allData);
     
@@ -1159,14 +1163,10 @@ async function saveAllDataAndClear(projectIndex) {
 }
 //saves the milestoneList into local storage
 window.addEventListener('beforeunload', function () {
-    saveMilestoneToStorage();
-    saveTasksArrayToStorage();
-    saveAllData(projectIndex);
+    saveAllDataAndClear(projectIndex);
 });
 
 window.addEventListener('unload', function () {
-    saveMilestoneToStorage();
-    saveTasksArrayToStorage();
-    saveAllData(projectIndex);
+    saveAllDataAndClear(projectIndex);
 });
 

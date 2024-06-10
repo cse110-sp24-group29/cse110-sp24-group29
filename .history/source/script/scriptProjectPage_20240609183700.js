@@ -680,7 +680,6 @@ function getMilestoneArray() {
 //listens for when the dom is loaded
 document.addEventListener("DOMContentLoaded", function () {
     //variables for usage in the notepad section
-    clearOldData();
     const notepad = document.getElementById('notepad');
     const markdown = document.getElementById('markdown');
     const addEntryButton = document.getElementById('addEntryButton');

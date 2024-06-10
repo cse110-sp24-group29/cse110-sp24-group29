@@ -1,5 +1,5 @@
 class ProjectCard extends HTMLElement {
-    constructor(projectData = { name: 'New Project', description: '', tag: 'default' }) {
+    constructor(projectData = {index: 0, name: 'New Project', description: '', tag: 'default' }) {
         super();
         this.projectData = projectData;
         this.attachShadow({ mode: 'open' });
@@ -184,6 +184,7 @@ class ProjectCard extends HTMLElement {
             projectNameInput.value = originalProjectName;
             descriptionTextarea.value = originalDescription;
             tagsSelect.value = originalTags;
+
             projectNameInput.setAttribute('readonly', true);
             descriptionTextarea.setAttribute('readonly', true);
             tagsSelect.setAttribute('disabled', true);
@@ -211,49 +212,19 @@ class ProjectCard extends HTMLElement {
         });
 
         trashButton.addEventListener('click', () => {
-            let projectsList = this.parentElement.querySelectorAll('project-card');
-            console.log(this);
-            let index = 0;
-            while(this != projectsList[index]) {
-                index++;
-            }
             localStorage.removeItem(`project-${projectNameInput.value}`);
-            console.log(index);
-            localStorage.removeItem(`project_${index}`);
-            renumberProjects(index);
             this.remove();
             document.querySelector('stats-graph').updateChart();
             saveProjectCards();
         });
 
         projectJournalButton.addEventListener('click', () => {
-            let projectsList = this.parentElement.querySelectorAll('project-card');
-            let index = 0;
-            while(this != projectsList[index]) {
-                index++;
-            }
-            window.location.href = 'project.html?index=' + index;
-            //window.location.href = 'project.html';
+            window.location.href = 'project.html';
         });
 
         tagsSelect.value = tags;
     }
 }
-
-function renumberProjects(startIndex) {
-    let index = startIndex;
-    let currentProject = localStorage.getItem(`project_${index + 1}`);
-
-    while (currentProject) {
-        localStorage.setItem(`project_${index}`, currentProject);
-        index++;
-        currentProject = localStorage.getItem(`project_${index + 1}`);
-    }
-
-    // Remove the last item which is now duplicated
-    localStorage.removeItem(`project_${index}`);
-}
-
 
 class AddProjectCard extends HTMLElement {
     constructor() {
@@ -336,22 +307,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentScrollPosition = 0;
     const cardWidth = projectCardsWrapper.clientWidth;
     const scrollAmount = cardWidth;
-
-    // rightArrow.addEventListener('click', () => {
-    //     const maxScroll = -(projectCards.scrollWidth - cardWidth);
-    //     if (currentScrollPosition > maxScroll) {
-    //         currentScrollPosition -= scrollAmount;
-    //         projectCards.style.transform = `translateX(${currentScrollPosition}px)`;
-    //     }
-    // });
-
-    // leftArrow.addEventListener('click', () => {
-    //     if (currentScrollPosition < 0) {
-    //         currentScrollPosition += scrollAmount;
-    //         projectCards.style.transform = `translateX(${currentScrollPosition}px)`;
-    //     }
-    // });
-
     // Load saved project data from local storage
     const savedProjects = Object.keys(localStorage).filter(key => key.startsWith('project-'));
     savedProjects.forEach(key => {

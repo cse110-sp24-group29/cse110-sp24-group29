@@ -217,10 +217,10 @@ class ProjectCard extends HTMLElement {
             while(this != projectsList[index]) {
                 index++;
             }
+            index++;
+            renumberProjects();
             localStorage.removeItem(`project-${projectNameInput.value}`);
-            console.log(index);
-            localStorage.removeItem(`project_${index}`);
-            renumberProjects(index);
+            
             this.remove();
             document.querySelector('stats-graph').updateChart();
             saveProjectCards();
@@ -228,6 +228,7 @@ class ProjectCard extends HTMLElement {
 
         projectJournalButton.addEventListener('click', () => {
             let projectsList = this.parentElement.querySelectorAll('project-card');
+            console.log(this);
             let index = 0;
             while(this != projectsList[index]) {
                 index++;

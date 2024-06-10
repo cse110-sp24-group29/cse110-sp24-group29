@@ -184,6 +184,7 @@ class ProjectCard extends HTMLElement {
             projectNameInput.value = originalProjectName;
             descriptionTextarea.value = originalDescription;
             tagsSelect.value = originalTags;
+
             projectNameInput.setAttribute('readonly', true);
             descriptionTextarea.setAttribute('readonly', true);
             tagsSelect.setAttribute('disabled', true);
@@ -217,10 +218,8 @@ class ProjectCard extends HTMLElement {
             while(this != projectsList[index]) {
                 index++;
             }
+            index++;
             localStorage.removeItem(`project-${projectNameInput.value}`);
-            console.log(index);
-            localStorage.removeItem(`project_${index}`);
-            renumberProjects(index);
             this.remove();
             document.querySelector('stats-graph').updateChart();
             saveProjectCards();
@@ -228,6 +227,7 @@ class ProjectCard extends HTMLElement {
 
         projectJournalButton.addEventListener('click', () => {
             let projectsList = this.parentElement.querySelectorAll('project-card');
+            console.log(this);
             let index = 0;
             while(this != projectsList[index]) {
                 index++;

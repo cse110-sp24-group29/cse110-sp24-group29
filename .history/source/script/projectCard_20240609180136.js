@@ -184,6 +184,7 @@ class ProjectCard extends HTMLElement {
             projectNameInput.value = originalProjectName;
             descriptionTextarea.value = originalDescription;
             tagsSelect.value = originalTags;
+
             projectNameInput.setAttribute('readonly', true);
             descriptionTextarea.setAttribute('readonly', true);
             tagsSelect.setAttribute('disabled', true);
@@ -211,16 +212,7 @@ class ProjectCard extends HTMLElement {
         });
 
         trashButton.addEventListener('click', () => {
-            let projectsList = this.parentElement.querySelectorAll('project-card');
-            console.log(this);
-            let index = 0;
-            while(this != projectsList[index]) {
-                index++;
-            }
             localStorage.removeItem(`project-${projectNameInput.value}`);
-            console.log(index);
-            localStorage.removeItem(`project_${index}`);
-            renumberProjects(index);
             this.remove();
             document.querySelector('stats-graph').updateChart();
             saveProjectCards();
@@ -228,32 +220,17 @@ class ProjectCard extends HTMLElement {
 
         projectJournalButton.addEventListener('click', () => {
             let projectsList = this.parentElement.querySelectorAll('project-card');
+            console.log(this);
             let index = 0;
             while(this != projectsList[index]) {
                 index++;
             }
-            window.location.href = 'project.html?index=' + index;
             //window.location.href = 'project.html';
         });
 
         tagsSelect.value = tags;
     }
 }
-
-function renumberProjects(startIndex) {
-    let index = startIndex;
-    let currentProject = localStorage.getItem(`project_${index + 1}`);
-
-    while (currentProject) {
-        localStorage.setItem(`project_${index}`, currentProject);
-        index++;
-        currentProject = localStorage.getItem(`project_${index + 1}`);
-    }
-
-    // Remove the last item which is now duplicated
-    localStorage.removeItem(`project_${index}`);
-}
-
 
 class AddProjectCard extends HTMLElement {
     constructor() {
