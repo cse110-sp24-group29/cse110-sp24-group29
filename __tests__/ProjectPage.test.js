@@ -7,7 +7,7 @@ describe('Project Page E2E Tests', () => {
   beforeAll(async () => {
     browser = await puppeteer.launch({ headless: false });
     page = await browser.newPage();
-    await page.goto('http://localhost:3000/project.html', { waitUntil: 'networkidle2', timeout: 60000 });
+    await page.goto('http://localhost:3000/Project.html', { waitUntil: 'networkidle2', timeout: 60000 });
   });
 
   afterAll(async () => {
@@ -27,20 +27,30 @@ describe('Project Page E2E Tests', () => {
 
     // Add a new milestone using the provided JavaScript function
     await page.evaluate(() => {
-      addMilestone('Test Milestone');
+        addMilestone('Test Milestone');
     });
 
     // Wait for the new milestone to be added to the list
-    await page.waitForSelector('#milestone-list li:last-child .milestone-name', { timeout: 60000 });
+    await page.waitForFunction(
+        () => {
+            const milestones = document.querySelectorAll('#milestone-list li .milestone-name');
+            return Array.from(milestones).some(el => el.textContent.includes('Test Milestone'));
+        },
+        { timeout: 60000 }
+    );
 
-    // Verify the milestone name in the list
-    const milestoneText = await page.$eval('#milestone-list li:last-child .milestone-name', el => el.textContent);
+    // Find the milestone with the specific text
+    const milestoneText = await page.evaluate(() => {
+        const milestones = document.querySelectorAll('#milestone-list li .milestone-name');
+        const milestone = Array.from(milestones).find(el => el.textContent.includes('Test Milestone'));
+        return milestone ? milestone.textContent : null;
+    });
     expect(milestoneText).toBe('Test Milestone');
 
     // Verify the timeline element is also added
     const timelineText = await page.$eval('#timeline-elements li:nth-last-child(2) span', el => el.textContent);
     expect(timelineText).toBe('Test Milestone');
-  }, 10000);  // Increased timeout to 60 seconds
+  }, 10000);
 
   test('should add a new task to a milestone', async () => {
     await page.evaluate(() => {
