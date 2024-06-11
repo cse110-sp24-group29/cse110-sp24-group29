@@ -38,6 +38,7 @@
 
 ## Discussion on Individual involvement
 - Saksham:
+- Shrey: Worked on implementing a markdown functionality for users to write in when they make their entry, as well as modyfiying the way in which entries are displayed enhancing the dynamic island that appears when an entry tile is clicked. Worked on adding edit functionality for users to make changes to existing entries, as well as fixing the issue of renumbering the tiles when entries are added and deleted. I also worked on the screen compatability for the notepad and entry tiles so that appears neat and spaced out on smaller screens, as well as merging projects branches to the main branch.  
 - Aniruddh: Worked on the styling and screen comparability of the new homepage after re-pivoting from the professor's feedback. Also fixed the bug associated with the logout button on the homepage and collaborated with the projects team on identifying bugs and potential bottlenecks related to screen compatibility. 
 - Ryan:
 - Ricky:
@@ -47,6 +48,5 @@
 - Jason:
 - Brandon:
 - Tianshi:
-- Shrey:
 - Evan: 
 
