@@ -38,7 +38,7 @@
 
 ## Discussion on Individual involvement
 - Saksham:
-- Aniruddh:
+- Aniruddh: Worked on the styling and screen comparability of the new homepage after re-pivoting from the professor's feedback. Also fixed the bug associated with the logout button on the homepage and collaborated with the projects team on identifying bugs and potential bottlenecks related to screen compatibility. 
 - Ryan:
 - Ricky:
 - Aditya:
