@@ -45,7 +45,7 @@
 - Aditya:
 - Ojasvi:
 - Christopher:
-- Jason:
+- Jason: Worked on more styling with the projects page and screensize compatability, adding buttons and functionailty clarity to the milestone list. Changed the style of the nav bar and made sure that every element of the project page was accessible by just using tab and enter. Helped with having a dynamic island appear when a milestone is clicked.
 - Brandon:
 - Tianshi:
 - Evan: 
