@@ -65,4 +65,6 @@ To get a local copy up and running, follow these simple steps:
 - SQL lite
 - Node.js
 
+Private Video Link: https://www.youtube.com/watch?v=hpEBpOiEp40
+
 
