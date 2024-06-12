@@ -11,9 +11,9 @@
 
 
 ## Things that we learned
-- 
+- Obtain feedback earlier, it would have given us more time to pivot and create a higher quality product. 
 
 
 ## Sprint Goal (Things we could do better next time)
-- Be more prompt when it comes to completing and sharing work to the team and pushing to the main branch
+- Be more prompt when it comes to completing and sharing work with the team and pushing to the main branch
 
