@@ -44,7 +44,7 @@
 - Ricky: Worked on the JS for the home and page edited some components of the home page before it was revamped. Worked on testing alongside Aditya. Worked off of Aditya's already implemented tests for the projects page and created tests for entry functionalities for the project page. I also made my own testing file for the home page and created tests for all the home page functionalities as well as logout button for each page.
 - Aditya: Worked on the testing of the project page. Downloaded modules for jest and puppeter, worked on end to end testing, for each function in the javascript. I also worked on the sidebar and the navbar for the projects page.
 - Ojasvi:
-- Christopher:
+- Christopher: Worked on small bug fixes and worked on documentation for the project such as detailed meeting notes, ADRs for changes, reviewing code comments for the automated documentation, a roadmap for explaining the progress throughout the project, a system flow diagram for the final project, and filling the miro board with information. 
 - Jason: Worked on more styling with the projects page and screensize compatability, adding buttons and functionailty clarity to the milestone list. Changed the style of the nav bar and made sure that every element of the project page was accessible by just using tab and enter. Helped with having a dynamic island appear when a milestone is clicked.
 - Brandon: Worked on js functionality for the project and revamped bugs regarding visibility for the widget. Started to create backend connectivity with other aspects of the code.  
 - Tianshi:
