@@ -41,7 +41,7 @@
 - Shrey: Worked on implementing a markdown functionality for users to write in when they make their entry, as well as modyfiying the way in which entries are displayed enhancing the dynamic island that appears when an entry tile is clicked. Worked on adding edit functionality for users to make changes to existing entries, as well as fixing the issue of renumbering the tiles when entries are added and deleted. I also worked on the screen compatability for the notepad and entry tiles so that appears neat and spaced out on smaller screens, as well as merging projects branches to the main branch.  
 - Aniruddh: Worked on the styling and screen comparability of the new homepage after re-pivoting from the professor's feedback. Also fixed the bug associated with the logout button on the homepage and collaborated with the projects team on identifying bugs and potential bottlenecks related to screen compatibility. 
 - Ryan: Worked on final bug fixes and bug finding for all of the many bugs for project page javascript components from sprint 2. Added the final stylistic changes and implementation of the timeline. Made sure that each project had their own indepenedent milestone, entries, and tasks. Added comments to project page javascript for clarity of the implementation.
-- Ricky:
+- Ricky: Worked on the JS for the home and page edited some components of the home page before it was revamped. Worked on testing alongside Aditya. Worked off of Aditya's already implemented tests for the projects page and created tests for entry functionalities for the project page. I also made my own testing file for the home page and created tests for all the home page functionalities as well as logout button for each page.
 - Aditya:
 - Ojasvi:
 - Christopher:
