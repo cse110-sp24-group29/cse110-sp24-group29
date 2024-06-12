@@ -42,7 +42,7 @@
 - Aniruddh: Worked on the styling and screen comparability of the new homepage after re-pivoting from the professor's feedback. Also fixed the bug associated with the logout button on the homepage and collaborated with the projects team on identifying bugs and potential bottlenecks related to screen compatibility. 
 - Ryan: Worked on final bug fixes and bug finding for all of the many bugs for project page javascript components from sprint 2. Added the final stylistic changes and implementation of the timeline. Made sure that each project had their own indepenedent milestone, entries, and tasks. Added comments to project page javascript for clarity of the implementation.
 - Ricky: Worked on the JS for the home and page edited some components of the home page before it was revamped. Worked on testing alongside Aditya. Worked off of Aditya's already implemented tests for the projects page and created tests for entry functionalities for the project page. I also made my own testing file for the home page and created tests for all the home page functionalities as well as logout button for each page.
-- Aditya:
+- Aditya: Worked on the testing of the project page. Downloaded modules for jest and puppeter, worked on end to end testing, for each function in the javascript. I also worked on the sidebar and the navbar for the projects page.
 - Ojasvi:
 - Christopher:
 - Jason: Worked on more styling with the projects page and screensize compatability, adding buttons and functionailty clarity to the milestone list. Changed the style of the nav bar and made sure that every element of the project page was accessible by just using tab and enter. Helped with having a dynamic island appear when a milestone is clicked.
