@@ -47,7 +47,7 @@
 - Christopher: Worked on small bug fixes and worked on documentation for the project such as detailed meeting notes, ADRs for changes, reviewing code comments for the automated documentation, a roadmap for explaining the progress throughout the project, a system flow diagram for the final project, and filling the miro board with information. 
 - Jason: Worked on more styling with the projects page and screensize compatability, adding buttons and functionailty clarity to the milestone list. Changed the style of the nav bar and made sure that every element of the project page was accessible by just using tab and enter. Helped with having a dynamic island appear when a milestone is clicked.
 - Brandon: Worked on js functionality for the project and revamped bugs regarding visibility for the widget. Started to create backend connectivity with other aspects of the code.  
-- Tianshi:
+- Tianshi: Worked on the implementation and js function of the radar chart, populating data to the chart according to the tags number of project cards. Also fixed styling of the homepage and the radar chart to ensure the chart always in the cneter of the right side of the homepage and add adaptive size to the radar chart according to the screen size.
 - Evan: Added Local Storage functionality to project widgets, allowing user's projects, project descriptions and radar char characteristics to stay updated even on refresh and logout/login. Also ensured project widgets + grid layout was responsive to every screen size and mobile compatible. Lastly, made usage of edit project features as intuitive as possible for user experience. 
 
 
