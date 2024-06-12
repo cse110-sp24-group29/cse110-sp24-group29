@@ -5,10 +5,11 @@
 - The team was able to organize and lead multiple in-person meetings to update everyone and share progress.
 - Members were able to write and share code, set up multiple branches, and resolve merging conflicts smoothly throughout the development process with help from the CI/CD pipeline.
 - The team was able to successfully develop functionality for features such as the project cards, the skill chart, the note entries, the milestone and task lists, and the project timelines.
+- Team was able to pivot effeciently and successfully after we got critiques from the proffessor 
 
 ## What didn't go well
 - Because our design ideas changed after meeting with the professor, the team had to pivot and we lost some development time.
-
+- Hard to merge different branches together because we did so much work for each branch and diverged from the main branch
 
 ## Things that we learned
 - Obtain feedback earlier, it would have given us more time to pivot and create a higher quality product. 
